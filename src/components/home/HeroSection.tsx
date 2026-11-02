@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Phone, ArrowRight, ArrowDown, MapPin, ShieldCheck, Sparkles } from 'lucide-react';
 import { motion, Easing } from 'framer-motion';
 import { useWebsiteData } from '../../context/WebsiteDataContext';
+import { getAssetUrl } from '../../utils/asset';
 
 const easeOut: Easing = 'easeOut';
 
@@ -23,7 +24,7 @@ export const HeroSection: React.FC = () => {
       {/* ── Full-Width Background Image with Subtle Film Grain / Scale ── */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
-        style={{ backgroundImage: "url('/hero-team-hd.jpg')" }}
+        style={{ backgroundImage: `url('${getAssetUrl('/hero-team-hd.jpg')}')` }}
       />
 
       {/* ── Dark Overlay Gradient matching Reference ── */}

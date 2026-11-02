@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Phone, Mail, MapPin, MessageCircle, ArrowUpRight } from 'lucide-react';
 import { useWebsiteData } from '../context/WebsiteDataContext';
+import { getAssetUrl } from '../utils/asset';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -120,7 +121,7 @@ export const Navbar: React.FC = () => {
               {/* Left: APPZIO Logo */}
               <Link to="/" className="flex items-center gap-3 group focus:outline-none shrink-0">
                 <img
-                  src={isDarkHeroState ? '/logo-horizontal-white.png' : '/logo-horizontal.png'}
+                  src={isDarkHeroState ? getAssetUrl('/logo-horizontal-white.png') : getAssetUrl('/logo-horizontal.png')}
                   alt="APPZIO Logo"
                   className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                 />
@@ -194,7 +195,7 @@ export const Navbar: React.FC = () => {
         >
           <div>
             <div className="flex items-center justify-between pb-6 border-b border-slate-100">
-              <img src="/logo-horizontal.png" alt="APPZIO" className="h-8 w-auto" />
+              <img src={getAssetUrl('/logo-horizontal.png')} alt="APPZIO" className="h-8 w-auto" />
               <button
                 onClick={() => setMobileMenuOpen(false)}
                 className="p-2 rounded-lg text-slate-500 hover:text-slate-800"

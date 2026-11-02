@@ -38,3 +38,4 @@ tsconfig.tsbuildinfo
 
 # SQLite temp journals
 api/*.sqlite-journal
+

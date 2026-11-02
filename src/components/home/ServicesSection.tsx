@@ -7,6 +7,7 @@ import {
 import { motion, AnimatePresence, Easing } from 'framer-motion';
 import { useWebsiteData } from '../../context/WebsiteDataContext';
 import { Service } from '../../types';
+import { getAssetUrl } from '../../utils/asset';
 
 const easeOut: Easing = 'easeOut';
 
@@ -47,7 +48,7 @@ export const ServicesSection: React.FC = () => {
       {/* ── Large Visual Background with Dark Texture (Matching Reference Requirement) ── */}
       <div
         className="absolute inset-0 bg-cover bg-center opacity-15"
-        style={{ backgroundImage: "url('/hero-team-hd3.jpg')" }}
+        style={{ backgroundImage: `url('${getAssetUrl('/hero-team-hd3.jpg')}')` }}
       />
       <div className="absolute inset-0 bg-gradient-to-b from-[#0c0d14] via-[#0c0d14]/90 to-[#0c0d14]" />
 
@@ -104,7 +105,7 @@ export const ServicesSection: React.FC = () => {
                 {/* Visual Image Header with Zoom on Hover */}
                 <div className="relative aspect-[16/9] overflow-hidden bg-slate-900">
                   <img
-                    src={cardImg}
+                    src={getAssetUrl(cardImg)}
                     alt={service.title}
                     className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700 ease-out opacity-60 group-hover:opacity-80"
                     loading="lazy"

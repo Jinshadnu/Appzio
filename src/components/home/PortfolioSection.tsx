@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { motion, Easing } from 'framer-motion';
 import { useWebsiteData } from '../../context/WebsiteDataContext';
+import { getAssetUrl } from '../../utils/asset';
 
 const easeOut: Easing = 'easeOut';
 
@@ -139,7 +140,7 @@ export const PortfolioSection: React.FC = () => {
                 <div className="relative aspect-[16/10] bg-slate-900 overflow-hidden">
                   {/* Background Project Image with smooth scale */}
                   <img
-                    src={imageUrl}
+                    src={getAssetUrl(imageUrl)}
                     alt={project.title}
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
                     loading="lazy"

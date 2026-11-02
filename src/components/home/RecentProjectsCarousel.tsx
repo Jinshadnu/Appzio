@@ -7,6 +7,7 @@ import {
 import { motion, AnimatePresence, Easing } from 'framer-motion';
 import { useWebsiteData } from '../../context/WebsiteDataContext';
 import { Project } from '../../types';
+import { getAssetUrl } from '../../utils/asset';
 
 const easeOut: Easing = 'easeOut';
 
@@ -152,7 +153,7 @@ export const RecentProjectsCarousel: React.FC = () => {
               transition={{ duration: 0.6, ease: easeOut }}
               className="absolute inset-0 bg-cover bg-center bg-no-repeat cursor-pointer"
               style={{
-                backgroundImage: `url('${currentProject.cover_image || currentProject.thumbnail || '/assets/projects/aetherpay-thumb.png'}')`,
+                backgroundImage: `url('${getAssetUrl(currentProject.cover_image || currentProject.thumbnail || '/assets/projects/aetherpay-thumb.png')}')`,
               }}
               onClick={() => setActiveModalProject(currentProject as Project)}
             />
@@ -241,7 +242,7 @@ export const RecentProjectsCarousel: React.FC = () => {
                 }`}
               >
                 <img
-                  src={proj.thumbnail || proj.cover_image || '/assets/projects/aetherpay-thumb.png'}
+                  src={getAssetUrl(proj.thumbnail || proj.cover_image || '/assets/projects/aetherpay-thumb.png')}
                   alt={proj.title}
                   className="w-full h-full object-cover"
                 />
@@ -280,7 +281,7 @@ export const RecentProjectsCarousel: React.FC = () => {
             >
               <div className="relative aspect-[16/9] w-full bg-slate-900 shrink-0">
                 <img
-                  src={activeModalProject.cover_image || activeModalProject.thumbnail || '/assets/projects/aetherpay-thumb.png'}
+                  src={getAssetUrl(activeModalProject.cover_image || activeModalProject.thumbnail || '/assets/projects/aetherpay-thumb.png')}
                   alt={activeModalProject.title}
                   className="w-full h-full object-cover object-center"
                 />

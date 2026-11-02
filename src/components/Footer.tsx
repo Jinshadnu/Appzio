@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, ArrowUpRight, ShieldCheck, Lock, MessageCircle } from 'lucide-react';
 import { useWebsiteData } from '../context/WebsiteDataContext';
+import { getAssetUrl } from '../utils/asset';
 
 export const Footer: React.FC = () => {
   const { settings } = useWebsiteData();
@@ -31,7 +32,7 @@ export const Footer: React.FC = () => {
           {/* Column 1: Brand & Overview (5 cols) */}
           <div className="lg:col-span-5 space-y-6">
             <Link to="/" className="inline-block">
-              <img src="/logo-horizontal-white.png" alt="APPZIO" className="h-10 w-auto" />
+              <img src={getAssetUrl('/logo-horizontal-white.png')} alt="APPZIO" className="h-10 w-auto" />
             </Link>
 
             <p className="text-slate-400 text-sm leading-relaxed max-w-md">

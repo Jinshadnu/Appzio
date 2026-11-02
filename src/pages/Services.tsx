@@ -8,6 +8,7 @@ import {
 import { motion, Easing } from 'framer-motion';
 import { useWebsiteData } from '../context/WebsiteDataContext';
 import { CTASection } from '../components/home/CTASection';
+import { getAssetUrl } from '../utils/asset';
 
 const easeOut: Easing = 'easeOut';
 
@@ -55,7 +56,7 @@ export const Services: React.FC = () => {
         {/* Background glow and subtle mesh */}
         <div
           className="absolute inset-0 bg-cover bg-center opacity-20"
-          style={{ backgroundImage: "url('/hero-team-hd2.jpg')" }}
+          style={{ backgroundImage: `url('${getAssetUrl('/hero-team-hd2.jpg')}')` }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0c0d14]/85 via-[#0c0d14]/75 to-[#0c0d14]" />
         

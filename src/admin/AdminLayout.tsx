@@ -16,6 +16,7 @@ import {
   ShieldAlert,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { getAssetUrl } from '../utils/asset';
 
 export const AdminLayout: React.FC = () => {
   const { user, logout, loading } = useAuth();
@@ -74,7 +75,7 @@ export const AdminLayout: React.FC = () => {
       <aside className="hidden lg:flex lg:flex-col w-64 bg-brand-dark-card border-r border-white/10 shrink-0">
         <div className="p-6 border-b border-white/10">
           <Link to="/" className="flex items-center gap-2">
-            <img src="/logo-horizontal.png" alt="APPZIO" className="h-8 w-auto" />
+            <img src={getAssetUrl('/logo-horizontal.png')} alt="APPZIO" className="h-8 w-auto" />
           </Link>
           <span className="block mt-2 text-[10px] font-mono text-brand-cyan tracking-widest uppercase">
             CMS Control Center
@@ -172,7 +173,7 @@ export const AdminLayout: React.FC = () => {
           <div className="w-72 bg-brand-dark-card border-r border-white/10 flex flex-col justify-between h-full p-6">
             <div>
               <div className="flex items-center justify-between pb-6 border-b border-white/10">
-                <img src="/logo-horizontal.png" alt="APPZIO" className="h-8 w-auto" />
+                <img src={getAssetUrl('/logo-horizontal.png')} alt="APPZIO" className="h-8 w-auto" />
                 <button
                   onClick={() => setSidebarOpen(false)}
                   className="p-2 rounded-lg text-brand-text-secondary hover:text-white"

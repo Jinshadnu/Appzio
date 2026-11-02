@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Lock, Mail, ArrowRight, AlertCircle, ShieldCheck } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { getAssetUrl } from '../utils/asset';
 
 export const AdminLogin: React.FC = () => {
   const [email, setEmail] = useState('admin@appzio.com');
@@ -35,7 +36,7 @@ export const AdminLogin: React.FC = () => {
       <div className="relative z-10 w-full max-w-md">
         <div className="text-center mb-8 space-y-3">
           <Link to="/" className="inline-block">
-            <img src="/logo-horizontal.png" alt="APPZIO" className="h-11 w-auto mx-auto" />
+            <img src={getAssetUrl('/logo-horizontal.png')} alt="APPZIO" className="h-11 w-auto mx-auto" />
           </Link>
           <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-brand-blue/10 border border-brand-blue/20 text-xs font-mono text-brand-cyan">
             <ShieldCheck className="w-3.5 h-3.5" />

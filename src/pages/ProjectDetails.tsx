@@ -5,6 +5,7 @@ import { Project } from '../types';
 import { api } from '../services/api';
 import { useWebsiteData } from '../context/WebsiteDataContext';
 import { CTASection } from '../components/home/CTASection';
+import { getAssetUrl } from '../utils/asset';
 
 export const ProjectDetails: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -149,7 +150,7 @@ export const ProjectDetails: React.FC = () => {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
         <div className="relative rounded-3xl bg-slate-900 border border-slate-200/80 shadow-2xl overflow-hidden aspect-[21/9] min-h-[380px] max-h-[560px] flex items-end">
           <img
-            src={project.cover_image || project.thumbnail || '/hero-team-hd.jpg'}
+            src={getAssetUrl(project.cover_image || project.thumbnail || '/hero-team-hd.jpg')}
             alt={project.title}
             className="absolute inset-0 w-full h-full object-cover object-center"
           />

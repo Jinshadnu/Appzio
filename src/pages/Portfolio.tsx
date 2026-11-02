@@ -7,6 +7,7 @@ import {
 import { motion, Easing } from 'framer-motion';
 import { useWebsiteData } from '../context/WebsiteDataContext';
 import { CTASection } from '../components/home/CTASection';
+import { getAssetUrl } from '../utils/asset';
 
 const easeOut: Easing = 'easeOut';
 
@@ -68,7 +69,7 @@ export const Portfolio: React.FC = () => {
       <section className="relative min-h-[55vh] flex items-center justify-center overflow-hidden bg-[#0c0d14]">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-20"
-          style={{ backgroundImage: "url('/hero-team-hd3.jpg')" }}
+          style={{ backgroundImage: `url('${getAssetUrl('/hero-team-hd3.jpg')}')` }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0c0d14]/85 via-[#0c0d14]/75 to-[#0c0d14]" />
         
@@ -164,7 +165,7 @@ export const Portfolio: React.FC = () => {
                 {/* Visual Preview / Showcase Image Area */}
                 <div className="relative aspect-[16/10] bg-slate-900 overflow-hidden">
                   <img
-                    src={imageUrl}
+                    src={getAssetUrl(imageUrl)}
                     alt={project.title}
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
                     loading="lazy"

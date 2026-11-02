@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle2, ShieldCheck, MapPin, Award } from 'lucide-react';
 import { motion, Easing } from 'framer-motion';
 import { useWebsiteData } from '../../context/WebsiteDataContext';
+import { getAssetUrl } from '../../utils/asset';
 
 const easeOut: Easing = 'easeOut';
 
@@ -50,7 +51,7 @@ export const AboutSection: React.FC = () => {
           >
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-200/90 group">
               <img
-                src="/hero-team-hd2.jpg"
+                src={getAssetUrl('/hero-team-hd2.jpg')}
                 alt="APPZIO Digital Agency Team"
                 className="w-full h-[450px] sm:h-[500px] object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
                 loading="lazy"

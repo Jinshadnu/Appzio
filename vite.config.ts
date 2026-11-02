@@ -4,7 +4,7 @@ import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: './',
+  base: process.env.GITHUB_PAGES === 'true' || process.env.CI ? '/Appzio/' : './',
   plugins: [react()],
   resolve: {
     alias: {

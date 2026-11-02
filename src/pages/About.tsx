@@ -7,6 +7,7 @@ import {
 import { motion, Easing } from 'framer-motion';
 import { useWebsiteData } from '../context/WebsiteDataContext';
 import { CTASection } from '../components/home/CTASection';
+import { getAssetUrl } from '../utils/asset';
 
 const easeOut: Easing = 'easeOut';
 const fadeUp = (delay = 0) => ({
@@ -77,7 +78,7 @@ export const About: React.FC = () => {
         {/* Background image with dark overlay */}
         <div
           className="absolute inset-0 bg-cover bg-center opacity-25"
-          style={{ backgroundImage: "url('/hero-team-hd.jpg')" }}
+          style={{ backgroundImage: `url('${getAssetUrl('/hero-team-hd.jpg')}')` }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0c0d14]/80 via-[#0c0d14]/60 to-[#0c0d14]" />
 
