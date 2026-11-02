@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #F8F9FD;
+    color: #191923;
+    overflow-x: hidden;
+  }
+
+  /* Custom Sleek Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #F8F9FD;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #D3D8EE;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #5221B5;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#2365E8] via-[#5221B5] to-[#7435D5];
+  }
+
+  .text-gradient-cyan {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#16B9E8] via-[#2365E8] to-[#5221B5];
+  }
+
+  .border-glow {
+    border: 1px solid rgba(82, 33, 181, 0.12);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .border-glow:hover {
+    border-color: rgba(82, 33, 181, 0.35);
+    box-shadow: 0 10px 30px -5px rgba(82, 33, 181, 0.12);
+  }
+
+  .glass-card-light {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(82, 33, 181, 0.1);
+  }
+
+  .hero-mesh-light {
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(35, 101, 232, 0.08) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(82, 33, 181, 0.1) 0px, transparent 50%),
+      radial-gradient(at 50% 50%, rgba(22, 185, 232, 0.05) 0px, transparent 60%);
+  }
+
+  .grid-pattern-light {
+    background-size: 40px 40px;
+    background-image: 
+      linear-gradient(to right, rgba(82, 33, 181, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(82, 33, 181, 0.04) 1px, transparent 1px);
+  }
+}

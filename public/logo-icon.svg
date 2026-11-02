@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="ico-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#16B9E8" />
+      <stop offset="50%" stop-color="#2365E8" />
+      <stop offset="100%" stop-color="#5221B5" />
+    </linearGradient>
+    <linearGradient id="ico-grad-2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7435D5" />
+      <stop offset="50%" stop-color="#5221B5" />
+      <stop offset="100%" stop-color="#2365E8" />
+    </linearGradient>
+    <linearGradient id="ico-accent" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2365E8" />
+      <stop offset="100%" stop-color="#16B9E8" />
+    </linearGradient>
+  </defs>
+  <g transform="translate(8, 6)">
+    <path d="M22 6 L38 22 L26 34 L10 18 Z" fill="url(#ico-grad-2)" opacity="0.85" />
+    <path d="M6 38 L22 6 L34 18 L18 50 Z" fill="url(#ico-grad-1)" />
+    <path d="M18 50 L34 18 L46 30 L30 62 Z" fill="url(#ico-grad-2)" />
+    <polygon points="22,22 30,14 38,22 30,30" fill="url(#ico-accent)" />
+    <circle cx="30" cy="22" r="2.8" fill="#FFFFFF" />
+  </g>
+</svg>
+
