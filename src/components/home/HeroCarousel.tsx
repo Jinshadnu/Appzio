@@ -236,9 +236,22 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ activeIndex, onSlide
 
         {/* ── Inner Poster Viewport (Aspect Ratio 3:4 for 100% Full-Bleed Poster Fitting) ── */}
         <div
-          className="relative aspect-[3/4] w-full rounded-[1.35rem] overflow-hidden bg-white shadow-inner"
+          className="relative aspect-[3/4] w-full rounded-[1.35rem] overflow-hidden bg-slate-950 shadow-inner"
           style={{ transform: 'translateZ(15px)' }}
         >
+          {/* Top Category Badge & Slide Indicator (Overlay matching Design Reference) */}
+          <div className="absolute top-3 left-3 right-3 z-20 flex items-center justify-between pointer-events-none">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-950/75 backdrop-blur-md border border-white/20 shadow-md">
+              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: currentSlide.accentColor }} />
+              <span className="text-[10px] sm:text-[11px] font-bold tracking-wider text-slate-100 uppercase">
+                {currentSlide.category}
+              </span>
+            </div>
+            <div className="px-2.5 py-1 rounded-full bg-slate-950/75 backdrop-blur-md border border-white/20 shadow-md text-[10px] sm:text-[11px] font-mono font-bold text-[#16BDEB]">
+              {currentSlide.slideNumber} / 06
+            </div>
+          </div>
+
           <AnimatePresence initial={false} custom={direction} mode="popLayout">
             <motion.div
               key={currentSlide.id}
@@ -249,7 +262,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ activeIndex, onSlide
               exit="exit"
               className="absolute inset-0"
             >
-              <div className="relative w-full h-full overflow-hidden bg-white">
+              <div className="relative w-full h-full overflow-hidden bg-slate-950">
                 {/* 3D Commercial Product Poster Image (100% Flush, No Cropping, No Black Bars) */}
                 <motion.img
                   initial={{ scale: 1 }}
@@ -264,17 +277,17 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ activeIndex, onSlide
             </motion.div>
           </AnimatePresence>
 
-          {/* ── Hover Navigation Arrows (Discrete, Semi-Transparent, Clean) ── */}
+          {/* ── Navigation Arrows (Semi-Transparent Glass Discs) ── */}
           <button
             onClick={(e) => {
               e.stopPropagation();
               handlePrev();
             }}
-            className="absolute left-2.5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-slate-900/60 hover:bg-slate-900/90 text-white border border-white/20 shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 opacity-0 group-hover:opacity-90"
+            className="absolute left-2.5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-950/70 hover:bg-slate-900 text-white border border-white/25 shadow-xl flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 opacity-80 group-hover:opacity-100"
             style={{ transform: 'translateZ(30px)' }}
             aria-label="Previous Slide"
           >
-            <ChevronLeft className="w-4 h-4 text-white" />
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
           </button>
 
           <button
@@ -282,11 +295,11 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ activeIndex, onSlide
               e.stopPropagation();
               handleNext();
             }}
-            className="absolute right-2.5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-slate-900/60 hover:bg-slate-900/90 text-white border border-white/20 shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 opacity-0 group-hover:opacity-90"
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-950/70 hover:bg-slate-900 text-white border border-white/25 shadow-xl flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 opacity-80 group-hover:opacity-100"
             style={{ transform: 'translateZ(30px)' }}
             aria-label="Next Slide"
           >
-            <ChevronRight className="w-4 h-4 text-white" />
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
           </button>
         </div>
       </motion.div>
