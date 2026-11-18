@@ -75,7 +75,7 @@ export const HeroSection: React.FC = () => {
               transition={{ duration: 0.65, delay: 0.08, ease: easeOut }}
               className="text-4xl sm:text-5xl lg:text-6xl xl:text-[4.25rem] font-extrabold tracking-tight leading-[1.08] text-white mb-6 font-display drop-shadow-md"
             >
-              Website Development in{' '}
+              Digital Solutions for{' '}
               <br className="hidden sm:inline" />
               <span
                 className="bg-clip-text text-transparent"
@@ -83,7 +83,7 @@ export const HeroSection: React.FC = () => {
                   backgroundImage: 'linear-gradient(120deg, #16BDEB 0%, #38BDF8 40%, #60A5FA 100%)',
                 }}
               >
-                UAE &amp; India
+                Businesses Worldwide
               </span>
             </motion.h1>
 
@@ -94,7 +94,7 @@ export const HeroSection: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.16, ease: easeOut }}
               className="text-base sm:text-lg lg:text-xl text-slate-200 font-normal leading-relaxed mb-8 max-w-2xl drop-shadow-sm"
             >
-              We are into website development and digital solutions in UAE and India. We create modern websites, powerful digital strategies, and result-driven software solutions to help businesses grow online.
+              We help businesses around the world transform ideas into powerful digital experiences. From modern websites and mobile applications to custom software, e-commerce platforms and business automation, we deliver innovative, scalable and result-driven solutions that drive growth.
             </motion.p>
 
             {/* Action Buttons: Primary "About Us" / "Explore Our Work" & "Contact Us" */}
