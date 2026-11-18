@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowRight, Sparkles, CheckCircle2, ShieldCheck, Globe2, Compass } from 'lucide-react';
 import { motion, Easing } from 'framer-motion';
 import { HeroCarousel } from './HeroCarousel';
+import { getAssetUrl } from '../../utils/asset';
 
 const easeOut: Easing = 'easeOut';
 
@@ -16,12 +17,24 @@ export const HeroSection: React.FC = () => {
       id="hero"
       className="relative min-h-[92vh] lg:min-h-screen flex items-center justify-center overflow-hidden bg-[#17191F] text-white pt-28 sm:pt-32 pb-20 lg:py-0"
     >
-      {/* ── Abstract Technological Background Glow & Mesh ── */}
+      {/* ── Realistic Ultra-HD Architectural Background Image with Cinematic Overlays ── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {/* Realistic HD Studio & Skyline Photo */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105 transition-transform duration-1000 opacity-40"
+          style={{
+            backgroundImage: `url('${getAssetUrl('/assets/hero/hero-bg-realistic-hd.jpg')}')`,
+          }}
+        />
+
         {/* Ambient Brand Color Gradients */}
         <div className="absolute -top-[20%] -left-[10%] w-[650px] h-[650px] rounded-full bg-[#16BDEB]/15 blur-[160px]" />
         <div className="absolute top-[25%] -right-[15%] w-[600px] h-[600px] rounded-full bg-[#6326C5]/20 blur-[170px]" />
         <div className="absolute -bottom-[20%] left-[30%] w-[550px] h-[550px] rounded-full bg-[#2364D8]/15 blur-[160px]" />
+
+        {/* Cinematic Vignette & Gradient Overlays for High Contrast Readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#17191F] via-[#17191F]/90 to-[#17191F]/65" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#17191F]/90 via-transparent to-[#17191F]" />
 
         {/* Subtle Tech Grid lines */}
         <div
@@ -32,9 +45,6 @@ export const HeroSection: React.FC = () => {
             backgroundSize: '48px 48px',
           }}
         />
-
-        {/* Ambient Radial Vignette */}
-        <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#17191F]/50 to-[#17191F]" />
       </div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-10 lg:py-16">
