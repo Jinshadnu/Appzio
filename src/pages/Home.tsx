@@ -1,23 +1,25 @@
 import React, { useEffect } from 'react';
 import { HeroSection } from '../components/home/HeroSection';
-import { AboutSection } from '../components/home/AboutSection';
-import { BenefitsSection } from '../components/home/BenefitsSection';
 import { ServicesSection } from '../components/home/ServicesSection';
-import { RecentProjectsCarousel } from '../components/home/RecentProjectsCarousel';
+import { FeaturedPortfolioSection } from '../components/home/FeaturedPortfolioSection';
+import { AboutSection } from '../components/home/AboutSection';
+import { DevelopmentProcessSection } from '../components/home/DevelopmentProcessSection';
+import { TechnologyExpertiseSection } from '../components/home/TechnologyExpertiseSection';
+import { WhyAppzioSection } from '../components/home/WhyAppzioSection';
 import { TestimonialsSection } from '../components/home/TestimonialsSection';
 import { ContactSection } from '../components/home/ContactSection';
 
 export const Home: React.FC = () => {
   useEffect(() => {
-    document.title = 'APPZIO — Recreating Dream Digital Products That Last | Kerala, India';
+    document.title = 'APPZIO — Digital Solutions That Move Your Business Forward | Kerala & UAE';
     
-    // Check if there's a hash in the URL on load and scroll to it
+    // Smooth scroll if URL hash is present
     if (window.location.hash) {
       const element = document.querySelector(window.location.hash);
       if (element) {
         setTimeout(() => {
           element.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
+        }, 120);
       }
     } else {
       window.scrollTo(0, 0);
@@ -25,27 +27,35 @@ export const Home: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative">
-      {/* 1. HERO SECTION (Recreating Dream Digital Products That Last) */}
+    <div className="relative bg-[#17191F] text-white">
+      {/* 01. Hero Section */}
       <HeroSection />
 
-      {/* 2. ABOUT US (Two-column layout, large supporting photo & company ethos) */}
-      <AboutSection />
-
-      {/* 3. OUR BENEFITS (4-Benefit Grid: Vast Experience, Professional Team, High Finish, Sustainable & Accountable) */}
-      <BenefitsSection />
-
-      {/* 4. OUR SERVICES (Visual dark background, service cards, More Info buttons) */}
+      {/* 02. Services (3 Main Divisions: Digital Presence, Digital Products, Business Automation) */}
       <ServicesSection />
 
-      {/* 5. RECENT PROJECTS (Interactive horizontal image carousel with Next/Prev and counter) */}
-      <RecentProjectsCarousel />
+      {/* 03. Featured Portfolio (Asymmetric Grid: 1 Large, 2 Medium, 2 Complementary with authentic screenshots) */}
+      <FeaturedPortfolioSection />
 
-      {/* 6. TESTIMONIALS (Customer quotes, names, smooth carousel controls) */}
+      {/* 04. About Appzio (Technology Meets Business Thinking) */}
+      <AboutSection />
+
+      {/* 05. Development Process (From Concept to Reality: Discover, Design, Develop, Deliver) */}
+      <DevelopmentProcessSection />
+
+      {/* 06. Technology Expertise (Frontend, Mobile, Backend, Database, Tools) */}
+      <TechnologyExpertiseSection />
+
+      {/* 07. Why Appzio? (7 Core Partnership Values) */}
+      <WhyAppzioSection />
+
+      {/* 08. Client Testimonials & Endorsements */}
       <TestimonialsSection />
 
-      {/* 7. CONTACT US (Two-column layout: details on left, First/Last name/Email/Phone/Address form on right) */}
+      {/* 09. Contact Section (Specification Form & Direct WhatsApp/Email Channels) */}
       <ContactSection />
     </div>
   );
 };
+
+export default Home;

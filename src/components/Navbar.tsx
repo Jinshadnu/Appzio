@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Phone, Mail, MapPin, MessageCircle, ArrowUpRight } from 'lucide-react';
+import { Menu, X, Phone, Mail, MapPin, ArrowRight, MessageCircle } from 'lucide-react';
 import { useWebsiteData } from '../context/WebsiteDataContext';
 import { getAssetUrl } from '../utils/asset';
 
@@ -12,11 +12,10 @@ export const Navbar: React.FC = () => {
   const { settings } = useWebsiteData();
 
   const isHome = location.pathname === '/';
-  const isDarkHeroState = isHome && !isScrolled;
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+      setIsScrolled(window.scrollY > 30);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -28,11 +27,9 @@ export const Navbar: React.FC = () => {
 
   const navLinks = [
     { label: 'Home', target: '#hero', route: '/' },
-    { label: 'About Us', target: '#about', route: '/about' },
-    { label: 'Our Benefits', target: '#benefits', route: '/#benefits' },
     { label: 'Services', target: '#services', route: '/services' },
-    { label: 'Projects', target: '#projects', route: '/portfolio' },
-    { label: 'Testimonials', target: '#testimonials', route: '/#testimonials' },
+    { label: 'Our Work', target: '#portfolio', route: '/portfolio' },
+    { label: 'About', target: '#about', route: '/about' },
     { label: 'Contact', target: '#contact', route: '/contact' },
   ];
 
@@ -44,6 +41,10 @@ export const Navbar: React.FC = () => {
         element.scrollIntoView({ behavior: 'smooth' });
         setMobileMenuOpen(false);
       }
+    } else if (!isHome && item.target.startsWith('#')) {
+      e.preventDefault();
+      navigate(`/${item.target}`);
+      setMobileMenuOpen(false);
     }
   };
 
@@ -53,53 +54,46 @@ export const Navbar: React.FC = () => {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-        
-        {/* Top Info Strip */}
+        {/* Subtle Top Info Bar */}
         <div
-          className={`text-[11px] font-medium transition-all duration-300 hidden md:block ${
+          className={`text-xs transition-all duration-300 hidden md:block ${
             isScrolled
               ? 'h-0 opacity-0 overflow-hidden py-0 border-b-0'
-              : isDarkHeroState
-              ? 'bg-[#0d0d14]/75 backdrop-blur-md border-b border-white/10 text-slate-300 py-2 opacity-100'
-              : 'bg-white/95 backdrop-blur-md border-b border-slate-200/80 text-slate-600 py-2 opacity-100'
+              : 'bg-[#121419]/90 backdrop-blur-md border-b border-white/5 text-slate-400 py-2 opacity-100'
           }`}
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-            <div className="flex items-center gap-6">
-              <span className={`flex items-center gap-1.5 font-semibold ${isDarkHeroState ? 'text-cyan-300' : 'text-[#5221B5]'}`}>
-                <MapPin className="w-3.5 h-3.5 text-[#2365E8]" />
-                <span>Kerala, India • Worldwide Client Delivery</span>
+          <div className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between">
+            <div className="flex items-center gap-6 text-[12px]">
+              <span className="flex items-center gap-1.5 font-medium text-slate-300">
+                <MapPin className="w-3.5 h-3.5 text-[#16BDEB]" />
+                <span>Kerala, India &bull; Serving UAE, Saudi Arabia, Qatar & Global Clients</span>
               </span>
               <a
-                href={`mailto:${settings.contact_email}`}
-                className={`transition-colors flex items-center gap-1.5 ${
-                  isDarkHeroState ? 'hover:text-white text-slate-300' : 'hover:text-[#5221B5] text-slate-600'
-                }`}
+                href={`mailto:${settings.contact_email || 'appzio@gmail.com'}`}
+                className="hover:text-white transition-colors flex items-center gap-1.5 text-slate-400"
               >
-                <Mail className="w-3.5 h-3.5 text-[#2365E8]" />
-                <span>{settings.contact_email}</span>
+                <Mail className="w-3.5 h-3.5 text-[#2364D8]" />
+                <span>{settings.contact_email || 'appzio@gmail.com'}</span>
               </a>
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-5 text-[12px]">
               <a
                 href={`tel:${phoneClean}`}
-                className={`transition-colors flex items-center gap-1.5 font-medium ${
-                  isDarkHeroState ? 'hover:text-white text-slate-200' : 'hover:text-[#5221B5] text-slate-700'
-                }`}
+                className="hover:text-white transition-colors flex items-center gap-1.5 font-medium text-slate-300"
               >
-                <Phone className="w-3.5 h-3.5 text-[#5221B5]" />
+                <Phone className="w-3.5 h-3.5 text-[#16BDEB]" />
                 <span>{phoneDisplay}</span>
               </a>
-              <span className={isDarkHeroState ? 'text-white/20' : 'text-slate-300'}>|</span>
+              <span className="text-white/20">&bull;</span>
               <a
-                href={`https://wa.me/${phoneClean}?text=Hello%20APPZIO,%20I%20have%20a%20project%20inquiry.`}
+                href={`https://wa.me/${phoneClean}?text=Hello%20APPZIO,%20I%20would%20like%20to%20discuss%20a%20project.`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:opacity-80 transition-opacity flex items-center gap-1 text-emerald-400 font-bold"
+                className="hover:text-emerald-300 transition-colors flex items-center gap-1.5 font-semibold text-emerald-400"
               >
                 <MessageCircle className="w-3.5 h-3.5" />
-                <span>WhatsApp</span>
+                <span>WhatsApp Instant</span>
               </a>
             </div>
           </div>
@@ -109,134 +103,143 @@ export const Navbar: React.FC = () => {
         <div
           className={`transition-all duration-300 ${
             isScrolled
-              ? 'bg-white/95 backdrop-blur-md border-b border-slate-200/80 py-3 shadow-lg shadow-purple-950/5'
-              : isDarkHeroState
-              ? 'bg-[#0d0d14]/40 backdrop-blur-sm py-4 border-b border-white/10'
-              : 'bg-white/90 backdrop-blur-md py-4 border-b border-slate-100 shadow-xs'
+              ? 'bg-[#17191F]/95 backdrop-blur-xl border-b border-white/10 shadow-2xl shadow-black/40 py-3.5'
+              : 'bg-[#17191F]/70 backdrop-blur-md border-b border-white/5 py-4 sm:py-5'
           }`}
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between">
-              
-              {/* Left: APPZIO Logo */}
-              <Link to="/" className="flex items-center gap-3 group focus:outline-none shrink-0">
-                <img
-                  src={isDarkHeroState ? getAssetUrl('/logo-horizontal-white.png') : getAssetUrl('/logo-horizontal.png')}
-                  alt="APPZIO Logo"
-                  className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-                />
-              </Link>
+          <div className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between">
+            {/* Logo */}
+            <Link
+              to="/"
+              className="flex items-center gap-3 group focus:outline-none shrink-0"
+              aria-label="APPZIO Homepage"
+            >
+              <img
+                src={getAssetUrl('/logo-horizontal-white.png')}
+                alt="APPZIO"
+                className="h-9 sm:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              />
+            </Link>
 
-              {/* Center: Clean Navigation Menu (Matching Reference) */}
-              <nav
-                className={`hidden lg:flex items-center space-x-1 px-4 py-1.5 rounded-full border transition-colors ${
-                  isDarkHeroState
-                    ? 'bg-white/10 backdrop-blur-md border-white/15'
-                    : 'bg-slate-50/90 border-slate-200/80 shadow-inner'
-                }`}
-              >
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.label}
-                    to={isHome ? link.target : link.route}
-                    onClick={(e) => handleNavClick(e, link)}
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer ${
-                      isDarkHeroState
-                        ? 'text-white/85 hover:text-white hover:bg-white/15'
-                        : 'text-slate-700 hover:text-[#5221B5] hover:bg-white'
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center space-x-1 lg:space-x-2 bg-white/[0.04] border border-white/10 backdrop-blur-md px-4 py-1.5 rounded-full">
+              {navLinks.map((item) => {
+                const isActive =
+                  location.pathname === item.route ||
+                  (isHome && location.hash === item.target);
+
+                return (
+                  <a
+                    key={item.label}
+                    href={item.target}
+                    onClick={(e) => handleNavClick(e, item)}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 relative ${
+                      isActive
+                        ? 'text-white bg-white/10 font-semibold'
+                        : 'text-slate-300 hover:text-white hover:bg-white/5'
                     }`}
                   >
-                    {link.label}
-                  </Link>
-                ))}
-              </nav>
+                    {item.label}
+                    {isActive && (
+                      <span className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#16BDEB]" />
+                    )}
+                  </a>
+                );
+              })}
+            </nav>
 
-              {/* Right: "Call Now" CTA Button (Exact Reference Requirement) */}
-              <div className="hidden sm:flex items-center gap-3">
+            {/* Right Action: CTA Button */}
+            <div className="hidden md:flex items-center gap-4">
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  if (isHome) {
+                    e.preventDefault();
+                    document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+                  } else {
+                    navigate('/#contact');
+                  }
+                }}
+                className="group relative inline-flex items-center justify-center gap-2.5 px-6 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-300 overflow-hidden shadow-lg shadow-[#2364D8]/20 hover:shadow-[#16BDEB]/30 hover:scale-[1.02] active:scale-[0.98]"
+                style={{
+                  background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #6326C5 100%)',
+                }}
+              >
+                <span>Start a Project</span>
+                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </a>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2.5 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors focus:outline-none"
+              aria-label="Toggle Navigation Menu"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Slide-down Navigation Menu */}
+        <div
+          className={`md:hidden fixed inset-x-0 top-[65px] bg-[#17191F]/98 backdrop-blur-2xl border-b border-white/10 shadow-2xl transition-all duration-300 overflow-hidden ${
+            mobileMenuOpen ? 'max-h-[500px] opacity-100 py-6 px-6' : 'max-h-0 opacity-0 py-0 px-6 pointer-events-none'
+          }`}
+        >
+          <div className="flex flex-col space-y-3">
+            {navLinks.map((item) => (
+              <a
+                key={item.label}
+                href={item.target}
+                onClick={(e) => handleNavClick(e, item)}
+                className="flex items-center justify-between px-4 py-3 rounded-2xl text-base font-medium text-slate-200 hover:text-white hover:bg-white/5 transition-colors border border-transparent hover:border-white/10"
+              >
+                <span>{item.label}</span>
+                <ArrowRight className="w-4 h-4 text-slate-500" />
+              </a>
+            ))}
+
+            <div className="pt-4 border-t border-white/10 flex flex-col gap-3">
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  setMobileMenuOpen(false);
+                  if (isHome) {
+                    e.preventDefault();
+                    document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+                  } else {
+                    navigate('/#contact');
+                  }
+                }}
+                className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-2xl font-bold text-white text-center shadow-lg"
+                style={{
+                  background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #6326C5 100%)',
+                }}
+              >
+                <span>Start a Project</span>
+                <ArrowRight className="w-4 h-4" />
+              </a>
+
+              <div className="flex items-center justify-between pt-2 text-xs text-slate-400">
+                <span className="flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-[#16BDEB]" />
+                  <span>Kerala, India &bull; UAE</span>
+                </span>
                 <a
                   href={`tel:${phoneClean}`}
-                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest text-white bg-gradient-to-r from-[#2365E8] via-[#5221B5] to-[#7435D5] hover:opacity-90 shadow-md shadow-[#5221B5]/30 hover:scale-105 active:scale-95 transition-all duration-300"
+                  className="font-semibold text-slate-200 flex items-center gap-1"
                 >
-                  <Phone className="w-3.5 h-3.5" />
-                  <span>Call Now</span>
+                  <Phone className="w-3 h-3 text-[#16BDEB]" />
+                  <span>{phoneDisplay}</span>
                 </a>
-              </div>
-
-              {/* Mobile Hamburger Button */}
-              <div className="flex lg:hidden items-center">
-                <button
-                  type="button"
-                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className={`p-2.5 rounded-xl border focus:outline-none shadow-sm transition-colors ${
-                    isDarkHeroState
-                      ? 'bg-white/10 border-white/20 text-white'
-                      : 'bg-white border-slate-200 text-slate-800 hover:bg-slate-50'
-                  }`}
-                  aria-label="Toggle navigation menu"
-                >
-                  {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-                </button>
               </div>
             </div>
           </div>
         </div>
       </header>
-
-      {/* Mobile Menu Drawer */}
-      <div
-        className={`fixed inset-0 z-50 bg-black/60 backdrop-blur-sm lg:hidden transition-opacity duration-300 ${
-          mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
-      >
-        <div
-          className={`fixed inset-y-0 right-0 w-full max-w-xs bg-white border-l border-slate-200 p-6 flex flex-col justify-between transform transition-transform duration-300 shadow-2xl ${
-            mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-          }`}
-        >
-          <div>
-            <div className="flex items-center justify-between pb-6 border-b border-slate-100">
-              <img src={getAssetUrl('/logo-horizontal.png')} alt="APPZIO" className="h-8 w-auto" />
-              <button
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-2 rounded-lg text-slate-500 hover:text-slate-800"
-                aria-label="Close menu"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <nav className="mt-6 flex flex-col space-y-2">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  to={isHome ? link.target : link.route}
-                  onClick={(e) => {
-                    handleNavClick(e, link);
-                    setMobileMenuOpen(false);
-                  }}
-                  className="px-4 py-3 rounded-xl text-sm font-bold uppercase tracking-wider text-slate-800 hover:bg-purple-50 hover:text-[#5221B5] transition-colors"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
-
-          <div className="pt-6 border-t border-slate-100 space-y-3">
-            <a
-              href={`tel:${phoneClean}`}
-              className="w-full inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-gradient-to-r from-[#2365E8] via-[#5221B5] to-[#7435D5] shadow-md shadow-[#5221B5]/30"
-            >
-              <Phone className="w-4 h-4" />
-              <span>Call Now ({phoneDisplay})</span>
-            </a>
-
-            <div className="text-center text-[11px] text-slate-400 font-mono">
-              Kerala, India • appzio@gmail.com
-            </div>
-          </div>
-        </div>
-      </div>
     </>
   );
 };
+
+export default Navbar;

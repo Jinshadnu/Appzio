@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Star, ChevronLeft, ChevronRight, Quote, Sparkles } from 'lucide-react';
+import React, { useState } from 'react';
+import { Star, ChevronLeft, ChevronRight, Quote, Sparkles, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence, Easing } from 'framer-motion';
 import { useWebsiteData } from '../../context/WebsiteDataContext';
 
@@ -9,39 +9,39 @@ export const TestimonialsSection: React.FC = () => {
   const { testimonials } = useWebsiteData();
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const fallbackTestimonials: {
-    id: number;
-    client_name: string;
-    client_title: string;
-    company: string;
-    review: string;
-    rating: number;
-    avatar_url?: string;
-  }[] = [
+  const fallbackTestimonials = [
     {
       id: 1,
-      client_name: 'Alexander Wright',
-      client_title: 'Chief Technology Officer',
-      company: 'Aether Financial Technologies (London, UK)',
-      review: 'Working with APPZIO was a game-changer for our fintech product launch. Their technical mastery of Flutter and backend architecture ensured our app delivered bank-grade reliability with an exceptionally refined, modern interface.',
+      client_name: 'Fahad Al-Mazrouei',
+      client_title: 'Executive Director',
+      company: 'TEPHRA Electro Mechanical Contracting (Dubai, UAE)',
+      review: 'Appzio delivered a corporate web presence that perfectly aligns with our engineering caliber. The Swiss-inspired minimalism, fast loading speeds, and clear technical service matrices have significantly boosted our credibility during international contractor pre-qualifications in Dubai.',
       rating: 5,
     },
     {
       id: 2,
-      client_name: 'Rashid Al-Maktoum',
-      client_title: 'Managing Director',
-      company: 'Novus Freight Logistics (Dubai & Saudi Arabia)',
-      review: 'APPZIO engineered our regional logistics portal from the ground up. Their team has rare dual-competence: deep architectural knowledge coupled with an intuitive eye for premium UX. Our dispatch times plummeted by 40% in the first quarter.',
+      client_name: 'Dr. Abdul Rahman Ghaf',
+      client_title: 'Founder & Publisher',
+      company: 'Ghaf Books & Media LLP',
+      review: 'Working with Appzio on our literary bookstore was an exceptional experience. They understood the subtleties of editorial design, typographic hierarchy, and seamless reader shopping experiences. The platform performs flawlessly across all devices.',
       rating: 5,
     },
     {
       id: 3,
-      client_name: 'Elena Rossi',
-      client_title: 'Principal Architect & Partner',
-      company: 'Krona Architectural Studio (Milan, Italy)',
-      review: 'We approached APPZIO with an uncompromising aesthetic vision for our architectural portfolio. They translated our concepts into a silky-smooth, responsive digital reality. Our international client inquiries surged immediately.',
+      client_name: 'Mohammed Mansoor',
+      client_title: 'Managing Director',
+      company: 'Prime Time Typing Services (Abu Dhabi, UAE)',
+      review: 'Organizing more than 30 official UAE government service categories into a clean, intuitive website was a major challenge. Appzio executed this with outstanding clarity and integrated WhatsApp consultation routing that brought in immediate daily client inquiries.',
       rating: 5,
     },
+    {
+      id: 4,
+      client_name: 'Suhail Mikhael',
+      client_title: 'Director',
+      company: 'Mikhael Gold & Diamonds (Kerala, India)',
+      review: 'Appzio brought royal craftsmanship into our digital presentation. The typography, smooth animations, and gold showcase look stunning on both mobile and desktop screens. Truly a premier digital solutions team.',
+      rating: 5,
+    }
   ];
 
   const list = (testimonials && testimonials.length > 0) ? testimonials : fallbackTestimonials;
@@ -58,115 +58,144 @@ export const TestimonialsSection: React.FC = () => {
   const current = list[currentIndex];
 
   return (
-    <section id="testimonials" className="py-28 bg-[#F8F9FD] relative overflow-hidden scroll-mt-20">
-      {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#5221B5]/8 blur-[140px] pointer-events-none" />
+    <section id="testimonials" className="py-28 relative overflow-hidden bg-[#121419] text-white scroll-mt-16">
+      {/* Background glow */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 right-1/4 w-[500px] h-[500px] rounded-full bg-[#2364D8]/10 blur-[170px]" />
+      </div>
 
-      <div className="max-w-5xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         
-        {/* Section Heading (Matching Reference H2: Testimonials) */}
-        <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-slate-200/90 text-xs font-mono font-bold text-[#5221B5] tracking-widest uppercase shadow-xs">
-            CLIENT ENDORSEMENTS
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display tracking-tight text-[#191923]">
-            Testimonials.
-          </h2>
-          <p className="text-base text-slate-600">
-            Hear directly from clients and technology partners who build their products with APPZIO.
-          </p>
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: easeOut }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/10 text-xs font-mono font-bold tracking-widest text-[#16BDEB] uppercase mb-4"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-[#16BDEB]" />
+            <span>CLIENT PERSPECTIVES</span>
+          </motion.div>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.08, ease: easeOut }}
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-4 font-display"
+          >
+            Endorsed by Businesses{' '}
+            <span
+              className="bg-clip-text text-transparent"
+              style={{
+                backgroundImage: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #6326C5 100%)',
+              }}
+            >
+              Across UAE &amp; Worldwide.
+            </span>
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.16, ease: easeOut }}
+            className="text-base sm:text-lg text-slate-300 leading-relaxed font-normal"
+          >
+            Real feedback from business owners and directors who trusted Appzio to design and engineer their mission-critical digital systems.
+          </motion.p>
         </div>
 
-        {/* Testimonial Feature Card */}
-        <div className="relative rounded-3xl bg-white border border-slate-200/80 p-8 sm:p-14 shadow-xl hover:border-[#5221B5]/40 transition-all duration-300 overflow-hidden">
-          {/* Subtle Top Gradient Accent */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#2365E8] via-[#5221B5] to-[#7435D5]" />
+        {/* Testimonial Presentation Card */}
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.65, ease: easeOut }}
+            className="relative rounded-3xl bg-[#1F222B]/90 backdrop-blur-2xl border border-white/10 p-8 sm:p-12 lg:p-14 shadow-2xl shadow-black/40 overflow-hidden"
+          >
+            {/* Top Row: Quote Icon & Stars */}
+            <div className="flex items-center justify-between mb-8 pb-6 border-b border-white/10">
+              <div className="w-12 h-12 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-[#16BDEB]">
+                <Quote className="w-6 h-6 rotate-180" />
+              </div>
 
-          <Quote className="absolute top-8 right-8 w-24 h-24 text-purple-100/70 pointer-events-none" />
-
-          <div className="relative z-10 space-y-8">
-            {/* Rating Stars */}
-            <div className="flex items-center gap-1.5">
-              {Array.from({ length: current.rating || 5 }).map((_, i) => (
-                <Star key={i} className="w-5 h-5 fill-amber-400 text-amber-400" />
-              ))}
-              <span className="ml-2 text-xs font-mono font-bold text-slate-400">5.0 / 5.0 Rating</span>
+              {/* 5-Star Rating */}
+              <div className="flex items-center gap-1.5">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-5 h-5 fill-amber-400 text-amber-400" />
+                ))}
+              </div>
             </div>
 
-            {/* Testimonial Quote with Animated Transitions */}
+            {/* Testimonial Quote */}
             <AnimatePresence mode="wait">
               <motion.blockquote
-                key={current.id || currentIndex}
+                key={currentIndex}
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.4, ease: easeOut }}
-                className="text-lg sm:text-2xl text-[#191923] font-normal leading-relaxed min-h-[100px]"
+                transition={{ duration: 0.35, ease: easeOut }}
+                className="text-lg sm:text-xl lg:text-2xl text-slate-200 font-medium leading-relaxed mb-10 italic"
               >
-                "{current.review}"
+                &ldquo;{current.review}&rdquo;
               </motion.blockquote>
             </AnimatePresence>
 
             {/* Author Meta & Carousel Navigation */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pt-8 border-t border-slate-100">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pt-6 border-t border-white/10">
               <div className="flex items-center gap-4">
-                {current.avatar_url ? (
-                  <img
-                    src={current.avatar_url}
-                    alt={current.client_name}
-                    className="w-14 h-14 rounded-full object-cover border-2 border-purple-200 shadow-sm"
-                  />
-                ) : (
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#2365E8] to-[#5221B5] flex items-center justify-center text-white font-bold text-lg font-display shadow-md shadow-[#5221B5]/20">
-                    {current.client_name.charAt(0)}
-                  </div>
-                )}
+                <div
+                  className="w-13 h-13 rounded-2xl flex items-center justify-center text-white font-bold text-lg font-display shadow-md p-3"
+                  style={{
+                    background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #6326C5 100%)',
+                  }}
+                >
+                  {current.client_name.charAt(0)}
+                </div>
                 <div>
-                  <h4 className="text-lg font-bold font-display text-[#191923]">
+                  <h4 className="text-base sm:text-lg font-bold font-display text-white">
                     {current.client_name}
                   </h4>
-                  <p className="text-xs sm:text-sm font-medium text-[#5221B5]">
-                    {current.client_title ? `${current.client_title} • ` : ''}{current.company}
+                  <p className="text-xs sm:text-sm text-slate-400">
+                    {current.client_title ? `${current.client_title} • ` : ''}
+                    <span className="text-[#16BDEB] font-medium">{current.company}</span>
                   </p>
                 </div>
               </div>
 
-              {/* Slider Controls */}
-              <div className="flex items-center gap-3">
+              {/* Navigation Controls */}
+              <div className="flex items-center gap-3 self-end sm:self-center">
+                <span className="text-xs font-mono text-slate-400 mr-2">
+                  0{currentIndex + 1} / 0{count}
+                </span>
+
                 <button
                   onClick={handlePrev}
-                  className="w-12 h-12 rounded-full bg-[#F8F9FD] border border-slate-200 flex items-center justify-center text-[#191923] hover:bg-gradient-to-r hover:from-[#2365E8] hover:to-[#5221B5] hover:text-white hover:border-transparent transition-all cursor-pointer shadow-xs"
+                  className="w-11 h-11 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white flex items-center justify-center transition-colors active:scale-95"
                   aria-label="Previous testimonial"
                 >
                   <ChevronLeft className="w-5 h-5" />
                 </button>
 
-                <div className="flex gap-1.5 px-2">
-                  {list.map((_, dotIdx) => (
-                    <button
-                      key={dotIdx}
-                      onClick={() => setCurrentIndex(dotIdx)}
-                      className={`h-2 rounded-full transition-all cursor-pointer ${
-                        dotIdx === currentIndex ? 'w-6 bg-[#5221B5]' : 'w-2 bg-slate-300 hover:bg-slate-400'
-                      }`}
-                      aria-label={`Go to testimonial ${dotIdx + 1}`}
-                    />
-                  ))}
-                </div>
-
                 <button
                   onClick={handleNext}
-                  className="w-12 h-12 rounded-full bg-[#F8F9FD] border border-slate-200 flex items-center justify-center text-[#191923] hover:bg-gradient-to-r hover:from-[#2365E8] hover:to-[#5221B5] hover:text-white hover:border-transparent transition-all cursor-pointer shadow-xs"
+                  className="w-11 h-11 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white flex items-center justify-center transition-colors active:scale-95"
                   aria-label="Next testimonial"
                 >
                   <ChevronRight className="w-5 h-5" />
                 </button>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
 
       </div>
     </section>
   );
 };
+
+export default TestimonialsSection;

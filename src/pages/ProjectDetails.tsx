@@ -1,309 +1,365 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, Smartphone, CheckCircle, ShieldCheck, Sparkles, Layers, ArrowUpRight } from 'lucide-react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { 
+  ArrowLeft, ExternalLink, CheckCircle2, ShieldCheck, 
+  Sparkles, Layers, ArrowRight, Code2, Globe, Building2 
+} from 'lucide-react';
 import { Project } from '../types';
-import { api } from '../services/api';
 import { useWebsiteData } from '../context/WebsiteDataContext';
-import { CTASection } from '../components/home/CTASection';
 import { getAssetUrl } from '../utils/asset';
 
 export const ProjectDetails: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
+  const navigate = useNavigate();
   const { projects } = useWebsiteData();
   const [project, setProject] = useState<Project | null>(null);
-  const [loading, setLoading] = useState(true);
+
+  // Dedicated verified case study details for the 5 client projects
+  const verifiedCaseStudies: Record<string, {
+    industry: string;
+    business_requirements: string;
+    design_approach: string;
+    development_approach: string;
+  }> = {
+    'tephra-ae': {
+      industry: 'Engineering / MEP Contracting',
+      business_requirements: 'Present complex commercial, industrial, and residential electromechanical contracting capabilities across Dubai and the UAE. Establish immediate technical authority during corporate contractor pre-qualification tenders and facilitate direct commercial procurement inquiries.',
+      design_approach: 'Swiss Neo-Grotesque typographic hierarchy with stark contrast, purposeful whitespace, and a disciplined layout reflecting mechanical precision. Eliminates superfluous decorative elements in favor of clean technical matrices and clear corporate credibility markers.',
+      development_approach: 'Engineered with ultra-lightweight semantic architecture delivering sub-second page loads across GCC mobile networks. Implemented JSON-LD structured schemas for UAE local engineering SEO and configured instant WhatsApp routing for commercial tenders.'
+    },
+    'ghaf-books-media': {
+      industry: 'Publishing / Literary Books',
+      business_requirements: 'Showcase world-class literary fiction, South Asian classics, Malayalam literature, and Arab-Indian Ocean heritage. Provide customers with an immersive literary shopping experience, supporting both physical editions and instant eBook delivery with secure online payment integration.',
+      design_approach: 'Warm literary editorial aesthetics featuring dual light and dark reading themes. Typography is carefully calibrated for long-form literary readability, with prominent book cover display surfaces and zero visual friction in catalog navigation.',
+      development_approach: 'Modern Next.js commerce frontend with dynamic client-side filtering, image preloading, responsive cart state management, and secure Razorpay payment gateway integration for frictionless transactions.'
+    },
+    'prime-time-typing': {
+      industry: 'Typing Services / Document Clearing',
+      business_requirements: 'Organize over 30+ specialized UAE government service categories (Tasheel, MOHRE Labour Permits, ICP Residency Visas, Emirates ID, Tamm, MOFA) into a clear directory for residents and corporate businesses in Abu Dhabi, driving direct inquiries via telephone and WhatsApp.',
+      design_approach: 'Clean administrative directory architecture with high contrast, legible typography, step-by-step document requirement checklists, and persistent one-tap WhatsApp consultation shortcuts.',
+      development_approach: 'Single-page React architecture optimized for rapid mobile search filtration. Features localized Abu Dhabi business metadata, structured service accordions, and lightweight bundle optimization.'
+    },
+    'mikhael-gold-diamonds': {
+      industry: 'Jewellery / Luxury Retail',
+      business_requirements: 'Translate the timeless heritage of handcrafted BIS-hallmarked 22K gold jewellery, Kasu Mala, Palakka Mala, and certified diamonds into a prestigious digital lookbook that drives private bridal showroom appointments.',
+      design_approach: 'Editorial luxury layout featuring classical Cormorant Garamond serif typography, a regal warm burgundy palette, and high-fidelity jewellery showcases with fluid micro-interactions.',
+      development_approach: 'React with Framer Motion transitions, responsive image scaling for intricate gold filigree and diamond facets, and seamless bridal appointment booking flows.'
+    },
+    'carepoint-auto-hub': {
+      industry: 'Automotive / Car Care',
+      business_requirements: 'Present professional automobile detailing, snow foam washing, 3D wheel alignment, and ceramic coating packages for motorists in Kerala, facilitating instant drive-in appointments and package comparison.',
+      design_approach: 'Energetic modern automotive aesthetic with high-contrast service cards, package comparison tables, and prominent one-tap mobile booking shortcuts.',
+      development_approach: 'Mobile-first responsive React architecture designed for high-speed touch devices, featuring integrated Google Maps routing and WhatsApp booking triggers.'
+    }
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    const fetchProject = async () => {
-      if (!slug) return;
-      try {
-        setLoading(true);
-        // Find in cached projects first or fetch from API
-        const local = projects.find((p) => p.slug === slug || p.id.toString() === slug);
-        if (local) {
-          setProject(local);
-          document.title = `${local.title} — APPZIO Case Study`;
-        } else {
-          const remote = await api.getProjectBySlug(slug);
-          setProject(remote);
-          document.title = `${remote.title} — APPZIO Case Study`;
-        }
-      } catch (err) {
-        console.error('Failed to load project details:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
+    if (!slug) return;
 
-    fetchProject();
+    const found = projects.find((p) => p.slug === slug || p.id.toString() === slug);
+    if (found) {
+      setProject(found);
+      document.title = `${found.title} — Case Study | APPZIO`;
+    }
   }, [slug, projects]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen pt-40 pb-20 flex items-center justify-center text-center bg-[#F8F9FD]">
-        <div className="space-y-4">
-          <div className="w-12 h-12 border-3 border-brand-purple border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-sm font-mono text-brand-text-muted">Loading case study specifications...</p>
-        </div>
-      </div>
-    );
-  }
 
   if (!project) {
     return (
-      <div className="min-h-screen pt-40 pb-20 max-w-xl mx-auto px-4 text-center space-y-6 bg-[#F8F9FD]">
-        <h1 className="text-3xl font-bold font-display text-brand-text">Project Not Found</h1>
-        <p className="text-sm text-brand-text-muted">The requested project could not be found or has been moved.</p>
+      <div className="min-h-screen pt-40 pb-20 max-w-xl mx-auto px-6 text-center space-y-6 bg-[#17191F] text-white">
+        <h1 className="text-3xl font-bold font-display">Case Study Not Found</h1>
+        <p className="text-sm text-slate-400">The requested client project could not be found or has been moved.</p>
         <Link
           to="/portfolio"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold text-white bg-brand-gradient shadow-glow-sm"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold text-white shadow-lg"
+          style={{ background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #6326C5 100%)' }}
         >
           <ArrowLeft className="w-4 h-4" />
-          <span>Back to Portfolio</span>
+          <span>Back to Selected Work</span>
         </Link>
       </div>
     );
   }
 
-  const keyFeatures = Array.isArray(project.key_features) ? project.key_features : [];
+  // Next Project Navigation Calculation
+  const currentIndex = projects.findIndex((p) => p.id === project.id);
+  const nextProject = projects[(currentIndex + 1) % projects.length];
+
+  const caseStudyMeta = verifiedCaseStudies[project.slug] || {
+    industry: project.category || 'Digital Engineering',
+    business_requirements: project.objectives || 'Deliver a high-impact digital experience tailored to business goals.',
+    design_approach: 'User-centered, modern design hierarchy crafted with attention to brand positioning and frictionless usability.',
+    development_approach: 'Modern component-driven web architecture ensuring rapid loading speeds, security, and scalability.'
+  };
+
+  const keyFeatures = Array.isArray(project.key_features) && project.key_features.length > 0
+    ? project.key_features
+    : [
+        'Responsive layout across all device viewports',
+        'Optimized loading performance and Core Web Vitals',
+        'Semantic SEO schema architecture',
+        'Direct customer engagement and conversion triggers'
+      ];
+
   const techs = Array.isArray(project.technologies) ? project.technologies : [];
-  const related = projects.filter((p) => p.id !== project.id && p.category === project.category).slice(0, 2);
 
   return (
-    <div className="pt-32 pb-16 bg-[#F8F9FD]">
-      {/* Top Back Navigation Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+    <div className="pt-32 pb-24 bg-[#17191F] text-white min-h-screen">
+      {/* ── Top Breadcrumb Bar ── */}
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mb-8">
         <Link
           to="/portfolio"
-          className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-brand-text-muted hover:text-brand-purple transition-colors group"
+          className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-slate-400 hover:text-[#16BDEB] transition-colors group"
         >
-          <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
+          <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
           <span>Back to All Selected Works</span>
         </Link>
       </div>
 
-      {/* Project Hero Header */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
-        <div className="space-y-6">
+      {/* ── Project Header & Meta ── */}
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mb-16">
+        <div className="max-w-4xl space-y-6">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="px-3.5 py-1 rounded-full text-xs font-mono font-semibold bg-brand-purple/10 text-brand-purple border border-brand-purple/20">
+            <span className="px-3.5 py-1 rounded-full text-xs font-mono font-semibold bg-[#16BDEB]/15 text-[#16BDEB] border border-[#16BDEB]/30">
               {project.category}
             </span>
+            <span className="px-3.5 py-1 rounded-full text-xs font-mono font-semibold bg-white/10 text-slate-300 border border-white/10">
+              {caseStudyMeta.industry}
+            </span>
             {project.client && (
-              <span className="text-xs font-mono text-brand-text-muted">
-                Client: <span className="text-brand-text font-semibold">{project.client}</span>
+              <span className="text-xs font-mono text-slate-400">
+                {project.client}
               </span>
             )}
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold font-display text-brand-text tracking-tight leading-tight">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight font-display">
             {project.title}
           </h1>
 
-          {project.tagline && (
-            <p className="text-lg sm:text-xl text-brand-purple font-semibold">
-              {project.tagline}
-            </p>
-          )}
+          <p className="text-lg sm:text-xl text-slate-300 leading-relaxed font-normal">
+            {project.short_description}
+          </p>
 
-          {/* Action Links (Live URL, App Store, Play Store) */}
-          <div className="flex flex-wrap items-center gap-4 pt-2">
+          {/* Action Row */}
+          <div className="flex flex-wrap items-center gap-4 pt-4">
             {project.live_url && (
               <a
                 href={project.live_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold text-white bg-brand-gradient hover:bg-brand-gradient-hover shadow-glow-sm transition-all hover:scale-105"
+                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-sm font-bold text-white shadow-xl shadow-[#2364D8]/20 hover:shadow-[#16BDEB]/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                style={{
+                  background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #6326C5 100%)',
+                }}
               >
-                <span>Visit Live Platform</span>
+                <span>Visit Live Website</span>
                 <ExternalLink className="w-4 h-4" />
               </a>
             )}
-            {project.play_store_url && (
-              <a
-                href={project.play_store_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold text-brand-text bg-white hover:border-brand-purple border border-slate-200/90 shadow-sm transition-all"
-              >
-                <Smartphone className="w-4 h-4 text-emerald-600" />
-                <span>Google Play Store</span>
-              </a>
-            )}
-            {project.app_store_url && (
-              <a
-                href={project.app_store_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold text-brand-text bg-white hover:border-brand-purple border border-slate-200/90 shadow-sm transition-all"
-              >
-                <Smartphone className="w-4 h-4 text-sky-600" />
-                <span>Apple App Store</span>
-              </a>
-            )}
+
+            <a
+              href="#requirements"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-colors"
+            >
+              <span>Explore Architecture Specifications</span>
+            </a>
           </div>
         </div>
       </section>
 
-      {/* Hero Showcase Display Card */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
-        <div className="relative rounded-3xl bg-slate-900 border border-slate-200/80 shadow-2xl overflow-hidden aspect-[21/9] min-h-[380px] max-h-[560px] flex items-end">
+      {/* ── Authentic Project Showcase Hero Preview ── */}
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mb-20">
+        <div className="relative rounded-3xl overflow-hidden bg-[#1F222B] border border-white/15 shadow-2xl shadow-black/50">
           <img
-            src={getAssetUrl(project.cover_image || project.thumbnail || '/hero-team-hd.jpg')}
-            alt={project.title}
-            className="absolute inset-0 w-full h-full object-cover object-center"
+            src={getAssetUrl(project.thumbnail || project.cover_image || '/assets/projects/tephra-preview.png')}
+            alt={`${project.title} Preview`}
+            className="w-full h-auto object-cover object-top max-h-[750px]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20" />
+          <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-[#121419]/90 border border-white/20 backdrop-blur-md text-xs font-mono text-[#16BDEB]">
+            AUTHENTIC PRODUCTION PREVIEW
+          </div>
+        </div>
+      </section>
 
-          {/* Overlay Spec details on bottom */}
-          <div className="relative z-10 w-full p-6 sm:p-10 flex flex-col sm:flex-row sm:items-end justify-between gap-6">
-            <div className="space-y-2 max-w-2xl">
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-xs font-mono font-bold text-cyan-300 uppercase">
-                <Sparkles className="w-3.5 h-3.5" />
-                PRODUCTION ARCHITECTURE
-              </span>
-              <p className="text-white text-base sm:text-lg font-medium drop-shadow-sm leading-relaxed">
-                {project.short_description}
+      {/* ── Case Study In-Depth Specification Breakdown ── */}
+      <section id="requirements" className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mb-20 scroll-mt-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+          
+          {/* Main Specification Body (8 cols) */}
+          <div className="lg:col-span-8 space-y-12">
+            
+            {/* 1. Project Overview */}
+            <div className="p-8 sm:p-9 rounded-3xl bg-[#1F222B]/85 border border-white/10 space-y-4">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#16BDEB] uppercase tracking-wider">
+                <Sparkles className="w-4 h-4" />
+                <span>01. Project Overview</span>
+              </div>
+              <h2 className="text-2xl font-bold text-white font-display">
+                Executive Overview &amp; Context
+              </h2>
+              <p className="text-slate-300 leading-relaxed text-base">
+                {project.overview || project.short_description}
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-2 shrink-0">
-              {techs.map((t, i) => (
-                <span key={i} className="px-3 py-1 rounded-lg text-xs font-mono bg-white/10 backdrop-blur-md text-white border border-white/20 font-semibold">
-                  {t}
-                </span>
-              ))}
+            {/* 2. Business Requirements */}
+            <div className="p-8 sm:p-9 rounded-3xl bg-[#1F222B]/85 border border-white/10 space-y-4">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#2364D8] uppercase tracking-wider">
+                <Building2 className="w-4 h-4" />
+                <span>02. Business Requirements</span>
+              </div>
+              <h2 className="text-2xl font-bold text-white font-display">
+                Strategic Business Objectives
+              </h2>
+              <p className="text-slate-300 leading-relaxed text-base">
+                {caseStudyMeta.business_requirements}
+              </p>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Case Study Details Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          
-          {/* Main Narrative Column (8 cols) */}
-          <div className="lg:col-span-8 space-y-12">
-            
-            {/* Overview */}
-            {project.overview && (
+            {/* 3. Design Approach */}
+            <div className="p-8 sm:p-9 rounded-3xl bg-[#1F222B]/85 border border-white/10 space-y-4">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6326C5] uppercase tracking-wider">
+                <Layers className="w-4 h-4" />
+                <span>03. Design Approach</span>
+              </div>
+              <h2 className="text-2xl font-bold text-white font-display">
+                UI/UX Philosophy &amp; Visual Identity
+              </h2>
+              <p className="text-slate-300 leading-relaxed text-base">
+                {caseStudyMeta.design_approach}
+              </p>
+            </div>
+
+            {/* 4. Development Approach */}
+            <div className="p-8 sm:p-9 rounded-3xl bg-[#1F222B]/85 border border-white/10 space-y-4">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#16BDEB] uppercase tracking-wider">
+                <Code2 className="w-4 h-4" />
+                <span>04. Development Approach</span>
+              </div>
+              <h2 className="text-2xl font-bold text-white font-display">
+                Engineering Architecture &amp; Delivery
+              </h2>
+              <p className="text-slate-300 leading-relaxed text-base">
+                {caseStudyMeta.development_approach}
+              </p>
+            </div>
+
+            {/* 5. Key Features */}
+            <div className="p-8 sm:p-9 rounded-3xl bg-[#1F222B]/85 border border-white/10 space-y-6">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider">
+                <CheckCircle2 className="w-4 h-4" />
+                <span>05. Delivered Capabilities</span>
+              </div>
+              <h2 className="text-2xl font-bold text-white font-display">
+                Key Features Delivered
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {keyFeatures.map((feat, idx) => (
+                  <div
+                    key={idx}
+                    className="p-4 rounded-2xl bg-white/[0.03] border border-white/5 flex items-start gap-3 text-sm text-slate-200"
+                  >
+                    <CheckCircle2 className="w-4 h-4 text-[#16BDEB] shrink-0 mt-0.5" />
+                    <span>{feat}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 6. Secondary Full-Page Screenshot */}
+            {project.cover_image && (
               <div className="space-y-4">
-                <h2 className="text-2xl font-bold font-display text-brand-text">Project Overview</h2>
-                <div className="text-base text-brand-text-muted leading-relaxed whitespace-pre-line">
-                  {project.overview}
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-bold text-white font-display">
+                    Full-Length Page Capture
+                  </h3>
+                  <span className="text-xs font-mono text-slate-400">Desktop 1440px Viewport</span>
+                </div>
+                <div className="rounded-3xl overflow-hidden bg-[#1F222B] border border-white/15 shadow-xl">
+                  <img
+                    src={getAssetUrl(project.cover_image)}
+                    alt={`${project.title} Full View`}
+                    className="w-full h-auto object-cover object-top"
+                    loading="lazy"
+                  />
                 </div>
               </div>
             )}
 
-            {/* Objectives */}
-            {project.objectives && (
-              <div className="space-y-4 p-8 rounded-3xl bg-white border border-slate-200/80 shadow-card">
-                <div className="flex items-center gap-2 text-brand-purple text-xs font-mono uppercase font-semibold">
-                  <Sparkles className="w-4 h-4" />
-                  <span>Strategic Goals</span>
-                </div>
-                <h3 className="text-xl font-bold font-display text-brand-text">Project Objectives</h3>
-                <div className="text-sm sm:text-base text-brand-text-muted leading-relaxed whitespace-pre-line">
-                  {project.objectives}
-                </div>
-              </div>
-            )}
+          </div>
 
-            {/* Challenges & Solutions */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {project.challenges && (
-                <div className="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-card space-y-3">
-                  <span className="text-xs font-mono text-rose-600 font-semibold uppercase tracking-wider">The Bottleneck</span>
-                  <h4 className="text-lg font-bold font-display text-brand-text">Challenges Faced</h4>
-                  <p className="text-sm text-brand-text-muted leading-relaxed">
-                    {project.challenges}
-                  </p>
-                </div>
-              )}
+          {/* Sidebar Specifications (4 cols) */}
+          <div className="lg:col-span-4 space-y-8">
+            {/* Quick Metadata Box */}
+            <div className="p-7 sm:p-8 rounded-3xl bg-[#1F222B]/90 border border-white/10 space-y-6 sticky top-28">
+              <h3 className="text-lg font-bold text-white font-display pb-4 border-b border-white/10">
+                Project Matrix
+              </h3>
 
-              {project.solutions && (
-                <div className="p-6 rounded-3xl bg-white border border-brand-purple/40 shadow-card space-y-3">
-                  <span className="text-xs font-mono text-brand-purple font-semibold uppercase tracking-wider">Engineered Resolution</span>
-                  <h4 className="text-lg font-bold font-display text-brand-text">Our Architecture Solution</h4>
-                  <p className="text-sm text-brand-text-muted leading-relaxed">
-                    {project.solutions}
-                  </p>
+              <div className="space-y-4 text-sm">
+                <div>
+                  <div className="text-xs font-mono text-slate-400 uppercase">Client / Brand</div>
+                  <div className="font-semibold text-white mt-0.5">{project.client || 'Client Confidential'}</div>
                 </div>
-              )}
-            </div>
 
-            {/* Key Features */}
-            {keyFeatures.length > 0 && (
-              <div className="space-y-6">
-                <h2 className="text-2xl font-bold font-display text-brand-text">Key Capabilities & Features</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {keyFeatures.map((feat, idx) => (
-                    <div
-                      key={idx}
-                      className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex items-start gap-3"
+                <div>
+                  <div className="text-xs font-mono text-slate-400 uppercase">Industry</div>
+                  <div className="font-semibold text-[#16BDEB] mt-0.5">{caseStudyMeta.industry}</div>
+                </div>
+
+                <div>
+                  <div className="text-xs font-mono text-slate-400 uppercase">Category</div>
+                  <div className="font-semibold text-white mt-0.5">{project.category}</div>
+                </div>
+
+                {project.live_url && (
+                  <div>
+                    <div className="text-xs font-mono text-slate-400 uppercase">Live Production URL</div>
+                    <a
+                      href={project.live_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-semibold text-[#16BDEB] hover:underline flex items-center gap-1.5 mt-0.5"
                     >
-                      <CheckCircle className="w-5 h-5 text-brand-purple shrink-0 mt-0.5" />
-                      <span className="text-sm text-brand-text font-medium">{feat}</span>
-                    </div>
+                      <span>{project.live_url.replace(/^https?:\/\//, '')}</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                )}
+              </div>
+
+              {/* Verified Technologies */}
+              <div className="pt-6 border-t border-white/10">
+                <div className="text-xs font-mono text-slate-400 uppercase mb-3">
+                  Verified Technical Stack
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {techs.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-3 py-1 rounded-full text-xs font-mono font-medium bg-white/5 border border-white/10 text-slate-200"
+                    >
+                      {tech}
+                    </span>
                   ))}
                 </div>
               </div>
-            )}
-          </div>
 
-          {/* Sidebar Metadata Column (4 cols) */}
-          <div className="lg:col-span-4 space-y-6">
-            <div className="rounded-3xl bg-white border border-slate-200/80 p-6 space-y-6 sticky top-28 shadow-card">
-              <h3 className="text-lg font-bold font-display text-brand-text pb-3 border-b border-slate-100">
-                Project Summary
-              </h3>
-
-              <div className="space-y-4 text-xs">
-                <div>
-                  <span className="text-brand-text-muted">Client / Organization</span>
-                  <div className="text-sm font-semibold text-brand-text mt-0.5">
-                    {project.client || 'International Client'}
-                  </div>
+              {/* Consultation Prompt */}
+              <div className="pt-6 border-t border-white/10 space-y-3">
+                <div className="text-xs text-slate-400 leading-relaxed">
+                  Need a similar high-performance digital solution for your business?
                 </div>
-
-                <div>
-                  <span className="text-brand-text-muted">Category</span>
-                  <div className="text-sm font-semibold text-brand-purple mt-0.5">
-                    {project.category}
-                  </div>
-                </div>
-
-                <div>
-                  <span className="text-brand-text-muted">Deployment Status</span>
-                  <div className="text-sm font-semibold text-emerald-600 mt-0.5 flex items-center gap-1.5">
-                    <ShieldCheck className="w-4 h-4" />
-                    <span>Production Verified</span>
-                  </div>
-                </div>
-
-                <div>
-                  <span className="text-brand-text-muted">Technologies</span>
-                  <div className="flex flex-wrap gap-1.5 mt-1.5">
-                    {techs.map((t, idx) => (
-                      <span
-                        key={idx}
-                        className="px-2.5 py-1 rounded-md text-[11px] font-mono bg-purple-50 text-brand-purple border border-purple-100 font-medium"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-4 border-t border-slate-100">
                 <Link
-                  to="/contact"
-                  className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl text-center text-xs font-semibold text-white bg-brand-gradient hover:bg-brand-gradient-hover shadow-glow-sm transition-all hover:scale-105"
+                  to="/#contact"
+                  className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-full font-bold text-white text-xs uppercase tracking-wider shadow-lg"
+                  style={{
+                    background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #6326C5 100%)',
+                  }}
                 >
-                  <Layers className="w-4 h-4" />
-                  <span>Build a Similar Product</span>
+                  <span>Discuss Your Project</span>
+                  <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>
@@ -312,40 +368,34 @@ export const ProjectDetails: React.FC = () => {
         </div>
       </section>
 
-      {/* Related Projects */}
-      {related.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 pt-16 border-t border-slate-200/80">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-bold font-display text-brand-text">Related Case Studies</h2>
-            <Link to="/portfolio" className="text-xs font-mono font-semibold text-brand-purple hover:underline">
-              View All Works →
-            </Link>
-          </div>
+      {/* ── Next Project Navigation (Item 10) ── */}
+      {nextProject && (
+        <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-12 border-t border-white/10">
+          <div className="rounded-3xl bg-[#1F222B]/75 border border-white/10 hover:border-[#16BDEB]/40 p-8 sm:p-12 transition-all duration-300 flex flex-col sm:flex-row sm:items-center justify-between gap-6 group">
+            <div>
+              <span className="text-xs font-mono text-slate-400 uppercase tracking-widest block mb-2">
+                Up Next in Selected Works
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-bold text-white font-display group-hover:text-[#16BDEB] transition-colors">
+                {nextProject.title}
+              </h3>
+              <p className="text-sm text-slate-400 mt-1">
+                {nextProject.category} &bull; {nextProject.short_description}
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {related.map((rp) => (
-              <div key={rp.id} className="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-card flex flex-col justify-between">
-                <div>
-                  <span className="text-xs font-mono text-brand-purple font-semibold">{rp.category}</span>
-                  <h3 className="text-xl font-bold font-display text-brand-text mt-1">{rp.title}</h3>
-                  <p className="text-xs text-brand-text-muted mt-2 line-clamp-2">{rp.short_description}</p>
-                </div>
-                <div className="pt-4 mt-4 border-t border-slate-100">
-                  <Link
-                    to={`/portfolio/${rp.slug}`}
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-purple hover:text-brand-blue transition-colors"
-                  >
-                    <span>Read Full Case Study</span>
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              </div>
-            ))}
+            <Link
+              to={`/portfolio/${nextProject.slug}`}
+              className="inline-flex items-center gap-3 px-7 py-3.5 rounded-full text-sm font-bold text-white bg-white/10 hover:bg-white/20 border border-white/15 transition-all shrink-0 self-start sm:self-center"
+            >
+              <span>View Next Case Study</span>
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Link>
           </div>
         </section>
       )}
-
-      <CTASection />
     </div>
   );
 };
+
+export default ProjectDetails;

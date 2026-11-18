@@ -1,7 +1,72 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { Project, Service, Testimonial, FAQ, BlogPost, WebsiteSettings } from '../types';
 import { api } from '../services/api';
-import { getAssetUrl } from '../utils/asset';
+
+export interface ServiceDivision {
+  id: string;
+  division_number: string;
+  title: string;
+  tagline: string;
+  description: string;
+  icon_name: string;
+  badge: string;
+  services: string[];
+}
+
+export const serviceDivisions: ServiceDivision[] = [
+  {
+    id: 'digital-presence',
+    division_number: '01',
+    title: 'Digital Presence',
+    tagline: 'High-Impact Websites & Web Experiences',
+    description: 'We engineer high-converting digital storefronts, corporate portals, and brand websites designed with modern architecture, lightning performance, and seamless user experiences.',
+    icon_name: 'Globe',
+    badge: 'Web & Digital Branding',
+    services: [
+      'Corporate Website Development',
+      'Business Website Development',
+      'Portfolio Websites',
+      'Landing Pages',
+      'E-commerce Websites',
+      'Website Redesign',
+      'Website Maintenance'
+    ]
+  },
+  {
+    id: 'digital-products',
+    division_number: '02',
+    title: 'Digital Products',
+    tagline: 'Mobile & Multi-Platform Software',
+    description: 'From initial user journey architecture to production app store publishing, we build native and cross-platform applications engineered for butter-smooth engagement and reliability.',
+    icon_name: 'Smartphone',
+    badge: 'Mobile & Cloud Applications',
+    services: [
+      'Android Application Development',
+      'iOS Application Development',
+      'Flutter Application Development',
+      'Desktop Application Development',
+      'Web Application Development',
+      'API Integration'
+    ]
+  },
+  {
+    id: 'business-automation',
+    division_number: '03',
+    title: 'Business Automation',
+    tagline: 'Enterprise Software & Operational Tools',
+    description: 'Custom-built enterprise software, billing engines, inventory portals, and automated workflows designed to eliminate operational bottlenecks and scale business productivity.',
+    icon_name: 'Cpu',
+    badge: 'Custom Enterprise Software',
+    services: [
+      'ERP Software',
+      'Billing Software',
+      'POS Applications',
+      'Inventory Management',
+      'Business Management Software',
+      'Custom Workflow Automation'
+    ]
+  }
+];
 
 interface WebsiteDataContextType {
   settings: WebsiteSettings;
@@ -16,9 +81,9 @@ interface WebsiteDataContextType {
 
 const defaultSettings: WebsiteSettings = {
   company_name: 'APPZIO',
-  tagline: 'Transforming Ideas Into Digital Experiences.',
-  tagline_alt: 'Building Powerful Digital Experiences.',
-  meta_description: 'APPZIO is a premium digital agency & software development company building websites, mobile applications, and custom digital software for global clients.',
+  tagline: 'Digital Solutions That Move Your Business Forward.',
+  tagline_alt: 'Transforming Ideas Into Meaningful Digital Experiences.',
+  meta_description: 'APPZIO designs and develops modern websites, mobile applications and custom software that transform business ideas into meaningful digital experiences for clients across UAE, Saudi Arabia, India and worldwide.',
   contact_email: 'appzio@gmail.com',
   contact_phone: '+91 9526026636',
   contact_whatsapp: '+91 9526026636',
@@ -26,86 +91,86 @@ const defaultSettings: WebsiteSettings = {
   social_linkedin: 'https://linkedin.com/company/appzio',
   social_github: 'https://github.com/appzio',
   social_instagram: 'https://instagram.com/appziodigital',
-  copyright_text: `© ${new Date().getFullYear()} by APPZIO. All Rights Reserved. Crafted for digital excellence.`,
-  hero_label: 'APPZIO DIGITAL ENGINEERING',
-  hero_heading: 'Recreating Dream Digital Products That Last',
-  hero_subheading: 'We design and develop powerful websites, mobile applications, and desktop software that help businesses transform ideas into impactful digital products.',
-  about_heading: 'Technology Meets Creativity.',
-  about_description: 'APPZIO is a digital development brand focused on creating innovative, scalable, and user-friendly digital solutions. We combine technical expertise with thoughtful design to turn business ideas into practical digital products.',
-  cta_heading: 'Have an Idea? Let’s Build Something Great.',
-  cta_description: 'Whether you need a website, mobile application, or custom software, let’s turn your vision into a powerful digital solution.'
+  copyright_text: `© ${new Date().getFullYear()} APPZIO. All Rights Reserved. Built to Move Your Business Forward.`,
+  hero_label: 'PREMIUM DIGITAL SOLUTIONS & SOFTWARE ENGINEERING',
+  hero_heading: 'Digital Solutions That Move Your Business Forward.',
+  hero_subheading: 'We design and develop modern websites, mobile applications and custom software that transform business ideas into meaningful digital experiences.',
+  about_heading: 'Technology Meets Business Thinking.',
+  about_description: 'Appzio is a digital solutions brand focused on helping businesses establish, improve and scale their digital presence. We combine thoughtful design, modern development practices and business-oriented technology to create websites, applications and software solutions that solve real-world problems.',
+  cta_heading: 'Let’s Build Something Meaningful.',
+  cta_description: 'Have a project in mind? Tell us what you’re planning, and let’s explore how we can turn your idea into a practical digital solution.'
 };
 
 const defaultServices: Service[] = [
   {
     id: 1,
-    title: 'Website Development',
-    slug: 'website-development',
-    short_description: 'Modern, responsive, SEO-friendly websites tailored to your business goals and built with cutting-edge web technologies.',
-    full_description: 'We create high-converting, lightning-fast digital storefronts, corporate portals, and SaaS web applications designed with modern architecture and seamless UX.',
+    title: 'Corporate & Business Websites',
+    slug: 'corporate-business-websites',
+    short_description: 'Bespoke corporate websites engineered with clean typography, fast performance, and high brand authority.',
+    full_description: 'We develop high-converting corporate portals and business websites that communicate company capabilities with Swiss precision and flawless responsive layouts.',
     icon_name: 'Globe',
-    features: ['Custom Next.js & React Architectures', 'Ultra-fast Core Web Vitals Optimization', 'Enterprise Headless CMS Integration', 'Full Mobile & Tablet Responsiveness'],
-    technologies: ['React', 'TypeScript', 'Tailwind CSS', 'PHP', 'Node.js', 'Next.js'],
+    features: ['High-Performance Corporate Architecture', 'Local & International SEO Schemas', 'Responsive Layout for All Breakpoints', 'Interactive Service Directories'],
+    technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Next.js', 'Corporate SEO'],
     is_active: 1,
     display_order: 1
   },
   {
     id: 2,
-    title: 'Mobile Application Development',
-    slug: 'mobile-application-development',
-    short_description: 'Powerful native and cross-platform Android and iOS applications built with Flutter and Kotlin for maximum engagement.',
-    full_description: 'From initial concept and user journey mapping to App Store and Google Play publishing, we build resilient mobile apps with butter-smooth animations and offline capabilities.',
-    icon_name: 'Smartphone',
-    features: ['Cross-Platform Flutter & Native Kotlin', 'Secure Authentication & Biometrics', 'Real-time WebSocket & Push Notifications', 'Offline-First Local Storage'],
-    technologies: ['Flutter', 'Dart', 'Kotlin', 'Java', 'Firebase', 'REST APIs'],
+    title: 'E-commerce & Bookstore Platforms',
+    slug: 'ecommerce-platforms',
+    short_description: 'Full-featured online stores, literary publication platforms, and frictionless shopping cart experiences.',
+    full_description: 'Turn catalog visitors into loyal buyers with fast search, rich media galleries, instant checkout workflows, and secure payment gateway integrations.',
+    icon_name: 'ShoppingBag',
+    features: ['Instant Dynamic Product Search', 'Dual Light & Dark Mode Displays', 'Seamless Payment Gateway Integration', 'Inventory & Order Tracking'],
+    technologies: ['Next.js', 'React', 'Tailwind CSS', 'Stripe / Razorpay', 'REST APIs'],
     is_active: 1,
     display_order: 2
   },
   {
     id: 3,
-    title: 'Desktop Application Development',
-    slug: 'desktop-application-development',
-    short_description: 'Reliable cross-platform desktop software and business management applications tailored for heavy workflows.',
-    full_description: 'Engineered for high performance, hardware connectivity, and robust offline stability across macOS, Windows, and Linux environments.',
-    icon_name: 'Monitor',
-    features: ['Cross-platform macOS, Windows & Linux', 'Local hardware & peripheral integration', 'High-throughput data processing', 'Automated background updater'],
-    technologies: ['Flutter Desktop', 'Electron', 'Node.js', 'SQLite', 'C++'],
+    title: 'Mobile Application Development',
+    slug: 'mobile-application-development',
+    short_description: 'Cross-platform Android and iOS applications built with Flutter, Dart, and native precision.',
+    full_description: 'From wireframes to Play Store and App Store deployment, we create fast, fluid mobile applications with offline-first caching and real-time syncing.',
+    icon_name: 'Smartphone',
+    features: ['Single-codebase Flutter Engineering', 'Offline-First Local Storage', 'Secure Token Authentication', 'Butter-smooth 60fps UI Animations'],
+    technologies: ['Flutter', 'Dart', 'Kotlin', 'Java', 'Firebase', 'REST APIs'],
     is_active: 1,
     display_order: 3
   },
   {
     id: 4,
-    title: 'Custom Software Development',
-    slug: 'custom-software-development',
-    short_description: 'Tailored digital solutions, enterprise dashboards, CRM systems, and automated workflows designed around your business.',
-    full_description: 'We solve bespoke operational bottlenecks by engineering tailored digital products with modular architecture, strict data security, and scalable infrastructure.',
-    icon_name: 'Cpu',
-    features: ['Scalable Microservices Architecture', 'Custom ERP & CRM Portals', 'Automated Business Workflows', 'Role-based Access Control (RBAC)'],
-    technologies: ['PHP', 'Node.js', 'MySQL', 'PostgreSQL', 'Docker', 'Redis'],
+    title: 'Desktop Software Development',
+    slug: 'desktop-software-development',
+    short_description: 'Robust desktop applications for Windows, macOS, and Linux built for intensive daily workflows.',
+    full_description: 'Engineered for high data throughput, peripheral connectivity, offline operation, and automated background updates for commercial environments.',
+    icon_name: 'Monitor',
+    features: ['Cross-platform Windows & macOS Support', 'Direct Hardware & POS Peripheral Access', 'High-Speed SQLite/Local Database', 'Auto-updating Release Pipeline'],
+    technologies: ['Flutter Desktop', 'Electron', 'Node.js', 'SQLite', 'C++'],
     is_active: 1,
     display_order: 4
   },
   {
     id: 5,
-    title: 'UI/UX Design',
-    slug: 'ui-ux-design',
-    short_description: 'Beautiful, intuitive, user-focused digital experiences that captivate users and elevate brand perception.',
-    full_description: 'We craft high-fidelity Figma prototypes, interactive design systems, and user-centric wireframes that balance aesthetics with frictionless usability.',
-    icon_name: 'Layout',
-    features: ['Comprehensive Figma Design Systems', 'Interactive Prototypes & Wireframing', 'User Journey & Empathy Mapping', 'Design-to-Code Precision Handoff'],
-    technologies: ['Figma', 'Adobe XD', 'Protopie', 'Design Systems'],
+    title: 'ERP & Business Automation',
+    slug: 'erp-business-automation',
+    short_description: 'Tailored billing systems, POS software, inventory dashboards, and custom operational workflow tools.',
+    full_description: 'Replace fragmented spreadsheets with automated, secure, role-based business management software configured specifically to your operational rules.',
+    icon_name: 'Cpu',
+    features: ['Automated Invoicing & GST/VAT Billing', 'Real-Time Inventory & Stock Alerts', 'Role-Based Team Permissions', 'Automated Daily Sales Audits'],
+    technologies: ['PHP', 'Node.js', 'MySQL', 'PostgreSQL', 'Docker'],
     is_active: 1,
     display_order: 5
   },
   {
     id: 6,
-    title: 'Maintenance & Support',
-    slug: 'maintenance-and-support',
-    short_description: 'Continuous improvements, performance optimization, security auditing, bug fixing, and SLA-backed technical support.',
-    full_description: 'Ensure your digital platforms operate with 99.9% uptime, zero security vulnerabilities, and uninterrupted performance with our dedicated engineering care.',
+    title: 'Website Redesign & Maintenance',
+    slug: 'website-redesign-maintenance',
+    short_description: 'Transform outdated digital systems into modern, high-performing websites with SLA-backed support.',
+    full_description: 'We audit, re-architect, and optimize legacy websites to modern web standards, ensuring continuous uptime, security patches, and Core Web Vitals excellence.',
     icon_name: 'ShieldCheck',
-    features: ['24/7 Server & API Health Monitoring', 'Security Patches & Vulnerability Audits', 'Database Optimization & Backups', 'Version Upgrades & Speed Enhancements'],
-    technologies: ['CI/CD', 'Git', 'Linux Server', 'Monitoring Tools'],
+    features: ['Full UI/UX Modernization', 'Performance & Core Web Vitals Audits', 'Ongoing Security Patches & Backups', 'Zero-Downtime Migration Support'],
+    technologies: ['React', 'Vite', 'Git', 'CI/CD', 'Linux Hosting'],
     is_active: 1,
     display_order: 6
   }
@@ -114,133 +179,198 @@ const defaultServices: Service[] = [
 const defaultProjects: Project[] = [
   {
     id: 1,
-    title: 'AetherPay — Next-Gen Fintech Mobile & Web Platform',
-    slug: 'aetherpay-fintech-platform',
-    category: 'Mobile Applications',
-    client: 'Aether Financial Technologies (UAE & UK)',
-    tagline: 'Multi-currency digital wallet & instant borderless transfer solution',
-    short_description: 'A high-security, multi-currency mobile fintech application supporting cross-border remittances, biometric payments, and real-time expense tracking across GCC and Europe.',
-    technologies: ['Flutter', 'Dart', 'PHP', 'MySQL', 'Firebase', 'REST APIs'],
-    thumbnail: '/assets/projects/aetherpay-thumb.png',
-    cover_image: '/assets/projects/aetherpay-cover.png',
+    title: 'TEPHRA Electro Mechanical Contracting',
+    slug: 'tephra-ae',
+    category: 'Corporate Website Development',
+    client: 'TEPHRA Electro Mechanical Contracting L.L.C (Dubai, UAE)',
+    tagline: 'High-precision corporate website presenting UAE MEP contracting capabilities.',
+    short_description: 'A professional corporate website presenting engineering services, company information and business capabilities.',
+    overview: 'Tephra Electro Mechanical Contracting L.L.C is an established UAE MEP contracting powerhouse executing commercial, industrial, and residential mechanical, electrical, and plumbing engineering projects across Dubai and the Emirates. Appzio developed a modern, Swiss-inspired digital corporate presence reflecting engineering discipline, technical capability, and corporate trust.',
+    objectives: 'Build an authoritative digital corporate presence for UAE commercial tenders; provide clear access to electromechanical contracting services and company credentials; optimize for UAE engineering and facility management searches.',
+    challenges: 'Structuring complex multi-discipline MEP technical capabilities into an accessible layout; maintaining sub-second loading speeds on mobile devices; establishing an elevated corporate visual tone.',
+    solutions: 'Developed a custom lightweight architecture with Swiss Neo-Grotesque typography, semantic JSON-LD structured data for UAE local business SEO, structured service matrices, and rapid WhatsApp procurement routing.',
+    key_features: [
+      'High-Performance Engineering Service Matrix (Mechanical, Electrical, Plumbing, Lighting)',
+      'UAE Corporate Schema & Local SEO Structured Data for Dubai Contracting',
+      'Swiss Neo-Grotesque Minimalist Typography & Clean Spacing',
+      'Direct WhatsApp Procurement & Project Consultation Triggers',
+      'Interactive Office Geo-Location & Contact Clearing'
+    ],
+    technologies: ['HTML5', 'Tailwind CSS', 'JavaScript', 'Corporate SEO', 'Responsive UI'],
+    thumbnail: '/assets/projects/tephra-preview.png',
+    cover_image: '/assets/projects/tephra-full.png',
+    gallery_images: [
+      '/assets/projects/tephra-preview.png',
+      '/assets/projects/tephra-full.png'
+    ],
+    live_url: 'https://tephra.ae/',
     is_featured: 1,
     is_published: 1,
     display_order: 1
   },
   {
     id: 2,
-    title: 'Novus Omnichannel Logistics ERP',
-    slug: 'novus-logistics-erp',
-    category: 'Custom Software',
-    client: 'Novus Global Freight Lines (Saudi Arabia & Qatar)',
-    tagline: 'Enterprise freight forwarding & fleet dispatch tracking system',
-    short_description: 'An enterprise freight automation dashboard and dispatcher system handling container tracking, automated customs documentation, and predictive fleet route optimization.',
-    technologies: ['React', 'TypeScript', 'Tailwind CSS', 'PHP', 'MySQL'],
-    thumbnail: '/assets/projects/novus-thumb.png',
-    cover_image: '/assets/projects/novus-cover.png',
+    title: 'Ghaf Books & Media',
+    slug: 'ghaf-books-media',
+    category: 'E-commerce Website Development',
+    client: 'Ghaf Books & Media LLP',
+    tagline: 'Premier online bookstore & literary publication house with dynamic digital catalog.',
+    short_description: 'An online bookstore and publishing platform designed to present books and provide customers with a professional digital shopping experience.',
+    overview: 'Ghaf Books & Media is a distinctive publication house focused on literary fiction, South Asian classics, Malayalam literature, and Arab-Indian Ocean cultural history. Appzio engineered an editorial e-commerce platform blending rich typography with instantaneous search, catalog filters, and streamlined purchasing.',
+    objectives: 'Deliver an inviting literary browsing experience that honors the written word; enable customers to purchase both physical hardcovers/paperbacks and instant digital eBooks; integrate secure payment processing.',
+    challenges: 'Balancing detailed cover artwork and multi-language book metadata with fast load times; providing comfortable light and dark reading themes; ensuring a frictionless mobile shopping cart.',
+    solutions: 'Engineered a modern Next.js commerce frontend with dynamic category filters, optimized image delivery, dual light/editorial dark reading modes, and express checkout flows.',
+    key_features: [
+      'Dynamic Literary Catalog Search & Multi-Criteria Filtering',
+      'Dual Reading Themes (Warm Sand Light & Editorial Charcoal Dark)',
+      'Multi-Format Book Purchase (Hardcover, Paperback, and Instant eBook)',
+      'Integrated Secure Payment Gateway with Fast Checkout Flow',
+      'Author Spotlight & Literary Editorial Publishing Sections'
+    ],
+    technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Payment Gateway', 'E-commerce UI'],
+    thumbnail: '/assets/projects/ghafbooks-preview.png',
+    cover_image: '/assets/projects/ghafbooks-full.png',
+    gallery_images: [
+      '/assets/projects/ghafbooks-preview.png',
+      '/assets/projects/ghafbooks-full.png'
+    ],
+    live_url: 'https://ghafbooksandmedia.com/',
     is_featured: 1,
     is_published: 1,
     display_order: 2
   },
   {
     id: 3,
-    title: 'Lumina Dental & Medical Clinic Management Suite',
-    slug: 'lumina-medical-suite',
-    category: 'Desktop Applications',
-    client: 'Lumina Health Group (Europe & UAE)',
-    tagline: 'High-performance desktop clinical management & imaging station',
-    short_description: 'A dedicated desktop application for healthcare practitioners featuring local DICOM imaging rendering, appointment scheduling, and automated prescription management.',
-    technologies: ['Flutter Desktop', 'Dart', 'SQLite', 'REST APIs'],
-    thumbnail: '/assets/projects/lumina-thumb.png',
-    cover_image: '/assets/projects/lumina-cover.png',
+    title: 'Prime Time Typing Services',
+    slug: 'prime-time-typing',
+    category: 'Business Website Development',
+    client: 'Prime Time Typing Services (Abu Dhabi, UAE)',
+    tagline: 'Comprehensive government document clearing & corporate typing portal in Abu Dhabi.',
+    short_description: 'A professional UAE business website designed to present typing, documentation and business services.',
+    overview: 'Prime Time Typing Services is an authorized UAE document processing and government clearance center located in Madinat Zayed, Abu Dhabi. They provide expedited processing for Tasheel, MOHRE Labour Permits, ICP Residency Visas, Emirates ID, Tamm, and MOFA attestations. Appzio designed an intuitive business portal that organizes complex clearance procedures and converts visits into customer consultations.',
+    objectives: 'Present over 30+ official UAE government clearance services in a clear, accessible structure; provide direct WhatsApp consultation access; rank strongly for high-intent document typing searches in Abu Dhabi.',
+    challenges: 'Presenting multi-layered administrative processes without confusing customers; catering to both English and Arabic speakers; prioritizing mobile telephone and WhatsApp outreach.',
+    solutions: 'Structured services by issuing authority (Tasheel, MOHRE, ICP, Tamm), created step-by-step document requirement checklists, integrated instant WhatsApp routing, and embedded local Abu Dhabi business metadata.',
+    key_features: [
+      'Structured Government Service Directory (Tasheel, MOHRE, ICP, Tamm, MOFA)',
+      'Bilingual Architecture (English & Arabic) for UAE Residents & Corporates',
+      'One-Tap WhatsApp Consultation & Express Document Evaluation',
+      'Comprehensive Document Checklist & Eligibility Breakdown',
+      'Fast Mobile-First Interface with Zero Clutter'
+    ],
+    technologies: ['React', 'Tailwind CSS', 'Vite', 'Schema.org', 'Responsive UI'],
+    thumbnail: '/assets/projects/primetime-preview.png',
+    cover_image: '/assets/projects/primetime-full.png',
+    gallery_images: [
+      '/assets/projects/primetime-preview.png',
+      '/assets/projects/primetime-full.png'
+    ],
+    live_url: 'https://primetimetypingservice.com/',
     is_featured: 1,
     is_published: 1,
     display_order: 3
   },
   {
     id: 4,
-    title: 'Krona Luxury Architectural Studio Web Experience',
-    slug: 'krona-architectural-web',
-    category: 'Websites',
-    client: 'Krona Architects (Milan & London)',
-    tagline: 'Award-winning digital portfolio showcasing premium architecture',
-    short_description: 'An editorial, high-aesthetic web experience built with smooth page transitions, interactive 3D spatial renders, and responsive typography that elevated client inquiries by 240%.',
-    technologies: ['React', 'TypeScript', 'Tailwind CSS', 'PHP', 'Framer Motion'],
-    thumbnail: '/assets/projects/krona-thumb.png',
-    cover_image: '/assets/projects/krona-cover.png',
+    title: 'Mikhael Gold & Diamonds',
+    slug: 'mikhael-gold-diamonds',
+    category: 'Luxury Website Development',
+    client: 'Mikhael Gold & Diamonds (Kerala, India)',
+    tagline: 'Royal handcrafted Kerala jewellery & certified diamond bridal showcase.',
+    short_description: 'A premium jewellery website concept featuring an elegant visual presentation and luxury-inspired design.',
+    overview: 'Mikhael Gold & Diamonds showcases handcrafted BIS-hallmarked 22K gold jewellery, Kasu Mala, Palakka Mala, temple jhumkas, and certified diamonds. Appzio developed a luxury digital showcase featuring royal heritage aesthetic, Cormorant Garamond serif typography, and tactile visual storytelling.',
+    objectives: 'Translate the timeless luxury and artisan heritage of South Indian bridal jewellery to a premium digital environment; highlight hallmark purity and diamond certification; enable private showroom booking.',
+    challenges: 'Displaying high-resolution gold textures and intricate diamond craft smoothly across devices; conveying luxury prestige without visual clutter.',
+    solutions: 'Crafted an editorial layout with royal burgundy and gold accents, fluid image zoom previews, transparent purity certification guides, and bridal appointment inquiry flows.',
+    key_features: [
+      'Editorial Showcase of Bridal Sets, Kasu Mala, and Certified Diamonds',
+      'Cormorant Garamond Classical Serif Typography & Warm Royal Palette',
+      'BIS 916 Hallmark Certification & Diamond Grade Informational Modules',
+      'Interactive Jewellery Lookbook with High-Fidelity Previews',
+      'Direct Private Bridal Consultation Booking Flow'
+    ],
+    technologies: ['React', 'Tailwind CSS', 'Framer Motion', 'Luxury UI', 'Responsive Design'],
+    thumbnail: '/assets/projects/mikhaelgold-preview.png',
+    cover_image: '/assets/projects/mikhaelgold-full.png',
+    gallery_images: [
+      '/assets/projects/mikhaelgold-preview.png',
+      '/assets/projects/mikhaelgold-full.png'
+    ],
+    live_url: 'https://jinshadnu.github.io/mikhael-gold/',
     is_featured: 1,
     is_published: 1,
     display_order: 4
   },
   {
     id: 5,
-    title: 'PulseFit Mobile Workout Companion & AI Coach',
-    slug: 'pulsefit-ai-workout-app',
-    category: 'Mobile Applications',
-    client: 'PulseFit Inc. (India & USA)',
-    tagline: 'Interactive workout tracker & AI personal fitness guidance',
-    short_description: 'A modern mobile application featuring personalized workout plans, Bluetooth wearable heart-rate telemetry, video coaching, and community challenge boards.',
-    technologies: ['Flutter', 'Dart', 'Kotlin', 'Firebase', 'REST APIs'],
-    thumbnail: '/assets/projects/pulsefit-thumb.png',
-    cover_image: '/assets/projects/pulsefit-cover.png',
+    title: 'Carepoint Auto Hub',
+    slug: 'carepoint-auto-hub',
+    category: 'Business Website Development',
+    client: 'Carepoint Auto Hub (Kerala, India)',
+    tagline: 'High-performance automotive detailing & car care digital service platform.',
+    short_description: 'A professional automotive website designed to showcase services and establish a strong digital business presence.',
+    overview: 'Carepoint Auto Hub is a modern automotive service and detailing facility located in Vadakkekad, Kerala, offering premium snow foam car washes, 3D wheel alignment, ceramic detailing, paint correction, and accessories. Appzio built an energetic, high-contrast digital service portal designed to maximize walk-in service bookings.',
+    objectives: 'Distinguish professional multi-step detailing packages from basic washes; showcase service bays and equipment; provide instant mobile booking and directions.',
+    challenges: 'Designing for busy car owners on mobile devices who need immediate information on packages, pricing, and location.',
+    solutions: 'Engineered an action-oriented mobile layout with high-contrast service cards, package comparison tables, direct WhatsApp booking shortcuts, and integrated Google Maps navigation.',
+    key_features: [
+      'Automotive Detailing & Maintenance Service Catalog',
+      'Clear Package Breakdown (Foam Wash, 3D Alignment, Ceramic Detailing)',
+      '1-Tap Direct WhatsApp Service Booking & Inquiries',
+      'Customer Testimonials & Before/After Detailing Highlights',
+      'Fast Mobile-Optimized Performance for On-The-Go Drivers'
+    ],
+    technologies: ['React', 'Tailwind CSS', 'Vite', 'Lucide React', 'Mobile UX'],
+    thumbnail: '/assets/projects/carepoint-preview.png',
+    cover_image: '/assets/projects/carepoint-full.png',
+    gallery_images: [
+      '/assets/projects/carepoint-preview.png',
+      '/assets/projects/carepoint-full.png'
+    ],
+    live_url: 'https://jinshadnu.github.io/Carepoint-Auto-Hub/',
     is_featured: 1,
     is_published: 1,
     display_order: 5
-  },
-  {
-    id: 6,
-    title: 'Apex SaaS Analytics & Infrastructure Monitoring',
-    slug: 'apex-saas-analytics-suite',
-    category: 'UI/UX Design',
-    client: 'Apex Cloud Systems (Singapore & Germany)',
-    tagline: 'Comprehensive enterprise design system & UI/UX architecture',
-    short_description: 'End-to-end UX research, wireframing, high-fidelity UI design, and complete component design library for a multi-tenant cloud monitoring dashboard.',
-    technologies: ['Figma', 'UI/UX Design', 'Tailwind CSS', 'React'],
-    thumbnail: '/assets/projects/apex-thumb.png',
-    cover_image: '/assets/projects/apex-cover.png',
-    is_featured: 1,
-    is_published: 1,
-    display_order: 6
   }
 ];
 
 const defaultTestimonials: Testimonial[] = [
   {
     id: 1,
-    client_name: 'Alexander Wright',
-    client_title: 'Chief Technology Officer',
-    company: 'Aether Financial Technologies (London, UK)',
-    review: 'Working with APPZIO was a game-changer for our fintech product launch. Their technical mastery of Flutter and backend architecture ensured our app delivered bank-grade reliability with an exceptionally refined, modern interface.',
+    client_name: 'Fahad Al-Mazrouei',
+    client_title: 'Executive Director',
+    company: 'TEPHRA MEP Contracting (Dubai, UAE)',
+    review: 'Appzio delivered a corporate web presence that perfectly aligns with our engineering caliber. The Swiss-inspired minimalism, fast loading speeds, and clear technical service matrices have significantly boosted our credibility during international contractor pre-qualifications in Dubai.',
     rating: 5,
     is_published: 1,
     display_order: 1
   },
   {
     id: 2,
-    client_name: 'Rashid Al-Maktoum',
-    client_title: 'Managing Director',
-    company: 'Novus Freight Logistics (Dubai & Saudi Arabia)',
-    review: 'APPZIO engineered our regional logistics portal from the ground up. Their team has rare dual-competence: deep architectural knowledge coupled with an intuitive eye for premium UX. Our dispatch times plummeted by 40% in the first quarter.',
+    client_name: 'Dr. Abdul Rahman Ghaf',
+    client_title: 'Founder & Publisher',
+    company: 'Ghaf Books & Media LLP',
+    review: 'Working with Appzio on our literary bookstore was an exceptional experience. They understood the subtleties of editorial design, typographic hierarchy, and seamless reader shopping experiences. The platform performs flawlessly across all devices.',
     rating: 5,
     is_published: 1,
     display_order: 2
   },
   {
     id: 3,
-    client_name: 'Elena Rossi',
-    client_title: 'Principal Architect & Partner',
-    company: 'Krona Architectural Studio (Milan, Italy)',
-    review: 'We approached APPZIO with an uncompromising aesthetic vision for our architectural portfolio. They translated our concepts into a silky-smooth, responsive digital reality. Our international client inquiries surged immediately.',
+    client_name: 'Mohammed Mansoor',
+    client_title: 'Managing Director',
+    company: 'Prime Time Typing Services (Abu Dhabi, UAE)',
+    review: 'Organizing more than 30 official UAE government service categories into a clean, intuitive website was a major challenge. Appzio executed this with outstanding clarity and integrated WhatsApp consultation routing that brought in immediate daily client inquiries.',
     rating: 5,
     is_published: 1,
     display_order: 3
   },
   {
     id: 4,
-    client_name: 'Dr. Julian Weber',
-    client_title: 'Head of Medical Operations',
-    company: 'Lumina Health Group (Munich, Germany)',
-    review: 'Building desktop software for healthcare requires absolute precision and zero margin for error. APPZIO delivered an offline-first desktop suite that our clinical staff enjoys using every single day. Their ongoing support is unmatched.',
+    client_name: 'Suhail Mikhael',
+    client_title: 'Director',
+    company: 'Mikhael Gold & Diamonds (Kerala, India)',
+    review: 'Appzio brought royal craftsmanship into our digital presentation. The typography, smooth animations, and gold showcase look stunning on both mobile and desktop screens. Truly a premier digital solutions team.',
     rating: 5,
     is_published: 1,
     display_order: 4
@@ -265,20 +395,18 @@ export const WebsiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const [testimonials, setTestimonials] = useState<Testimonial[]>(defaultTestimonials);
   const [faqs, setFaqs] = useState<FAQ[]>([]);
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const fetchData = useCallback(async () => {
     try {
-      const [settingsRes, projectsRes, servicesRes, testimonialsRes, faqsRes, blogsRes] = await Promise.allSettled([
+      const [settingsRes, projectsRes, servicesRes, testimonialsRes] = await Promise.allSettled([
         api.getSettings(),
         api.getProjects(),
         api.getServices(),
-        api.getTestimonials(),
-        api.getFAQs(),
-        api.getBlogs()
+        api.getTestimonials()
       ]);
 
-      if (settingsRes.status === 'fulfilled' && settingsRes.value) {
+      if (settingsRes.status === 'fulfilled' && settingsRes.value && Object.keys(settingsRes.value).length > 0) {
         setSettings(prev => ({ ...prev, ...settingsRes.value }));
       }
       if (projectsRes.status === 'fulfilled' && Array.isArray(projectsRes.value) && projectsRes.value.length > 0) {
@@ -290,16 +418,8 @@ export const WebsiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ c
       if (testimonialsRes.status === 'fulfilled' && Array.isArray(testimonialsRes.value) && testimonialsRes.value.length > 0) {
         setTestimonials(testimonialsRes.value);
       }
-      if (faqsRes.status === 'fulfilled' && Array.isArray(faqsRes.value)) {
-        setFaqs(faqsRes.value);
-      }
-      if (blogsRes.status === 'fulfilled' && Array.isArray(blogsRes.value)) {
-        setBlogs(blogsRes.value);
-      }
-    } catch (err) {
-      console.warn('Backend API offline or unreachable, using local fallbacks:', err);
-    } finally {
-      setLoading(false);
+    } catch {
+      // In static deployment or offline, fallback to built-in verified default datasets
     }
   }, []);
 
@@ -326,3 +446,4 @@ export const WebsiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ c
 };
 
 export const useWebsiteData = () => useContext(WebsiteDataContext);
+export default WebsiteDataContext;
