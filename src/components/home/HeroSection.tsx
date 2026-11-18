@@ -37,24 +37,35 @@ export const HeroSection: React.FC = () => {
       id="hero"
       className="relative min-h-[92vh] lg:min-h-screen flex items-center justify-center overflow-hidden bg-[#070B14] text-white pt-28 sm:pt-32 lg:pt-24 pb-16 lg:py-0 border-b border-slate-800/80"
     >
-      {/* ── Realistic Team & Engineering Background with Luxury Lighting ── */}
+      {/* ── Realistic Professional Background Image with Transparent Overlay ── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Soft Blended Authentic Team Background */}
+        {/* Full-Fidelity Realistic HD Background Image (Visible & Natural) */}
         <div
-          className="absolute inset-0 bg-cover bg-center sm:bg-[center_top] lg:bg-[right_center] bg-no-repeat opacity-20 mix-blend-luminosity"
+          className="absolute inset-0 bg-cover bg-center lg:bg-[center_25%] bg-no-repeat scale-[1.02] transition-transform duration-1000"
           style={{
             backgroundImage: `url('${getAssetUrl('/assets/hero/hero-banner-team-hd.jpg')}')`,
           }}
         />
 
-        {/* Sophisticated Dark Gradient Wash for 100% Typography Contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#070B14] via-[#070B14]/90 to-[#070B14]/65" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#070B14]/90 via-transparent to-[#070B14]" />
+        {/* Elegant Transparent Directional Tint: realistic photo remains clearly visible while headline and 3D card pop with crisp contrast */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(to right, rgba(7, 11, 20, 0.86) 0%, rgba(10, 17, 34, 0.72) 48%, rgba(7, 11, 20, 0.68) 100%)',
+          }}
+        />
 
-        {/* Ambient Sapphire & Cyan Atmospheric Diffusion Blooms */}
-        <div className="absolute top-[10%] left-[8%] w-[550px] h-[550px] rounded-full bg-[#16BDEB]/12 blur-[170px]" />
-        <div className="absolute bottom-[10%] right-[8%] w-[600px] h-[600px] rounded-full bg-[#2364D8]/18 blur-[180px]" />
-        <div className="absolute top-[40%] right-[35%] w-[400px] h-[400px] rounded-full bg-[#6326C5]/12 blur-[160px]" />
+        {/* Vertical Top/Bottom Transparent Fade for seamless Navbar and Section blending */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(to bottom, rgba(7, 11, 20, 0.5) 0%, transparent 18%, transparent 78%, rgba(7, 11, 20, 0.96) 100%)',
+          }}
+        />
+
+        {/* Soft Ambient Cyan & Sapphire Atmospheric Lighting */}
+        <div className="absolute top-[12%] left-[10%] w-[500px] h-[500px] rounded-full bg-[#16BDEB]/15 blur-[160px]" />
+        <div className="absolute bottom-[10%] right-[10%] w-[550px] h-[550px] rounded-full bg-[#2364D8]/20 blur-[170px]" />
       </div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-10 lg:py-16">
