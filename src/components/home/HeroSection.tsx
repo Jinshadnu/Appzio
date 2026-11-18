@@ -24,47 +24,37 @@ export const HeroSection: React.FC = () => {
   };
 
   const capabilities = [
-    { name: 'Websites', index: 0, icon: Monitor },
-    { name: 'Mobile App', index: 1, icon: Smartphone },
-    { name: 'Billing Software', index: 2, icon: CreditCard },
-    { name: 'Desktop App', index: 3, icon: Cpu },
-    { name: 'ERP Software', index: 4, icon: Box },
-    { name: 'E-Commerce', index: 5, icon: ShoppingCart },
+    { name: 'Websites', index: 0 },
+    { name: 'Mobile Apps', index: 1 },
+    { name: 'Billing & POS', index: 2 },
+    { name: 'Desktop Software', index: 3 },
+    { name: 'Enterprise ERP', index: 4 },
+    { name: 'E-Commerce', index: 5 },
   ];
 
   return (
     <section
       id="hero"
-      className="relative min-h-[94vh] lg:min-h-screen flex items-center justify-center overflow-hidden bg-slate-950 text-white pt-32 sm:pt-36 lg:pt-24 pb-16 lg:py-0 border-b border-slate-800/80"
+      className="relative min-h-[92vh] lg:min-h-screen flex items-center justify-center overflow-hidden bg-[#070B14] text-white pt-28 sm:pt-32 lg:pt-24 pb-16 lg:py-0 border-b border-slate-800/80"
     >
-      {/* ── Realistic Ultra-HD Team Collaboration Background with Cinematic Atmosphere ── */}
+      {/* ── Realistic Team & Engineering Background with Luxury Lighting ── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Background Image */}
+        {/* Soft Blended Authentic Team Background */}
         <div
-          className="absolute inset-0 bg-cover bg-center sm:bg-[center_top] lg:bg-[right_center] bg-no-repeat scale-100 opacity-40 mix-blend-luminosity"
+          className="absolute inset-0 bg-cover bg-center sm:bg-[center_top] lg:bg-[right_center] bg-no-repeat opacity-20 mix-blend-luminosity"
           style={{
             backgroundImage: `url('${getAssetUrl('/assets/hero/hero-banner-team-hd.jpg')}')`,
           }}
         />
 
-        {/* Sophisticated Multi-Layered Directional Overlay for 100% Typography Contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-slate-950/70" />
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/90 via-transparent to-slate-950" />
+        {/* Sophisticated Dark Gradient Wash for 100% Typography Contrast */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#070B14] via-[#070B14]/90 to-[#070B14]/65" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#070B14]/90 via-transparent to-[#070B14]" />
 
-        {/* Ambient 3D Neon Radial Light Spheres */}
-        <div className="absolute top-[10%] left-[5%] w-[600px] h-[600px] rounded-full bg-[#16BDEB]/15 blur-[170px]" />
-        <div className="absolute bottom-[5%] right-[5%] w-[650px] h-[650px] rounded-full bg-[#2364D8]/20 blur-[180px]" />
-        <div className="absolute top-[40%] right-[30%] w-[450px] h-[450px] rounded-full bg-[#6326C5]/15 blur-[160px]" />
-
-        {/* Subtle Cyber Grid Matrix lines */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage:
-              'linear-gradient(to right, #16BDEB 1px, transparent 1px), linear-gradient(to bottom, #16BDEB 1px, transparent 1px)',
-            backgroundSize: '40px 40px',
-          }}
-        />
+        {/* Ambient Sapphire & Cyan Atmospheric Diffusion Blooms */}
+        <div className="absolute top-[10%] left-[8%] w-[550px] h-[550px] rounded-full bg-[#16BDEB]/12 blur-[170px]" />
+        <div className="absolute bottom-[10%] right-[8%] w-[600px] h-[600px] rounded-full bg-[#2364D8]/18 blur-[180px]" />
+        <div className="absolute top-[40%] right-[35%] w-[400px] h-[400px] rounded-full bg-[#6326C5]/12 blur-[160px]" />
       </div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-10 lg:py-16">
@@ -73,19 +63,19 @@ export const HeroSection: React.FC = () => {
           {/* LEFT SIDE – HEADLINE, TAGLINE & INTERACTIVE CAPABILITIES */}
           <div className="lg:col-span-6 xl:col-span-6 flex flex-col items-start text-left">
             
-            {/* Tagline / Subtitle matching reference */}
+            {/* Live Availability Status Indicator */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: easeOut }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 backdrop-blur-md mb-6 shadow-sm group hover:border-[#16BDEB]/40 transition-colors"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 backdrop-blur-md mb-6 shadow-sm"
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
               </span>
               <span className="text-xs sm:text-sm font-medium tracking-wide text-emerald-300">
-                Let&apos;s build something great together
+                Available for New Projects &bull; Worldwide &amp; UAE
               </span>
             </motion.div>
 
@@ -94,12 +84,12 @@ export const HeroSection: React.FC = () => {
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.08, ease: easeOut }}
-              className="text-4xl sm:text-5xl lg:text-[3.25rem] xl:text-[3.75rem] font-extrabold tracking-tight leading-[1.08] text-white mb-6 font-display drop-shadow-md"
+              className="text-4xl sm:text-5xl lg:text-[3.25rem] xl:text-[3.65rem] font-extrabold tracking-tight leading-[1.08] text-white mb-6 font-display drop-shadow-md"
             >
               Digital Solutions for{' '}
               <br className="hidden sm:inline" />
               <span
-                className="bg-clip-text text-transparent"
+                className="bg-clip-text text-transparent inline-block"
                 style={{
                   backgroundImage: 'linear-gradient(120deg, #16BDEB 0%, #38BDF8 40%, #60A5FA 100%)',
                 }}
@@ -118,35 +108,33 @@ export const HeroSection: React.FC = () => {
               We help businesses around the world transform ideas into powerful digital experiences. From modern websites and mobile applications to custom software, e-commerce platforms and business automation, we deliver innovative, scalable and result-driven solutions that drive growth.
             </motion.p>
 
-            {/* Interactive Capability Pills (Synced in Real-Time with 3D Carousel) */}
+            {/* Interactive Capability Switcher (Sleek Horizontal Segmented Tabs) */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2, ease: easeOut }}
-              className="flex flex-wrap items-center gap-2 mb-8"
+              className="w-full max-w-xl p-1 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md mb-8 flex flex-wrap items-center gap-1"
             >
               {capabilities.map((cap) => {
                 const isActive = activeSlideIndex === cap.index;
-                const Icon = cap.icon;
 
                 return (
                   <button
                     key={cap.name}
                     onClick={() => setActiveSlideIndex(cap.index)}
-                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-300 ${
+                    className={`flex-1 min-w-[95px] px-3 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all duration-200 text-center ${
                       isActive
-                        ? 'bg-blue-500/20 text-[#16BDEB] border border-[#16BDEB]/60 shadow-md shadow-[#16BDEB]/20 scale-105'
-                        : 'bg-white/5 text-slate-300 hover:text-white hover:bg-white/10 border border-white/10'
+                        ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
+                        : 'text-slate-400 hover:text-white hover:bg-white/5'
                     }`}
                   >
-                    <Icon className="w-3.5 h-3.5" />
                     <span>{cap.name}</span>
                   </button>
                 );
               })}
             </motion.div>
 
-            {/* Action Buttons: Primary "About Us", "Explore Our Work" & "WhatsApp Now" */}
+            {/* Action Buttons: Primary "Explore Our Work" & Secondary "Start a Project" */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -154,28 +142,28 @@ export const HeroSection: React.FC = () => {
               className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto mb-9"
             >
               <button
-                onClick={() => scrollTo('about')}
-                className="group relative inline-flex items-center justify-center gap-3 px-7 py-3.5 rounded-full text-sm font-bold text-white shadow-xl shadow-blue-500/30 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+                onClick={() => scrollTo('portfolio')}
+                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full text-sm font-bold text-white shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
                 style={{
                   background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #252B9B 100%)',
                 }}
               >
-                <span>About Us</span>
+                <span>Explore Our Work</span>
                 <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
               </button>
 
               <button
-                onClick={() => scrollTo('portfolio')}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-bold text-white bg-white/10 hover:bg-white/20 border border-white/25 backdrop-blur-md transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+                onClick={() => scrollTo('contact')}
+                className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full text-sm font-bold text-white bg-white/10 hover:bg-white/15 border border-white/20 backdrop-blur-md transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
               >
-                <span>Explore Our Work</span>
+                <span>Start a Project</span>
               </button>
 
               <a
                 href={`https://wa.me/${phoneClean}?text=Hello%20APPZIO,%20I%20have%20a%20project%20inquiry.`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full text-xs font-semibold text-emerald-300 bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 backdrop-blur-md transition-all duration-300"
+                className="inline-flex items-center justify-center gap-2 px-5 py-4 rounded-full text-xs font-semibold text-emerald-300 bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 backdrop-blur-md transition-all duration-300"
               >
                 <MessageCircle className="w-4 h-4 text-emerald-400" />
                 <span>WhatsApp</span>
