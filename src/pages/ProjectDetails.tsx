@@ -66,13 +66,13 @@ export const ProjectDetails: React.FC = () => {
 
   if (!project) {
     return (
-      <div className="min-h-screen pt-40 pb-20 max-w-xl mx-auto px-6 text-center space-y-6 bg-[#17191F] text-white">
+      <div className="min-h-screen pt-40 pb-20 max-w-xl mx-auto px-6 text-center space-y-6 bg-white text-slate-900">
         <h1 className="text-3xl font-bold font-display">Case Study Not Found</h1>
-        <p className="text-sm text-slate-400">The requested client project could not be found or has been moved.</p>
+        <p className="text-sm text-slate-600">The requested client project could not be found or has been moved.</p>
         <Link
           to="/portfolio"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold text-white shadow-lg"
-          style={{ background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #6326C5 100%)' }}
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold text-white shadow-lg shadow-blue-500/25"
+          style={{ background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #252B9B 100%)' }}
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Selected Work</span>
@@ -104,12 +104,12 @@ export const ProjectDetails: React.FC = () => {
   const techs = Array.isArray(project.technologies) ? project.technologies : [];
 
   return (
-    <div className="pt-32 pb-24 bg-[#17191F] text-white min-h-screen">
+    <div className="pt-32 pb-24 bg-white text-slate-900 min-h-screen">
       {/* ── Top Breadcrumb Bar ── */}
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mb-8">
         <Link
           to="/portfolio"
-          className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-slate-400 hover:text-[#16BDEB] transition-colors group"
+          className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-slate-500 hover:text-[#2364D8] transition-colors group"
         >
           <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
           <span>Back to All Selected Works</span>
@@ -120,24 +120,24 @@ export const ProjectDetails: React.FC = () => {
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mb-16">
         <div className="max-w-4xl space-y-6">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="px-3.5 py-1 rounded-full text-xs font-mono font-semibold bg-[#16BDEB]/15 text-[#16BDEB] border border-[#16BDEB]/30">
+            <span className="px-3.5 py-1 rounded-full text-xs font-mono font-semibold bg-blue-50 text-[#2364D8] border border-blue-200/80">
               {project.category}
             </span>
-            <span className="px-3.5 py-1 rounded-full text-xs font-mono font-semibold bg-white/10 text-slate-300 border border-white/10">
+            <span className="px-3.5 py-1 rounded-full text-xs font-mono font-semibold bg-slate-100 text-slate-700 border border-slate-200">
               {caseStudyMeta.industry}
             </span>
             {project.client && (
-              <span className="text-xs font-mono text-slate-400">
+              <span className="text-xs font-mono text-slate-500">
                 {project.client}
               </span>
             )}
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight font-display">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight font-display">
             {project.title}
           </h1>
 
-          <p className="text-lg sm:text-xl text-slate-300 leading-relaxed font-normal">
+          <p className="text-lg sm:text-xl text-slate-600 leading-relaxed font-normal">
             {project.short_description}
           </p>
 
@@ -148,9 +148,9 @@ export const ProjectDetails: React.FC = () => {
                 href={project.live_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-sm font-bold text-white shadow-xl shadow-[#2364D8]/20 hover:shadow-[#16BDEB]/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-sm font-bold text-white shadow-xl shadow-blue-500/25 hover:scale-[1.02] active:scale-[0.98] transition-all"
                 style={{
-                  background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #6326C5 100%)',
+                  background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #252B9B 100%)',
                 }}
               >
                 <span>Visit Live Website</span>
@@ -160,7 +160,7 @@ export const ProjectDetails: React.FC = () => {
 
             <a
               href="#requirements"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-colors"
             >
               <span>Explore Architecture Specifications</span>
             </a>
@@ -170,13 +170,13 @@ export const ProjectDetails: React.FC = () => {
 
       {/* ── Authentic Project Showcase Hero Preview ── */}
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mb-20">
-        <div className="relative rounded-3xl overflow-hidden bg-[#1F222B] border border-white/15 shadow-2xl shadow-black/50">
+        <div className="relative rounded-3xl overflow-hidden bg-slate-100 border border-slate-200 shadow-2xl shadow-blue-900/5">
           <img
             src={getAssetUrl(project.thumbnail || project.cover_image || '/assets/projects/tephra-preview.png')}
             alt={`${project.title} Preview`}
             className="w-full h-auto object-cover object-top max-h-[750px]"
           />
-          <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-[#121419]/90 border border-white/20 backdrop-blur-md text-xs font-mono text-[#16BDEB]">
+          <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-white/95 border border-slate-200 shadow-sm backdrop-blur-md text-xs font-mono font-bold text-[#2364D8]">
             AUTHENTIC PRODUCTION PREVIEW
           </div>
         </div>
@@ -190,77 +190,77 @@ export const ProjectDetails: React.FC = () => {
           <div className="lg:col-span-8 space-y-12">
             
             {/* 1. Project Overview */}
-            <div className="p-8 sm:p-9 rounded-3xl bg-[#1F222B]/85 border border-white/10 space-y-4">
-              <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#16BDEB] uppercase tracking-wider">
+            <div className="p-8 sm:p-9 rounded-3xl bg-[#F8F9FD] border border-slate-200/90 space-y-4">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#2364D8] uppercase tracking-wider">
                 <Sparkles className="w-4 h-4" />
                 <span>01. Project Overview</span>
               </div>
-              <h2 className="text-2xl font-bold text-white font-display">
+              <h2 className="text-2xl font-bold text-slate-900 font-display">
                 Executive Overview &amp; Context
               </h2>
-              <p className="text-slate-300 leading-relaxed text-base">
+              <p className="text-slate-600 leading-relaxed text-base">
                 {project.overview || project.short_description}
               </p>
             </div>
 
             {/* 2. Business Requirements */}
-            <div className="p-8 sm:p-9 rounded-3xl bg-[#1F222B]/85 border border-white/10 space-y-4">
+            <div className="p-8 sm:p-9 rounded-3xl bg-[#F8F9FD] border border-slate-200/90 space-y-4">
               <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#2364D8] uppercase tracking-wider">
                 <Building2 className="w-4 h-4" />
                 <span>02. Business Requirements</span>
               </div>
-              <h2 className="text-2xl font-bold text-white font-display">
+              <h2 className="text-2xl font-bold text-slate-900 font-display">
                 Strategic Business Objectives
               </h2>
-              <p className="text-slate-300 leading-relaxed text-base">
+              <p className="text-slate-600 leading-relaxed text-base">
                 {caseStudyMeta.business_requirements}
               </p>
             </div>
 
             {/* 3. Design Approach */}
-            <div className="p-8 sm:p-9 rounded-3xl bg-[#1F222B]/85 border border-white/10 space-y-4">
-              <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6326C5] uppercase tracking-wider">
+            <div className="p-8 sm:p-9 rounded-3xl bg-[#F8F9FD] border border-slate-200/90 space-y-4">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#252B9B] uppercase tracking-wider">
                 <Layers className="w-4 h-4" />
                 <span>03. Design Approach</span>
               </div>
-              <h2 className="text-2xl font-bold text-white font-display">
+              <h2 className="text-2xl font-bold text-slate-900 font-display">
                 UI/UX Philosophy &amp; Visual Identity
               </h2>
-              <p className="text-slate-300 leading-relaxed text-base">
+              <p className="text-slate-600 leading-relaxed text-base">
                 {caseStudyMeta.design_approach}
               </p>
             </div>
 
             {/* 4. Development Approach */}
-            <div className="p-8 sm:p-9 rounded-3xl bg-[#1F222B]/85 border border-white/10 space-y-4">
-              <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#16BDEB] uppercase tracking-wider">
+            <div className="p-8 sm:p-9 rounded-3xl bg-[#F8F9FD] border border-slate-200/90 space-y-4">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#0284C7] uppercase tracking-wider">
                 <Code2 className="w-4 h-4" />
                 <span>04. Development Approach</span>
               </div>
-              <h2 className="text-2xl font-bold text-white font-display">
+              <h2 className="text-2xl font-bold text-slate-900 font-display">
                 Engineering Architecture &amp; Delivery
               </h2>
-              <p className="text-slate-300 leading-relaxed text-base">
+              <p className="text-slate-600 leading-relaxed text-base">
                 {caseStudyMeta.development_approach}
               </p>
             </div>
 
             {/* 5. Key Features */}
-            <div className="p-8 sm:p-9 rounded-3xl bg-[#1F222B]/85 border border-white/10 space-y-6">
-              <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider">
+            <div className="p-8 sm:p-9 rounded-3xl bg-[#F8F9FD] border border-slate-200/90 space-y-6">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-600 uppercase tracking-wider">
                 <CheckCircle2 className="w-4 h-4" />
                 <span>05. Delivered Capabilities</span>
               </div>
-              <h2 className="text-2xl font-bold text-white font-display">
+              <h2 className="text-2xl font-bold text-slate-900 font-display">
                 Key Features Delivered
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {keyFeatures.map((feat, idx) => (
                   <div
                     key={idx}
-                    className="p-4 rounded-2xl bg-white/[0.03] border border-white/5 flex items-start gap-3 text-sm text-slate-200"
+                    className="p-4 rounded-2xl bg-white border border-slate-200/80 flex items-start gap-3 text-sm text-slate-800"
                   >
-                    <CheckCircle2 className="w-4 h-4 text-[#16BDEB] shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-[#2364D8] shrink-0 mt-0.5" />
                     <span>{feat}</span>
                   </div>
                 ))}
@@ -271,12 +271,12 @@ export const ProjectDetails: React.FC = () => {
             {project.cover_image && (
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-bold text-white font-display">
+                  <h3 className="text-lg font-bold text-slate-900 font-display">
                     Full-Length Page Capture
                   </h3>
-                  <span className="text-xs font-mono text-slate-400">Desktop 1440px Viewport</span>
+                  <span className="text-xs font-mono text-slate-500">Desktop 1440px Viewport</span>
                 </div>
-                <div className="rounded-3xl overflow-hidden bg-[#1F222B] border border-white/15 shadow-xl">
+                <div className="rounded-3xl overflow-hidden bg-slate-100 border border-slate-200 shadow-xl">
                   <img
                     src={getAssetUrl(project.cover_image)}
                     alt={`${project.title} Full View`}
@@ -292,35 +292,35 @@ export const ProjectDetails: React.FC = () => {
           {/* Sidebar Specifications (4 cols) */}
           <div className="lg:col-span-4 space-y-8">
             {/* Quick Metadata Box */}
-            <div className="p-7 sm:p-8 rounded-3xl bg-[#1F222B]/90 border border-white/10 space-y-6 sticky top-28">
-              <h3 className="text-lg font-bold text-white font-display pb-4 border-b border-white/10">
+            <div className="p-7 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-lg shadow-blue-900/5 space-y-6 sticky top-28">
+              <h3 className="text-lg font-bold text-slate-900 font-display pb-4 border-b border-slate-100">
                 Project Matrix
               </h3>
 
               <div className="space-y-4 text-sm">
                 <div>
-                  <div className="text-xs font-mono text-slate-400 uppercase">Client / Brand</div>
-                  <div className="font-semibold text-white mt-0.5">{project.client || 'Client Confidential'}</div>
+                  <div className="text-xs font-mono text-slate-500 uppercase">Client / Brand</div>
+                  <div className="font-semibold text-slate-900 mt-0.5">{project.client || 'Client Confidential'}</div>
                 </div>
 
                 <div>
-                  <div className="text-xs font-mono text-slate-400 uppercase">Industry</div>
-                  <div className="font-semibold text-[#16BDEB] mt-0.5">{caseStudyMeta.industry}</div>
+                  <div className="text-xs font-mono text-slate-500 uppercase">Industry</div>
+                  <div className="font-semibold text-[#2364D8] mt-0.5">{caseStudyMeta.industry}</div>
                 </div>
 
                 <div>
-                  <div className="text-xs font-mono text-slate-400 uppercase">Category</div>
-                  <div className="font-semibold text-white mt-0.5">{project.category}</div>
+                  <div className="text-xs font-mono text-slate-500 uppercase">Category</div>
+                  <div className="font-semibold text-slate-900 mt-0.5">{project.category}</div>
                 </div>
 
                 {project.live_url && (
                   <div>
-                    <div className="text-xs font-mono text-slate-400 uppercase">Live Production URL</div>
+                    <div className="text-xs font-mono text-slate-500 uppercase">Live Production URL</div>
                     <a
                       href={project.live_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-semibold text-[#16BDEB] hover:underline flex items-center gap-1.5 mt-0.5"
+                      className="font-semibold text-[#2364D8] hover:underline flex items-center gap-1.5 mt-0.5"
                     >
                       <span>{project.live_url.replace(/^https?:\/\//, '')}</span>
                       <ExternalLink className="w-3.5 h-3.5" />
@@ -330,15 +330,15 @@ export const ProjectDetails: React.FC = () => {
               </div>
 
               {/* Verified Technologies */}
-              <div className="pt-6 border-t border-white/10">
-                <div className="text-xs font-mono text-slate-400 uppercase mb-3">
+              <div className="pt-6 border-t border-slate-100">
+                <div className="text-xs font-mono text-slate-500 uppercase mb-3">
                   Verified Technical Stack
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {techs.map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1 rounded-full text-xs font-mono font-medium bg-white/5 border border-white/10 text-slate-200"
+                      className="px-3 py-1 rounded-full text-xs font-mono font-medium bg-slate-50 border border-slate-200 text-slate-700"
                     >
                       {tech}
                     </span>
@@ -347,15 +347,15 @@ export const ProjectDetails: React.FC = () => {
               </div>
 
               {/* Consultation Prompt */}
-              <div className="pt-6 border-t border-white/10 space-y-3">
-                <div className="text-xs text-slate-400 leading-relaxed">
+              <div className="pt-6 border-t border-slate-100 space-y-3">
+                <div className="text-xs text-slate-500 leading-relaxed">
                   Need a similar high-performance digital solution for your business?
                 </div>
                 <Link
                   to="/#contact"
-                  className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-full font-bold text-white text-xs uppercase tracking-wider shadow-lg"
+                  className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-full font-bold text-white text-xs uppercase tracking-wider shadow-lg shadow-blue-500/25"
                   style={{
-                    background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #6326C5 100%)',
+                    background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #252B9B 100%)',
                   }}
                 >
                   <span>Discuss Your Project</span>
@@ -370,23 +370,23 @@ export const ProjectDetails: React.FC = () => {
 
       {/* ── Next Project Navigation (Item 10) ── */}
       {nextProject && (
-        <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-12 border-t border-white/10">
-          <div className="rounded-3xl bg-[#1F222B]/75 border border-white/10 hover:border-[#16BDEB]/40 p-8 sm:p-12 transition-all duration-300 flex flex-col sm:flex-row sm:items-center justify-between gap-6 group">
+        <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-12 border-t border-slate-200">
+          <div className="rounded-3xl bg-[#F8F9FD] border border-slate-200/90 hover:border-[#2364D8]/40 p-8 sm:p-12 transition-all duration-300 flex flex-col sm:flex-row sm:items-center justify-between gap-6 group">
             <div>
-              <span className="text-xs font-mono text-slate-400 uppercase tracking-widest block mb-2">
+              <span className="text-xs font-mono text-slate-500 uppercase tracking-widest block mb-2">
                 Up Next in Selected Works
               </span>
-              <h3 className="text-2xl sm:text-3xl font-bold text-white font-display group-hover:text-[#16BDEB] transition-colors">
+              <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 font-display group-hover:text-[#2364D8] transition-colors">
                 {nextProject.title}
               </h3>
-              <p className="text-sm text-slate-400 mt-1">
+              <p className="text-sm text-slate-500 mt-1">
                 {nextProject.category} &bull; {nextProject.short_description}
               </p>
             </div>
 
             <Link
               to={`/portfolio/${nextProject.slug}`}
-              className="inline-flex items-center gap-3 px-7 py-3.5 rounded-full text-sm font-bold text-white bg-white/10 hover:bg-white/20 border border-white/15 transition-all shrink-0 self-start sm:self-center"
+              className="inline-flex items-center gap-3 px-7 py-3.5 rounded-full text-sm font-bold text-slate-800 hover:text-[#2364D8] bg-white border border-slate-200 hover:border-blue-300 shadow-sm transition-all shrink-0 self-start sm:self-center"
             >
               <span>View Next Case Study</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />

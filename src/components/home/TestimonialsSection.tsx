@@ -58,7 +58,7 @@ export const TestimonialsSection: React.FC = () => {
   const current = list[currentIndex];
 
   return (
-    <section id="testimonials" className="py-28 relative overflow-hidden bg-[#121419] text-white scroll-mt-16">
+    <section id="testimonials" className="py-28 relative overflow-hidden bg-[#F8F9FD] text-slate-900 scroll-mt-16">
       {/* Background glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 right-1/4 w-[500px] h-[500px] rounded-full bg-[#2364D8]/10 blur-[170px]" />
@@ -73,9 +73,9 @@ export const TestimonialsSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: easeOut }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/10 text-xs font-mono font-bold tracking-widest text-[#16BDEB] uppercase mb-4"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 text-xs font-mono font-bold tracking-widest text-[#2364D8] uppercase mb-4"
           >
-            <Sparkles className="w-3.5 h-3.5 text-[#16BDEB]" />
+            <Sparkles className="w-3.5 h-3.5 text-[#2364D8]" />
             <span>CLIENT PERSPECTIVES</span>
           </motion.div>
 
@@ -84,13 +84,13 @@ export const TestimonialsSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.08, ease: easeOut }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-4 font-display"
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 mb-4 font-display"
           >
             Endorsed by Businesses{' '}
             <span
               className="bg-clip-text text-transparent"
               style={{
-                backgroundImage: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #6326C5 100%)',
+                backgroundImage: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #252B9B 100%)',
               }}
             >
               Across UAE &amp; Worldwide.
@@ -102,95 +102,89 @@ export const TestimonialsSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.16, ease: easeOut }}
-            className="text-base sm:text-lg text-slate-300 leading-relaxed font-normal"
+            className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal"
           >
-            Real feedback from business owners and directors who trusted Appzio to design and engineer their mission-critical digital systems.
+            Read what corporate executives, enterprise leaders, and startup founders say about partnering with Appzio.
           </motion.p>
         </div>
 
-        {/* Testimonial Presentation Card */}
+        {/* Featured Testimonial Card */}
         <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.65, ease: easeOut }}
-            className="relative rounded-3xl bg-[#1F222B]/90 backdrop-blur-2xl border border-white/10 p-8 sm:p-12 lg:p-14 shadow-2xl shadow-black/40 overflow-hidden"
-          >
-            {/* Top Row: Quote Icon & Stars */}
-            <div className="flex items-center justify-between mb-8 pb-6 border-b border-white/10">
-              <div className="w-12 h-12 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-[#16BDEB]">
-                <Quote className="w-6 h-6 rotate-180" />
-              </div>
+          <div className="relative rounded-3xl bg-white border border-slate-200/90 p-8 sm:p-12 lg:p-14 shadow-xl shadow-blue-900/5 overflow-hidden">
+            {/* Ambient Watermark Quote Icon */}
+            <Quote className="absolute -top-4 -right-4 w-40 h-40 text-blue-50 pointer-events-none" />
 
-              {/* 5-Star Rating */}
-              <div className="flex items-center gap-1.5">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-amber-400 text-amber-400" />
-                ))}
-              </div>
-            </div>
-
-            {/* Testimonial Quote */}
             <AnimatePresence mode="wait">
-              <motion.blockquote
+              <motion.div
                 key={currentIndex}
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
+                exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.35, ease: easeOut }}
-                className="text-lg sm:text-xl lg:text-2xl text-slate-200 font-medium leading-relaxed mb-10 italic"
+                className="relative z-10 flex flex-col justify-between min-h-[260px]"
               >
-                &ldquo;{current.review}&rdquo;
-              </motion.blockquote>
-            </AnimatePresence>
-
-            {/* Author Meta & Carousel Navigation */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pt-6 border-t border-white/10">
-              <div className="flex items-center gap-4">
-                <div
-                  className="w-13 h-13 rounded-2xl flex items-center justify-center text-white font-bold text-lg font-display shadow-md p-3"
-                  style={{
-                    background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #6326C5 100%)',
-                  }}
-                >
-                  {current.client_name.charAt(0)}
-                </div>
                 <div>
-                  <h4 className="text-base sm:text-lg font-bold font-display text-white">
-                    {current.client_name}
-                  </h4>
-                  <p className="text-xs sm:text-sm text-slate-400">
-                    {current.client_title ? `${current.client_title} • ` : ''}
-                    <span className="text-[#16BDEB] font-medium">{current.company}</span>
-                  </p>
+                  {/* Rating Stars */}
+                  <div className="flex items-center gap-1.5 mb-6">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-5 h-5 ${
+                          i < (current.rating || 5)
+                            ? 'text-amber-400 fill-amber-400'
+                            : 'text-slate-200 fill-slate-200'
+                        }`}
+                      />
+                    ))}
+                    <span className="ml-2 text-xs font-mono font-bold text-[#2364D8]">
+                      5.0 VERIFIED CLIENT ENDORSEMENT
+                    </span>
+                  </div>
+
+                  {/* Review Text */}
+                  <blockquote className="text-lg sm:text-xl md:text-2xl text-slate-800 font-medium leading-relaxed mb-8">
+                    &ldquo;{current.review}&rdquo;
+                  </blockquote>
                 </div>
-              </div>
 
-              {/* Navigation Controls */}
-              <div className="flex items-center gap-3 self-end sm:self-center">
-                <span className="text-xs font-mono text-slate-400 mr-2">
-                  0{currentIndex + 1} / 0{count}
-                </span>
+                {/* Author Info */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-6 border-t border-slate-100">
+                  <div>
+                    <h4 className="text-lg font-bold text-slate-900 font-display">
+                      {current.client_name}
+                    </h4>
+                    <p className="text-sm text-[#2364D8] font-medium">
+                      {current.client_title}
+                    </p>
+                    <p className="text-xs text-slate-500 font-mono mt-0.5">
+                      {current.company}
+                    </p>
+                  </div>
 
-                <button
-                  onClick={handlePrev}
-                  className="w-11 h-11 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white flex items-center justify-center transition-colors active:scale-95"
-                  aria-label="Previous testimonial"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
-
-                <button
-                  onClick={handleNext}
-                  className="w-11 h-11 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white flex items-center justify-center transition-colors active:scale-95"
-                  aria-label="Next testimonial"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </button>
-              </div>
-            </div>
-          </motion.div>
+                  {/* Navigation Buttons */}
+                  <div className="flex items-center gap-2 self-end sm:self-center">
+                    <button
+                      onClick={handlePrev}
+                      className="p-3 rounded-full bg-slate-100 hover:bg-blue-50 border border-slate-200 text-slate-700 hover:text-[#2364D8] transition-colors"
+                      aria-label="Previous testimonial"
+                    >
+                      <ChevronLeft className="w-5 h-5" />
+                    </button>
+                    <div className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-slate-100 text-slate-600">
+                      0{currentIndex + 1} / 0{count}
+                    </div>
+                    <button
+                      onClick={handleNext}
+                      className="p-3 rounded-full bg-slate-100 hover:bg-blue-50 border border-slate-200 text-slate-700 hover:text-[#2364D8] transition-colors"
+                      aria-label="Next testimonial"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
 
       </div>

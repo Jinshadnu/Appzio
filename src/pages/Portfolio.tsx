@@ -39,29 +39,29 @@ export const Portfolio: React.FC = () => {
   });
 
   return (
-    <div className="bg-[#17191F] text-white min-h-screen pt-32 pb-24">
+    <div className="bg-white text-slate-900 min-h-screen pt-32 pb-24">
       {/* ── Page Hero Header ── */}
       <section className="relative overflow-hidden mb-16">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
           <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/10 text-xs font-mono font-bold tracking-widest text-[#16BDEB] uppercase">
-              <Sparkles className="w-3.5 h-3.5 text-[#16BDEB]" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 text-xs font-mono font-bold tracking-widest text-[#2364D8] uppercase">
+              <Sparkles className="w-3.5 h-3.5 text-[#2364D8]" />
               <span>SELECTED CLIENT PORTFOLIO</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight font-display">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight font-display">
               Selected Work.{' '}
               <span
                 className="bg-clip-text text-transparent"
                 style={{
-                  backgroundImage: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #6326C5 100%)',
+                  backgroundImage: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #252B9B 100%)',
                 }}
               >
                 Built to Make an Impact.
               </span>
             </h1>
 
-            <p className="text-lg text-slate-300 leading-relaxed font-normal">
+            <p className="text-lg text-slate-600 leading-relaxed font-normal">
               Explore a collection of digital experiences and business solutions developed for businesses across different industries in the UAE, GCC, and worldwide.
             </p>
           </div>
@@ -70,7 +70,7 @@ export const Portfolio: React.FC = () => {
 
       {/* ── Controls: Search & Category Filters ── */}
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mb-16">
-        <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-6 pb-8 border-b border-white/10">
+        <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-6 pb-8 border-b border-slate-200">
           {/* Categories */}
           <div className="flex flex-wrap items-center gap-2">
             {categories.map((cat) => (
@@ -79,8 +79,8 @@ export const Portfolio: React.FC = () => {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 ${
                   selectedCategory === cat
-                    ? 'bg-white text-slate-900 shadow-md font-bold'
-                    : 'bg-white/5 text-slate-300 hover:text-white hover:bg-white/10 border border-white/10'
+                    ? 'bg-[#2364D8] text-white shadow-md font-bold'
+                    : 'bg-slate-50 text-slate-700 hover:text-[#2364D8] hover:bg-blue-50/60 border border-slate-200'
                 }`}
               >
                 {cat}
@@ -96,7 +96,7 @@ export const Portfolio: React.FC = () => {
               placeholder="Search projects, industry..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-full bg-white/[0.04] border border-white/10 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-[#16BDEB] transition-colors"
+              className="w-full pl-10 pr-4 py-2.5 rounded-full bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-[#2364D8] transition-colors"
             />
           </div>
         </div>
@@ -111,31 +111,31 @@ export const Portfolio: React.FC = () => {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: idx * 0.1, ease: easeOut }}
-              className="group rounded-3xl bg-[#1F222B]/90 border border-white/10 hover:border-[#16BDEB]/40 transition-all duration-300 overflow-hidden shadow-xl flex flex-col justify-between"
+              className="group rounded-3xl bg-white border border-slate-200/90 hover:border-[#2364D8]/40 transition-all duration-300 overflow-hidden shadow-md hover:shadow-2xl flex flex-col justify-between"
             >
               <div>
                 {/* Visual Preview */}
-                <div className="relative aspect-[16/10] overflow-hidden bg-slate-900">
+                <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
                   <img
                     src={getAssetUrl(project.thumbnail || project.cover_image || '/assets/projects/tephra-preview.png')}
                     alt={project.title}
                     className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out"
                     loading="lazy"
                   />
-                  <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-[#121419]/90 border border-white/15 backdrop-blur-md text-xs font-mono font-bold text-[#16BDEB]">
+                  <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/95 border border-slate-200 shadow-sm backdrop-blur-md text-xs font-mono font-bold text-[#2364D8]">
                     {project.category}
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="p-8">
-                  <div className="text-xs font-mono text-slate-400 mb-2">
+                  <div className="text-xs font-mono text-slate-500 mb-2">
                     {project.client || 'Client Project'}
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-3 font-display">
+                  <h3 className="text-2xl font-bold text-slate-900 mb-3 font-display">
                     {project.title}
                   </h3>
-                  <p className="text-sm text-slate-300 leading-relaxed mb-6">
+                  <p className="text-sm text-slate-600 leading-relaxed mb-6">
                     {project.short_description}
                   </p>
 
@@ -144,7 +144,7 @@ export const Portfolio: React.FC = () => {
                     {project.technologies.slice(0, 4).map((tech) => (
                       <span
                         key={tech}
-                        className="px-2.5 py-0.5 rounded-full text-xs font-mono text-slate-300 bg-white/5 border border-white/10"
+                        className="px-2.5 py-0.5 rounded-full text-xs font-mono text-slate-600 bg-slate-50 border border-slate-200"
                       >
                         {tech}
                       </span>
@@ -154,7 +154,7 @@ export const Portfolio: React.FC = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="p-8 pt-0 flex flex-wrap items-center gap-3 border-t border-white/5 mt-4">
+              <div className="p-8 pt-0 flex flex-wrap items-center gap-3 border-t border-slate-100 mt-4">
                 {project.live_url && (
                   <a
                     href={project.live_url}
@@ -162,7 +162,7 @@ export const Portfolio: React.FC = () => {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold text-white shadow-md transition-transform duration-200 hover:scale-105"
                     style={{
-                      background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #6326C5 100%)',
+                      background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #252B9B 100%)',
                     }}
                   >
                     <span>View Live Website</span>
@@ -171,7 +171,7 @@ export const Portfolio: React.FC = () => {
                 )}
                 <Link
                   to={`/portfolio/${project.slug}`}
-                  className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-semibold text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-colors"
+                  className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-semibold text-slate-700 hover:text-[#2364D8] bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-colors"
                 >
                   <span>View Case Study</span>
                   <ArrowRight className="w-3.5 h-3.5" />

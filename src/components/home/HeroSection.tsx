@@ -15,33 +15,33 @@ export const HeroSection: React.FC = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-[92vh] lg:min-h-screen flex items-center justify-center overflow-hidden bg-[#17191F] text-white pt-28 sm:pt-32 pb-20 lg:py-0"
+      className="relative min-h-[92vh] lg:min-h-screen flex items-center justify-center overflow-hidden bg-white text-slate-900 pt-28 sm:pt-32 pb-20 lg:py-0 border-b border-slate-100"
     >
-      {/* ── Realistic Ultra-HD Architectural Background Image with Cinematic Overlays ── */}
+      {/* ── Realistic Ultra-HD Architectural Background Layered with White & Logo Blue Wash ── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Realistic HD Studio & Skyline Photo */}
+        {/* Realistic Architectural Photo */}
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105 transition-transform duration-1000 opacity-40"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105 opacity-[0.14] mix-blend-multiply"
           style={{
             backgroundImage: `url('${getAssetUrl('/assets/hero/hero-bg-realistic-hd.jpg')}')`,
           }}
         />
 
-        {/* Ambient Brand Color Gradients */}
-        <div className="absolute -top-[20%] -left-[10%] w-[650px] h-[650px] rounded-full bg-[#16BDEB]/15 blur-[160px]" />
-        <div className="absolute top-[25%] -right-[15%] w-[600px] h-[600px] rounded-full bg-[#6326C5]/20 blur-[170px]" />
-        <div className="absolute -bottom-[20%] left-[30%] w-[550px] h-[550px] rounded-full bg-[#2364D8]/15 blur-[160px]" />
+        {/* Ambient Logo Blue & Cyan Gradients */}
+        <div className="absolute -top-[15%] -left-[10%] w-[650px] h-[650px] rounded-full bg-[#16BDEB]/10 blur-[150px]" />
+        <div className="absolute top-[25%] -right-[15%] w-[600px] h-[600px] rounded-full bg-[#2364D8]/10 blur-[160px]" />
+        <div className="absolute -bottom-[20%] left-[30%] w-[550px] h-[550px] rounded-full bg-[#252B9B]/6 blur-[150px]" />
 
-        {/* Cinematic Vignette & Gradient Overlays for High Contrast Readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#17191F] via-[#17191F]/90 to-[#17191F]/65" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#17191F]/90 via-transparent to-[#17191F]" />
+        {/* White Vignette Gradient for High Contrast Typography */}
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-transparent to-white" />
 
         {/* Subtle Tech Grid lines */}
         <div
           className="absolute inset-0 opacity-[0.035]"
           style={{
             backgroundImage:
-              'linear-gradient(to right, #FFFFFF 1px, transparent 1px), linear-gradient(to bottom, #FFFFFF 1px, transparent 1px)',
+              'linear-gradient(to right, #2364D8 1px, transparent 1px), linear-gradient(to bottom, #2364D8 1px, transparent 1px)',
             backgroundSize: '48px 48px',
           }}
         />
@@ -59,13 +59,13 @@ export const HeroSection: React.FC = () => {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: easeOut }}
-              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/[0.06] border border-white/10 backdrop-blur-md mb-6 shadow-sm group hover:border-[#16BDEB]/30 transition-colors"
+              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 backdrop-blur-md mb-6 shadow-xs group hover:border-[#2364D8]/40 transition-colors"
             >
               <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#16BDEB] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#2364D8]" />
               </span>
-              <span className="text-xs font-semibold tracking-wider text-slate-200">
+              <span className="text-xs font-bold tracking-wider text-[#2364D8]">
                 Available for New Projects &bull; UAE &amp; Global Delivery
               </span>
             </motion.div>
@@ -75,14 +75,14 @@ export const HeroSection: React.FC = () => {
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.08, ease: easeOut }}
-              className="text-4xl sm:text-5xl lg:text-[3.5rem] xl:text-[4rem] font-extrabold tracking-tight leading-[1.08] text-white mb-6 font-display"
+              className="text-4xl sm:text-5xl lg:text-[3.5rem] xl:text-[4rem] font-extrabold tracking-tight leading-[1.08] text-slate-900 mb-6 font-display"
             >
               Digital Solutions.{' '}
               <br className="hidden sm:inline" />
               <span
                 className="bg-clip-text text-transparent"
                 style={{
-                  backgroundImage: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #6326C5 100%)',
+                  backgroundImage: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #252B9B 100%)',
                 }}
               >
                 Limitless Possibilities.
@@ -94,7 +94,7 @@ export const HeroSection: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.16, ease: easeOut }}
-              className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed mb-9 max-w-xl"
+              className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed mb-9 max-w-xl"
             >
               We transform ideas into powerful digital experiences through modern websites, mobile applications and intelligent business software.
             </motion.p>
@@ -108,9 +108,9 @@ export const HeroSection: React.FC = () => {
             >
               <button
                 onClick={() => scrollTo('portfolio')}
-                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full text-base font-bold text-white shadow-xl shadow-[#2364D8]/25 hover:shadow-[#16BDEB]/35 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full text-base font-bold text-white shadow-xl shadow-blue-500/25 hover:shadow-blue-500/35 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
                 style={{
-                  background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #6326C5 100%)',
+                  background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #252B9B 100%)',
                 }}
               >
                 <span>Explore Our Work</span>
@@ -119,7 +119,7 @@ export const HeroSection: React.FC = () => {
 
               <button
                 onClick={() => scrollTo('contact')}
-                className="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full text-base font-semibold text-white bg-white/[0.06] hover:bg-white/[0.12] border border-white/15 hover:border-white/30 backdrop-blur-md transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+                className="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full text-base font-bold text-slate-800 bg-white hover:bg-slate-50 border border-slate-300/90 shadow-sm transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
               >
                 <span>Start a Project</span>
               </button>
@@ -130,19 +130,19 @@ export const HeroSection: React.FC = () => {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.32, ease: easeOut }}
-              className="grid grid-cols-2 sm:grid-cols-3 gap-5 pt-6 border-t border-white/10 w-full"
+              className="grid grid-cols-2 sm:grid-cols-3 gap-5 pt-6 border-t border-slate-200/80 w-full"
             >
               <div className="flex items-center gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-[#16BDEB] shrink-0" />
-                <span className="text-xs sm:text-sm text-slate-300 font-medium">Bespoke Architecture</span>
-              </div>
-              <div className="flex items-center gap-2.5">
                 <CheckCircle2 className="w-4 h-4 text-[#2364D8] shrink-0" />
-                <span className="text-xs sm:text-sm text-slate-300 font-medium">UAE &amp; GCC Delivery</span>
+                <span className="text-xs sm:text-sm text-slate-700 font-semibold">Bespoke Architecture</span>
               </div>
               <div className="flex items-center gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-[#6326C5] shrink-0" />
-                <span className="text-xs sm:text-sm text-slate-300 font-medium">24/7 SLA Engineering</span>
+                <CheckCircle2 className="w-4 h-4 text-[#16BDEB] shrink-0" />
+                <span className="text-xs sm:text-sm text-slate-700 font-semibold">UAE &amp; GCC Delivery</span>
+              </div>
+              <div className="flex items-center gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-[#252B9B] shrink-0" />
+                <span className="text-xs sm:text-sm text-slate-700 font-semibold">24/7 SLA Engineering</span>
               </div>
             </motion.div>
 

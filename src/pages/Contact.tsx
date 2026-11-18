@@ -8,7 +8,7 @@ export const Contact: React.FC = () => {
   }, []);
 
   return (
-    <div className="bg-[#17191F] text-white min-h-screen pt-20">
+    <div className="bg-white text-slate-900 min-h-screen pt-20">
       <ContactSection />
     </div>
   );

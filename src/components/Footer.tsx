@@ -41,9 +41,9 @@ export const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="relative bg-[#0F1115] text-white border-t border-white/10 pt-20 pb-12 overflow-hidden">
+    <footer className="relative bg-[#0A1128] text-white border-t border-slate-800/80 pt-20 pb-12 overflow-hidden">
       {/* Background ambient lighting */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-[#2364D8]/10 blur-[140px] pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-[#2364D8]/15 blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         

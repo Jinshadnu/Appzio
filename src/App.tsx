@@ -37,7 +37,7 @@ const AppContent: React.FC = () => {
   const isAdminRoute = location.pathname.startsWith('/admin');
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#17191F] text-white selection:bg-[#16BDEB] selection:text-slate-900">
+    <div className="flex flex-col min-h-screen bg-white text-slate-900 selection:bg-[#2364D8] selection:text-white">
       {!isAdminRoute && <Navbar />}
 
       <main className="flex-grow">

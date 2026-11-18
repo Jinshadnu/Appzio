@@ -15,7 +15,7 @@ export const TechnologyExpertiseSection: React.FC = () => {
       id: 'frontend',
       label: 'Frontend',
       icon: Code,
-      color: '#16BDEB',
+      color: '#0284C7',
       skills: [
         { name: 'React', level: 'Production Core', desc: 'SPA & interactive web architectures' },
         { name: 'JavaScript (ES6+)', level: 'Core Language', desc: 'Modern asynchronous client programming' },
@@ -39,7 +39,7 @@ export const TechnologyExpertiseSection: React.FC = () => {
       id: 'backend',
       label: 'Backend & APIs',
       icon: Server,
-      color: '#6326C5',
+      color: '#252B9B',
       skills: [
         { name: 'PHP', level: 'Enterprise Core', desc: 'Secure server-side logic and RESTful endpoints' },
         { name: 'Node.js', level: 'Event-Driven', desc: 'Fast, non-blocking asynchronous microservices' },
@@ -50,7 +50,7 @@ export const TechnologyExpertiseSection: React.FC = () => {
       id: 'database',
       label: 'Database',
       icon: Database,
-      color: '#16BDEB',
+      color: '#0284C7',
       skills: [
         { name: 'MySQL', level: 'Relational Standard', desc: 'High-concurrency transactional storage' },
         { name: 'Firebase', level: 'Cloud Realtime', desc: 'Instant authentication, push & Firestore' },
@@ -78,11 +78,11 @@ export const TechnologyExpertiseSection: React.FC = () => {
       : techCategories.filter((cat) => cat.id === activeTab);
 
   return (
-    <section id="technology" className="py-28 relative overflow-hidden bg-[#17191F] text-white scroll-mt-16">
+    <section id="technology" className="py-28 relative overflow-hidden bg-[#F8F9FD] text-slate-900 scroll-mt-16">
       {/* Background glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] rounded-full bg-[#16BDEB]/10 blur-[170px]" />
-        <div className="absolute bottom-1/3 right-1/4 w-[500px] h-[500px] rounded-full bg-[#6326C5]/15 blur-[170px]" />
+        <div className="absolute bottom-1/3 right-1/4 w-[500px] h-[500px] rounded-full bg-[#2364D8]/10 blur-[170px]" />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
@@ -93,9 +93,9 @@ export const TechnologyExpertiseSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: easeOut }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/10 text-xs font-mono font-bold tracking-widest text-[#16BDEB] uppercase mb-4"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 text-xs font-mono font-bold tracking-widest text-[#2364D8] uppercase mb-4"
           >
-            <Sparkles className="w-3.5 h-3.5 text-[#16BDEB]" />
+            <Sparkles className="w-3.5 h-3.5 text-[#2364D8]" />
             <span>VERIFIED TECHNICAL STACK</span>
           </motion.div>
 
@@ -104,16 +104,16 @@ export const TechnologyExpertiseSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.08, ease: easeOut }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-4 font-display"
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 mb-4 font-display"
           >
-            Engineering With{' '}
+            Built With Modern,{' '}
             <span
               className="bg-clip-text text-transparent"
               style={{
-                backgroundImage: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #6326C5 100%)',
+                backgroundImage: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #252B9B 100%)',
               }}
             >
-              Proven Technologies.
+              Enterprise-Grade Tech.
             </span>
           </motion.h2>
 
@@ -122,92 +122,84 @@ export const TechnologyExpertiseSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.16, ease: easeOut }}
-            className="text-base sm:text-lg text-slate-300 leading-relaxed font-normal"
+            className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal"
           >
-            We choose reliable, maintainable, and modern tools that offer long-term stability and high performance for your digital products.
+            Our core engineering stack is selected for speed, long-term maintainability, platform security, and seamless scalability across devices.
           </motion.p>
         </div>
 
-        {/* Tab Filters */}
+        {/* Filter Navigation Tabs */}
         <div className="flex flex-wrap items-center gap-2 mb-12">
           <button
             onClick={() => setActiveTab('all')}
-            className={`px-5 py-2 rounded-full text-xs font-semibold transition-all duration-200 ${
+            className={`px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide transition-all ${
               activeTab === 'all'
-                ? 'bg-white text-slate-900 shadow-md font-bold'
-                : 'bg-white/5 text-slate-300 hover:text-white hover:bg-white/10 border border-white/10'
+                ? 'bg-[#2364D8] text-white shadow-md shadow-blue-500/25'
+                : 'bg-white text-slate-600 hover:text-slate-900 border border-slate-200/80 hover:bg-slate-50'
             }`}
           >
             All Disciplines
           </button>
-          {techCategories.map((cat) => {
-            const Icon = cat.icon;
-            const isSelected = activeTab === cat.id;
-
-            return (
-              <button
-                key={cat.id}
-                onClick={() => setActiveTab(cat.id)}
-                className={`flex items-center gap-2 px-5 py-2 rounded-full text-xs font-semibold transition-all duration-200 ${
-                  isSelected
-                    ? 'bg-white text-slate-900 shadow-md font-bold'
-                    : 'bg-white/5 text-slate-300 hover:text-white hover:bg-white/10 border border-white/10'
-                }`}
-              >
-                <Icon className="w-3.5 h-3.5" />
-                <span>{cat.label}</span>
-              </button>
-            );
-          })}
+          {techCategories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setActiveTab(cat.id)}
+              className={`px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide transition-all ${
+                activeTab === cat.id
+                  ? 'bg-[#2364D8] text-white shadow-md shadow-blue-500/25'
+                  : 'bg-white text-slate-600 hover:text-slate-900 border border-slate-200/80 hover:bg-slate-50'
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
         </div>
 
-        {/* Categories & Skills Display */}
-        <div className="space-y-10">
+        {/* Categories Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredCategories.map((cat, idx) => {
-            const CategoryIcon = cat.icon;
-
+            const Icon = cat.icon;
             return (
               <motion.div
                 key={cat.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 25 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.08, ease: easeOut }}
-                className="rounded-3xl bg-[#1F222B]/75 backdrop-blur-xl border border-white/10 p-7 sm:p-8"
+                className="group rounded-3xl bg-white border border-slate-200/90 p-8 shadow-sm hover:shadow-xl hover:border-[#2364D8]/40 transition-all duration-300"
               >
                 {/* Category Header */}
-                <div className="flex items-center gap-3 pb-6 mb-6 border-b border-white/10">
-                  <div className="w-10 h-10 rounded-xl bg-white/[0.06] border border-white/10 flex items-center justify-center">
-                    <CategoryIcon className="w-5 h-5 text-white" />
+                <div className="flex items-center gap-3.5 mb-6 pb-5 border-b border-slate-100">
+                  <div className="w-11 h-11 rounded-2xl bg-blue-50 border border-blue-200/80 flex items-center justify-center text-[#2364D8] group-hover:scale-110 transition-transform">
+                    <Icon className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-white font-display">
-                      {cat.label} Engineering
+                    <h3 className="text-lg font-bold text-slate-900 font-display">
+                      {cat.label}
                     </h3>
-                    <p className="text-xs text-slate-400">
-                      Production-tested technologies genuinely mastered and supported by Appzio
-                    </p>
+                    <span className="text-xs font-mono text-slate-500">
+                      {cat.skills.length} core technologies
+                    </span>
                   </div>
                 </div>
 
-                {/* Grid of Technologies */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                  {cat.skills.map((skill) => (
+                {/* Skills Stack List */}
+                <div className="space-y-3.5">
+                  {cat.skills.map((sk) => (
                     <div
-                      key={skill.name}
-                      className="p-4 rounded-2xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/5 hover:border-white/15 transition-all duration-200 group"
+                      key={sk.name}
+                      className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/70 hover:border-blue-300 hover:bg-blue-50/40 transition-colors"
                     >
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-base font-bold text-white font-display group-hover:text-[#16BDEB] transition-colors">
-                          {skill.name}
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-sm font-bold text-slate-900 font-display">
+                          {sk.name}
                         </span>
-                        <span className="w-2 h-2 rounded-full bg-[#16BDEB]" />
+                        <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-blue-50 text-[#2364D8] border border-blue-200/80">
+                          {sk.level}
+                        </span>
                       </div>
-                      <span className="text-xs font-mono font-medium text-slate-400 block mb-1">
-                        {skill.level}
-                      </span>
-                      <p className="text-xs text-slate-400 leading-relaxed">
-                        {skill.desc}
+                      <p className="text-xs text-slate-500 leading-relaxed">
+                        {sk.desc}
                       </p>
                     </div>
                   ))}
