@@ -22,7 +22,7 @@ export const HeroSection: React.FC = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-[92vh] lg:min-h-screen flex items-center justify-center overflow-hidden bg-slate-950 text-white pt-24 sm:pt-28 pb-16 lg:py-0 border-b border-slate-800/80"
+      className="relative min-h-[92vh] lg:min-h-screen flex items-center justify-center overflow-hidden bg-slate-950 text-white pt-32 sm:pt-36 lg:pt-20 pb-16 lg:py-0 border-b border-slate-800/80"
     >
       {/* ── Full-Width Realistic Ultra-HD Team Collaboration Background Image ── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
