@@ -1,6 +1,8 @@
 # APPZIO Production .htaccess for Hostinger Shared Hosting (Apache)
 # Handles Single Page Application (React) + REST API (PHP) routing
 
+DirectoryIndex index.html index.php
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /

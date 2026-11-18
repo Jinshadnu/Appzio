@@ -27,7 +27,7 @@ export const Home: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative bg-[#17191F] text-white">
+    <div className="relative bg-[#FAFBFE] text-[#111827]">
       {/* 01. Hero Section */}
       <HeroSection />
 
