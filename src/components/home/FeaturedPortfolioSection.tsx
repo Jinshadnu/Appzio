@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  ExternalLink, ArrowRight, Sparkles, Layers, 
-  CheckCircle2, Compass, ShieldCheck, ChevronRight, X,
-  Globe2, Lock, Smartphone, Laptop, Zap, Check, Eye,
-  Building2, ShoppingBag, Award, Database, ArrowUpRight
+  ExternalLink, ArrowRight, Sparkles, 
+  CheckCircle2, X, Lock, Check,
+  ArrowUpRight
 } from 'lucide-react';
 import { motion, AnimatePresence, Easing } from 'framer-motion';
 import { useWebsiteData } from '../../context/WebsiteDataContext';
@@ -25,7 +24,7 @@ export const FeaturedPortfolioSection: React.FC = () => {
   const mikhaelGold = projects.find(p => p.slug === 'mikhael-gold-diamonds') || projects[3];
   const carepoint = projects.find(p => p.slug === 'carepoint-auto-hub') || projects[4];
 
-  // Enterprise ERP fallback from projects or built-in authentic software record
+  // Enterprise ERP authentic software record
   const apexProject: Project = projects.find(p => p.slug === 'apex-erp') || {
     id: 99,
     title: 'Apex Multi-Branch ERP & Invoicing Network',
@@ -100,21 +99,12 @@ export const FeaturedPortfolioSection: React.FC = () => {
   return (
     <section
       id="portfolio"
-      className="py-28 lg:py-36 relative overflow-hidden bg-[#070B14] text-white scroll-mt-16 border-b border-white/10"
+      className="py-28 lg:py-36 relative overflow-hidden bg-[#F5F8FD] text-[#111827] scroll-mt-16 border-b border-[#E2E8F0]"
     >
-      {/* ── Background Ambient Lighting Accents ── */}
+      {/* ── Background Subtle Ambient Accents ── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 -right-48 w-[600px] h-[600px] rounded-full bg-[#16BDEB]/10 blur-[170px]" />
-        <div className="absolute bottom-1/4 -left-48 w-[600px] h-[600px] rounded-full bg-[#2364D8]/12 blur-[170px]" />
-        
-        {/* Subtle grid pattern overlay */}
-        <div 
-          className="absolute inset-0 opacity-[0.03]" 
-          style={{
-            backgroundImage: `radial-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px)`,
-            backgroundSize: '32px 32px'
-          }}
-        />
+        <div className="absolute top-1/4 -right-48 w-[600px] h-[600px] rounded-full bg-[#20BCE5]/5 blur-[170px]" />
+        <div className="absolute bottom-1/4 -left-48 w-[600px] h-[600px] rounded-full bg-[#2563EB]/5 blur-[170px]" />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
@@ -127,9 +117,9 @@ export const FeaturedPortfolioSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, ease: easeOut }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 backdrop-blur-md text-xs font-mono font-bold tracking-widest text-[#16BDEB] uppercase mb-4 shadow-sm"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 text-xs font-mono font-bold tracking-widest text-[#2563EB] uppercase mb-4 shadow-xs"
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#16BDEB]" />
+              <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />
               <span>SELECTED CLIENT WORK &bull; PROVEN IMPACT</span>
             </motion.div>
 
@@ -138,13 +128,13 @@ export const FeaturedPortfolioSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.08, ease: easeOut }}
-              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-4 font-display"
+              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#111827] mb-4 font-display"
             >
               Selected Work.{' '}
               <span
                 className="bg-clip-text text-transparent inline-block"
                 style={{
-                  backgroundImage: 'linear-gradient(120deg, #16BDEB 0%, #38BDF8 40%, #60A5FA 100%)',
+                  backgroundImage: 'linear-gradient(120deg, #20BCE5 0%, #2563EB 60%, #1D4ED8 100%)',
                 }}
               >
                 Built to Make an Impact.
@@ -156,7 +146,7 @@ export const FeaturedPortfolioSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.16, ease: easeOut }}
-              className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed"
+              className="text-base sm:text-lg text-[#52627A] font-normal leading-relaxed"
             >
               Explore our portfolio of high-performance websites, bespoke applications, and enterprise software built for prominent brands across the UAE, GCC, and India.
             </motion.p>
@@ -172,7 +162,7 @@ export const FeaturedPortfolioSection: React.FC = () => {
           >
             <Link
               to="/portfolio"
-              className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full text-xs sm:text-sm font-bold text-white bg-white/10 hover:bg-white/15 border border-white/20 backdrop-blur-md transition-all duration-300 hover:scale-[1.02] shadow-sm group"
+              className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full text-xs sm:text-sm font-bold text-[#2563EB] hover:text-white bg-white hover:bg-[#2563EB] border border-[#E2E8F0] hover:border-[#2563EB] shadow-xs transition-all duration-300 group"
             >
               <span>View All Projects</span>
               <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
@@ -188,8 +178,8 @@ export const FeaturedPortfolioSection: React.FC = () => {
               onClick={() => setActiveCategory(cat)}
               className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 ${
                 activeCategory === cat
-                  ? 'bg-gradient-to-r from-[#16BDEB] to-[#2364D8] text-white shadow-lg shadow-blue-500/25 scale-[1.02]'
-                  : 'bg-white/5 text-slate-300 hover:text-white hover:bg-white/10 border border-white/10'
+                  ? 'bg-gradient-to-r from-[#20BCE5] to-[#2563EB] text-white shadow-md shadow-blue-500/20 scale-[1.02]'
+                  : 'bg-white text-[#52627A] hover:text-[#111827] hover:bg-slate-50 border border-[#E2E8F0]'
               }`}
             >
               {cat}
@@ -204,31 +194,31 @@ export const FeaturedPortfolioSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: easeOut }}
-            className="relative rounded-[2rem] p-1.5 sm:p-2 bg-gradient-to-b from-white/20 via-white/10 to-slate-900/80 backdrop-blur-2xl border border-white/25 shadow-[0_25px_65px_-12px_rgba(0,0,0,0.8)] overflow-hidden mb-12 group"
+            className="relative rounded-3xl p-1.5 sm:p-2 bg-gradient-to-b from-blue-50 via-white to-slate-100/80 border border-[#E2E8F0] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.08)] overflow-hidden mb-12 group"
           >
-            <div className="rounded-[1.6rem] bg-[#0A1020] p-6 sm:p-8 lg:p-10">
+            <div className="rounded-2xl bg-[#FFFFFF] p-6 sm:p-8 lg:p-10 border border-slate-100">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                 
                 {/* Visual: Realistic macOS Safari Browser Chrome with Real Screenshot */}
                 <div className="lg:col-span-7">
-                  <div className="rounded-2xl overflow-hidden bg-slate-950 border border-white/15 shadow-2xl transition-transform duration-700 group-hover:scale-[1.015]">
+                  <div className="rounded-xl overflow-hidden bg-slate-100 border border-slate-200 shadow-md transition-transform duration-700 group-hover:scale-[1.015]">
                     
                     {/* Safari Chrome Header */}
-                    <div className="px-4 py-2.5 bg-slate-900/90 border-b border-white/10 flex items-center justify-between">
+                    <div className="px-4 py-2.5 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
                       <div className="flex items-center gap-1.5">
-                        <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80 inline-block" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block" />
                       </div>
-                      <div className="px-4 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] font-mono text-slate-400 flex items-center gap-1.5 max-w-[240px] truncate">
-                        <Lock className="w-2.5 h-2.5 text-emerald-400 shrink-0" />
+                      <div className="px-4 py-1 rounded-full bg-white border border-slate-200 text-[11px] font-mono text-slate-500 flex items-center gap-1.5 max-w-[240px] truncate">
+                        <Lock className="w-2.5 h-2.5 text-emerald-500 shrink-0" />
                         <span>tephra.ae</span>
                       </div>
-                      <span className="text-[10px] font-mono text-[#16BDEB]">Dubai, UAE</span>
+                      <span className="text-[10px] font-mono text-[#2563EB] font-bold">Dubai, UAE</span>
                     </div>
 
                     {/* Screenshot Frame (Aspect Ratio 16:10) */}
-                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-900">
+                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-50">
                       <img
                         src={getAssetUrl(tephra.thumbnail || '/assets/projects/tephra-preview.png')}
                         alt={tephra.title}
@@ -242,39 +232,39 @@ export const FeaturedPortfolioSection: React.FC = () => {
                 {/* Content Column */}
                 <div className="lg:col-span-5 flex flex-col justify-center">
                   <div className="flex items-center gap-2 mb-3">
-                    <span className="text-xs font-mono font-bold text-[#16BDEB] uppercase tracking-wider">
+                    <span className="text-xs font-mono font-bold text-[#2563EB] uppercase tracking-wider">
                       FLAGSHIP CORPORATE PORTAL
                     </span>
-                    <span className="text-slate-500">&bull;</span>
-                    <span className="text-xs text-slate-400 font-medium">Dubai, UAE</span>
+                    <span className="text-slate-300">&bull;</span>
+                    <span className="text-xs text-slate-500 font-medium">Dubai, UAE</span>
                   </div>
 
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white mb-3 font-display">
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-[#111827] mb-3 font-display">
                     {tephra.title}
                   </h3>
 
-                  <p className="text-sm text-slate-300 font-normal leading-relaxed mb-6">
+                  <p className="text-sm text-[#52627A] font-normal leading-relaxed mb-6">
                     {tephra.short_description ||
                       'A bespoke corporate engineering portal engineered with Swiss Neo-Grotesque minimalism, sub-second edge loading, and structured JSON-LD SEO schemas for Dubai MEP commercial contracting.'}
                   </p>
 
                   {/* Highlights Matrix */}
-                  <div className="grid grid-cols-2 gap-2.5 mb-6 p-4 rounded-xl bg-white/[0.03] border border-white/10">
+                  <div className="grid grid-cols-2 gap-2.5 mb-6 p-4 rounded-xl bg-slate-50 border border-slate-200/80">
                     <div className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#16BDEB] shrink-0" />
-                      <span className="text-xs text-slate-300 font-medium">UAE Tenders Ready</span>
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#2563EB] shrink-0" />
+                      <span className="text-xs text-[#52627A] font-medium">UAE Tenders Ready</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#16BDEB] shrink-0" />
-                      <span className="text-xs text-slate-300 font-medium">Sub-second Speed</span>
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#2563EB] shrink-0" />
+                      <span className="text-xs text-[#52627A] font-medium">Sub-second Speed</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#16BDEB] shrink-0" />
-                      <span className="text-xs text-slate-300 font-medium">100% SEO Schema</span>
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#2563EB] shrink-0" />
+                      <span className="text-xs text-[#52627A] font-medium">100% SEO Schema</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#16BDEB] shrink-0" />
-                      <span className="text-xs text-slate-300 font-medium">Direct WhatsApp</span>
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#2563EB] shrink-0" />
+                      <span className="text-xs text-[#52627A] font-medium">Direct WhatsApp</span>
                     </div>
                   </div>
 
@@ -283,7 +273,7 @@ export const FeaturedPortfolioSection: React.FC = () => {
                     {tephra.technologies.slice(0, 4).map((tech) => (
                       <span
                         key={tech}
-                        className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300"
+                        className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-slate-50 border border-slate-200/80 text-[#52627A]"
                       >
                         {tech}
                       </span>
@@ -297,9 +287,9 @@ export const FeaturedPortfolioSection: React.FC = () => {
                         href={tephra.live_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] transition-all"
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-white shadow-md shadow-blue-500/20 hover:shadow-blue-500/35 hover:scale-[1.02] transition-all"
                         style={{
-                          background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #252B9B 100%)',
+                          background: 'linear-gradient(120deg, #20BCE5 0%, #2563EB 60%, #1D4ED8 100%)',
                         }}
                       >
                         <span>Visit Live Website</span>
@@ -309,7 +299,7 @@ export const FeaturedPortfolioSection: React.FC = () => {
 
                     <button
                       onClick={() => setSelectedProjectModal(tephra)}
-                      className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-xs font-semibold text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/15 backdrop-blur-md transition-all"
+                      className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-xs font-semibold text-[#111827] hover:text-[#2563EB] bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-all"
                     >
                       <span>Case Details</span>
                     </button>
@@ -322,7 +312,7 @@ export const FeaturedPortfolioSection: React.FC = () => {
           </motion.div>
         )}
 
-        {/* ── Modern Responsive Project Cards Grid ── */}
+        {/* ── Modern Responsive Project Cards Grid (Pure White Surfaces) ── */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {filteredProjects.map((project, idx) => (
             <motion.div
@@ -331,41 +321,40 @@ export const FeaturedPortfolioSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.08, ease: easeOut }}
-              className="group relative rounded-[2rem] p-6 bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-[#16BDEB]/50 transition-all duration-400 backdrop-blur-xl flex flex-col justify-between shadow-lg hover:shadow-[0_20px_50px_rgba(22,189,235,0.12)] hover:-translate-y-2"
+              className="group relative rounded-3xl p-6 bg-[#FFFFFF] border border-[#E2E8F0] hover:border-[#2563EB]/40 transition-all duration-300 flex flex-col justify-between shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_-8px_rgba(37,99,235,0.12)] hover:-translate-y-1.5"
             >
               <div>
                 {/* Device Chrome / Screenshot Frame */}
-                <div className="rounded-xl overflow-hidden bg-slate-950 border border-white/10 mb-5 relative group-hover:border-white/20 transition-colors">
+                <div className="rounded-xl overflow-hidden bg-slate-50 border border-slate-200 mb-5 relative group-hover:border-blue-200 transition-colors">
                   {/* Top Miniature Browser Bar */}
-                  <div className="px-3 py-2 bg-slate-900/90 border-b border-white/10 flex items-center justify-between">
+                  <div className="px-3 py-2 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
                     <div className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-rose-500/80" />
-                      <span className="w-2 h-2 rounded-full bg-amber-500/80" />
-                      <span className="w-2 h-2 rounded-full bg-emerald-500/80" />
+                      <span className="w-2 h-2 rounded-full bg-rose-400" />
+                      <span className="w-2 h-2 rounded-full bg-amber-400" />
+                      <span className="w-2 h-2 rounded-full bg-emerald-400" />
                     </div>
                     <span className="text-[10px] font-mono text-slate-400 truncate max-w-[150px]">
                       {project.slug}.appzio
                     </span>
-                    <span className="text-[10px] font-mono text-[#16BDEB]">
+                    <span className="text-[10px] font-mono text-[#2563EB] font-bold">
                       {project.category.split(' ')[0]}
                     </span>
                   </div>
 
                   {/* Screenshot Viewport (Aspect Ratio 16:10) */}
-                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-900">
+                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-50">
                     <img
                       src={getAssetUrl(project.thumbnail || project.cover_image || '')}
                       alt={project.title}
                       className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                 </div>
 
                 {/* Category & Client Badge */}
                 <div className="flex items-center justify-between gap-2 mb-2">
-                  <span className="text-xs font-mono font-bold text-[#16BDEB] uppercase tracking-wider">
+                  <span className="text-xs font-mono font-bold text-[#2563EB] uppercase tracking-wider">
                     {project.category}
                   </span>
                   {project.client && (
@@ -376,12 +365,12 @@ export const FeaturedPortfolioSection: React.FC = () => {
                 </div>
 
                 {/* Project Title */}
-                <h3 className="text-xl font-bold text-white mb-2 font-display group-hover:text-[#16BDEB] transition-colors">
+                <h3 className="text-xl font-bold text-[#111827] mb-2 font-display group-hover:text-[#2563EB] transition-colors">
                   {project.title}
                 </h3>
 
                 {/* Short Description */}
-                <p className="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed mb-5 line-clamp-3">
+                <p className="text-xs sm:text-sm text-[#52627A] font-normal leading-relaxed mb-5 line-clamp-3">
                   {project.short_description || project.tagline}
                 </p>
 
@@ -390,13 +379,13 @@ export const FeaturedPortfolioSection: React.FC = () => {
                   {project.technologies.slice(0, 3).map((tech) => (
                     <span
                       key={tech}
-                      className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-slate-300"
+                      className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-50 border border-slate-200/80 text-[#52627A]"
                     >
                       {tech}
                     </span>
                   ))}
                   {project.technologies.length > 3 && (
-                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-white/5 text-slate-500">
+                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-slate-50 text-slate-400">
                       +{project.technologies.length - 3}
                     </span>
                   )}
@@ -404,13 +393,13 @@ export const FeaturedPortfolioSection: React.FC = () => {
               </div>
 
               {/* Bottom Actions */}
-              <div className="pt-4 border-t border-white/10 flex items-center justify-between gap-3">
+              <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
                 {project.live_url ? (
                   <a
                     href={project.live_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#16BDEB] hover:text-white transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2563EB] hover:text-[#1D4ED8] transition-colors"
                   >
                     <span>View Live Site</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
@@ -418,7 +407,7 @@ export const FeaturedPortfolioSection: React.FC = () => {
                 ) : (
                   <button
                     onClick={() => setSelectedProjectModal(project)}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#16BDEB] hover:text-white transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2563EB] hover:text-[#1D4ED8] transition-colors"
                   >
                     <span>View Architecture</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -427,7 +416,7 @@ export const FeaturedPortfolioSection: React.FC = () => {
 
                 <button
                   onClick={() => setSelectedProjectModal(project)}
-                  className="px-3 py-1.5 rounded-full text-xs font-medium text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-colors"
+                  className="px-3 py-1.5 rounded-full text-xs font-medium text-slate-600 hover:text-[#111827] bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-colors"
                 >
                   Details
                 </button>
@@ -438,7 +427,7 @@ export const FeaturedPortfolioSection: React.FC = () => {
 
       </div>
 
-      {/* ── Case Study Overview Modal ── */}
+      {/* ── Case Study Overview Modal (Pure White Canvas) ── */}
       <AnimatePresence>
         {selectedProjectModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
@@ -448,7 +437,7 @@ export const FeaturedPortfolioSection: React.FC = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedProjectModal(null)}
-              className="fixed inset-0 bg-slate-950/85 backdrop-blur-xl"
+              className="fixed inset-0 bg-slate-900/40 backdrop-blur-md"
             />
 
             {/* Modal Dialog */}
@@ -457,12 +446,12 @@ export const FeaturedPortfolioSection: React.FC = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.3, ease: easeOut }}
-              className="relative w-full max-w-3xl rounded-[2rem] bg-[#0A1020] border border-white/20 p-6 sm:p-8 text-white shadow-2xl z-10 max-h-[90vh] overflow-y-auto"
+              className="relative w-full max-w-3xl rounded-3xl bg-[#FFFFFF] border border-[#E2E8F0] p-6 sm:p-8 text-[#111827] shadow-2xl z-10 max-h-[90vh] overflow-y-auto"
             >
               {/* Close Button */}
               <button
                 onClick={() => setSelectedProjectModal(null)}
-                className="absolute top-5 right-5 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center text-slate-300 hover:text-white transition-colors"
+                className="absolute top-5 right-5 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-800 transition-colors"
                 aria-label="Close dialog"
               >
                 <X className="w-4 h-4" />
@@ -470,16 +459,16 @@ export const FeaturedPortfolioSection: React.FC = () => {
 
               {/* Header */}
               <div className="mb-4">
-                <span className="text-xs font-mono font-bold text-[#16BDEB] uppercase tracking-wider block mb-1">
+                <span className="text-xs font-mono font-bold text-[#2563EB] uppercase tracking-wider block mb-1">
                   {selectedProjectModal.category} &bull; {selectedProjectModal.client}
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-display">
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-[#111827] font-display">
                   {selectedProjectModal.title}
                 </h3>
               </div>
 
               {/* Screenshot Preview */}
-              <div className="rounded-xl overflow-hidden bg-slate-950 border border-white/15 mb-6">
+              <div className="rounded-xl overflow-hidden bg-slate-50 border border-slate-200 mb-6">
                 <img
                   src={getAssetUrl(selectedProjectModal.cover_image || selectedProjectModal.thumbnail || '')}
                   alt={selectedProjectModal.title}
@@ -488,21 +477,21 @@ export const FeaturedPortfolioSection: React.FC = () => {
               </div>
 
               {/* Overview */}
-              <p className="text-sm text-slate-300 leading-relaxed mb-6 font-normal">
+              <p className="text-sm text-[#52627A] leading-relaxed mb-6 font-normal">
                 {selectedProjectModal.overview || selectedProjectModal.short_description}
               </p>
 
               {/* Key Features */}
               {selectedProjectModal.key_features && selectedProjectModal.key_features.length > 0 && (
-                <div className="mb-6 p-4 rounded-xl bg-white/[0.03] border border-white/10">
-                  <h4 className="text-xs font-mono font-bold text-slate-200 uppercase tracking-wider mb-2.5">
+                <div className="mb-6 p-4 rounded-xl bg-slate-50 border border-[#E2E8F0]">
+                  <h4 className="text-xs font-mono font-bold text-[#111827] uppercase tracking-wider mb-2.5">
                     Engineering Deliverables
                   </h4>
                   <div className="space-y-1.5">
                     {selectedProjectModal.key_features.map((feat) => (
                       <div key={feat} className="flex items-start gap-2">
-                        <Check className="w-3.5 h-3.5 text-[#16BDEB] shrink-0 mt-0.5" />
-                        <span className="text-xs text-slate-300">{feat}</span>
+                        <Check className="w-3.5 h-3.5 text-[#2563EB] shrink-0 mt-0.5" />
+                        <span className="text-xs text-[#52627A]">{feat}</span>
                       </div>
                     ))}
                   </div>
@@ -511,14 +500,14 @@ export const FeaturedPortfolioSection: React.FC = () => {
 
               {/* Tech Stack */}
               <div className="mb-6">
-                <h4 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider mb-2">
+                <h4 className="text-xs font-mono font-bold text-slate-500 uppercase tracking-wider mb-2">
                   Technologies Utilized
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {selectedProjectModal.technologies.map((t) => (
                     <span
                       key={t}
-                      className="px-2.5 py-1 rounded-full text-xs font-mono bg-blue-500/10 text-sky-300 border border-blue-400/25"
+                      className="px-2.5 py-1 rounded-full text-xs font-mono bg-blue-50 text-[#2563EB] border border-blue-200/80"
                     >
                       {t}
                     </span>
@@ -527,15 +516,15 @@ export const FeaturedPortfolioSection: React.FC = () => {
               </div>
 
               {/* Actions */}
-              <div className="flex items-center gap-3 pt-4 border-t border-white/10">
+              <div className="flex items-center gap-3 pt-4 border-t border-slate-100">
                 {selectedProjectModal.live_url ? (
                   <a
                     href={selectedProjectModal.live_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] transition-all"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-white shadow-md shadow-blue-500/20 hover:shadow-blue-500/35 hover:scale-[1.02] transition-all"
                     style={{
-                      background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #252B9B 100%)',
+                      background: 'linear-gradient(120deg, #20BCE5 0%, #2563EB 60%, #1D4ED8 100%)',
                     }}
                   >
                     <span>Launch Live Site</span>
@@ -545,9 +534,9 @@ export const FeaturedPortfolioSection: React.FC = () => {
                   <a
                     href="#contact"
                     onClick={() => setSelectedProjectModal(null)}
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] transition-all"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-white shadow-md shadow-blue-500/20 hover:shadow-blue-500/35 hover:scale-[1.02] transition-all"
                     style={{
-                      background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #252B9B 100%)',
+                      background: 'linear-gradient(120deg, #20BCE5 0%, #2563EB 60%, #1D4ED8 100%)',
                     }}
                   >
                     <span>Request Similar Project</span>
@@ -557,7 +546,7 @@ export const FeaturedPortfolioSection: React.FC = () => {
 
                 <button
                   onClick={() => setSelectedProjectModal(null)}
-                  className="px-5 py-3 rounded-full text-xs font-semibold text-slate-400 hover:text-white bg-white/5 border border-white/10 transition-colors"
+                  className="px-5 py-3 rounded-full text-xs font-semibold text-slate-500 hover:text-slate-800 bg-slate-50 border border-slate-200 transition-colors"
                 >
                   Close
                 </button>
