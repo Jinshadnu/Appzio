@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { 
   ExternalLink, ArrowRight, Sparkles, Layers, 
   CheckCircle2, Compass, ShieldCheck, ChevronRight, X,
-  Globe2, Lock, Smartphone, Laptop, Zap, Check, Eye
+  Globe2, Lock, Smartphone, Laptop, Zap, Check, Eye,
+  Building2, ShoppingBag, Award, Database, ArrowUpRight
 } from 'lucide-react';
 import { motion, AnimatePresence, Easing } from 'framer-motion';
 import { useWebsiteData } from '../../context/WebsiteDataContext';
@@ -15,42 +16,109 @@ const easeOut: Easing = 'easeOut';
 export const FeaturedPortfolioSection: React.FC = () => {
   const { projects } = useWebsiteData();
   const [activeCategory, setActiveCategory] = useState<string>('All');
+  const [selectedProjectModal, setSelectedProjectModal] = useState<Project | null>(null);
 
-  // Retrieve the 5 specific client projects
+  // Retrieve authentic projects
   const tephra = projects.find(p => p.slug === 'tephra-ae') || projects[0];
   const ghafBooks = projects.find(p => p.slug === 'ghaf-books-media') || projects[1];
   const primeTime = projects.find(p => p.slug === 'prime-time-typing') || projects[2];
   const mikhaelGold = projects.find(p => p.slug === 'mikhael-gold-diamonds') || projects[3];
   const carepoint = projects.find(p => p.slug === 'carepoint-auto-hub') || projects[4];
 
+  // Enterprise ERP fallback from projects or built-in authentic software record
+  const apexProject: Project = projects.find(p => p.slug === 'apex-erp') || {
+    id: 99,
+    title: 'Apex Multi-Branch ERP & Invoicing Network',
+    slug: 'apex-erp',
+    category: 'ERP & Invoicing Software',
+    client: 'Commercial Retail & Wholesale Network',
+    tagline: 'Multi-branch cloud ERP, point-of-sale, and VAT/GST automated invoicing.',
+    short_description: 'An enterprise cloud ERP and point-of-sale software network engineered for multi-branch retail inventory, automated tax invoicing and sales telemetry.',
+    overview: 'Engineered for high-volume commercial enterprises with distributed branches, Apex ERP automates stock reconciliation across warehouses, synchronizes real-time barcode POS terminals, and generates VAT/GST compliant receipts with instant cloud backups.',
+    objectives: 'Replace fragmented spreadsheets with automated, role-based business management software.',
+    challenges: 'Ensuring offline POS operation during connectivity dips and sub-second multi-branch database synchronization.',
+    solutions: 'Built with PostgreSQL, Redis cache layer, resilient background workers, and barcode peripheral APIs.',
+    key_features: [
+      'Multi-Warehouse Real-Time Inventory & Stock Alerts',
+      'Automated VAT / GST Compliant Invoicing Engine',
+      'POS Touch & Barcode Scanner Integration',
+      'Role-Based Staff Access & Consolidated Financial Audits'
+    ],
+    technologies: ['PostgreSQL', 'Node.js', 'PHP / Laravel', 'Docker', 'Redis'],
+    thumbnail: '/assets/projects/apex-thumb.png',
+    cover_image: '/assets/projects/apex-cover.png',
+    gallery_images: ['/assets/projects/apex-thumb.png', '/assets/projects/apex-cover.png'],
+    live_url: '',
+    is_featured: 1,
+    is_published: 1,
+    display_order: 6
+  };
+
+  const showcaseProjects: Project[] = [
+    tephra,
+    ghafBooks,
+    primeTime,
+    mikhaelGold,
+    carepoint,
+    apexProject
+  ].filter(Boolean);
+
   const categories = [
     'All',
-    'Corporate & Engineering',
+    'Corporate & Web',
     'E-Commerce & Retail',
     'Government & Services',
-    'Luxury & Automotive'
+    'Luxury & Automotive',
+    'ERP & Software'
   ];
 
-  // Helper to determine if a project matches active filter
-  const isVisible = (categoryType: string) => {
-    if (activeCategory === 'All') return true;
-    if (activeCategory === 'Corporate & Engineering') return categoryType === 'corporate';
-    if (activeCategory === 'E-Commerce & Retail') return categoryType === 'ecommerce';
-    if (activeCategory === 'Government & Services') return categoryType === 'government';
-    if (activeCategory === 'Luxury & Automotive') return categoryType === 'luxury' || categoryType === 'automotive';
+  const matchesCategory = (project: Project, cat: string) => {
+    if (cat === 'All') return true;
+    const catLower = project.category.toLowerCase();
+    const titleLower = project.title.toLowerCase();
+
+    if (cat === 'Corporate & Web') {
+      return catLower.includes('corporate') || catLower.includes('web') || titleLower.includes('tephra');
+    }
+    if (cat === 'E-Commerce & Retail') {
+      return catLower.includes('e-commerce') || titleLower.includes('ghaf');
+    }
+    if (cat === 'Government & Services') {
+      return catLower.includes('business') && titleLower.includes('prime');
+    }
+    if (cat === 'Luxury & Automotive') {
+      return catLower.includes('luxury') || titleLower.includes('mikhael') || titleLower.includes('carepoint');
+    }
+    if (cat === 'ERP & Software') {
+      return catLower.includes('erp') || catLower.includes('software') || titleLower.includes('apex');
+    }
     return true;
   };
 
+  const filteredProjects = showcaseProjects.filter(p => matchesCategory(p, activeCategory));
+
   return (
-    <section id="portfolio" className="py-28 relative overflow-hidden bg-[#F8F9FD] text-slate-900 scroll-mt-16 border-b border-slate-200/70">
-      {/* Background ambient lighting */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 -right-40 w-[600px] h-[600px] rounded-full bg-[#16BDEB]/10 blur-[170px]" />
-        <div className="absolute bottom-1/4 -left-40 w-[600px] h-[600px] rounded-full bg-[#2364D8]/10 blur-[170px]" />
+    <section
+      id="portfolio"
+      className="py-28 lg:py-36 relative overflow-hidden bg-[#070B14] text-white scroll-mt-16 border-b border-white/10"
+    >
+      {/* ── Background Ambient Lighting Accents ── */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-1/4 -right-48 w-[600px] h-[600px] rounded-full bg-[#16BDEB]/10 blur-[170px]" />
+        <div className="absolute bottom-1/4 -left-48 w-[600px] h-[600px] rounded-full bg-[#2364D8]/12 blur-[170px]" />
+        
+        {/* Subtle grid pattern overlay */}
+        <div 
+          className="absolute inset-0 opacity-[0.03]" 
+          style={{
+            backgroundImage: `radial-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px)`,
+            backgroundSize: '32px 32px'
+          }}
+        />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
-        
+
         {/* ── Section Header ── */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-8">
           <div className="max-w-3xl">
@@ -59,9 +127,9 @@ export const FeaturedPortfolioSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, ease: easeOut }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 text-xs font-mono font-bold tracking-widest text-[#2364D8] uppercase mb-4 shadow-xs"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 backdrop-blur-md text-xs font-mono font-bold tracking-widest text-[#16BDEB] uppercase mb-4 shadow-sm"
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#2364D8]" />
+              <Sparkles className="w-3.5 h-3.5 text-[#16BDEB]" />
               <span>SELECTED CLIENT WORK &bull; PROVEN IMPACT</span>
             </motion.div>
 
@@ -70,13 +138,13 @@ export const FeaturedPortfolioSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.08, ease: easeOut }}
-              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 mb-4 font-display"
+              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-4 font-display"
             >
               Selected Work.{' '}
               <span
-                className="bg-clip-text text-transparent"
+                className="bg-clip-text text-transparent inline-block"
                 style={{
-                  backgroundImage: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #252B9B 100%)',
+                  backgroundImage: 'linear-gradient(120deg, #16BDEB 0%, #38BDF8 40%, #60A5FA 100%)',
                 }}
               >
                 Built to Make an Impact.
@@ -88,26 +156,26 @@ export const FeaturedPortfolioSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.16, ease: easeOut }}
-              className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal"
+              className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed"
             >
-              Explore a curated collection of live web architectures, enterprise platforms, and digital solutions engineered for prominent businesses in UAE, GCC, and India.
+              Explore our portfolio of high-performance websites, bespoke applications, and enterprise software built for prominent brands across the UAE, GCC, and India.
             </motion.p>
           </div>
 
-          {/* Top Actions & Filters */}
+          {/* Action Link to Full Portfolio Page */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex flex-col sm:flex-row items-start sm:items-center gap-4 shrink-0"
+            className="shrink-0"
           >
             <Link
               to="/portfolio"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold text-[#2364D8] hover:text-white bg-blue-50 hover:bg-[#2364D8] border border-blue-200 transition-all duration-300 shadow-xs group"
+              className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full text-xs sm:text-sm font-bold text-white bg-white/10 hover:bg-white/15 border border-white/20 backdrop-blur-md transition-all duration-300 hover:scale-[1.02] shadow-sm group"
             >
-              <span>View All Case Studies</span>
-              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+              <span>View All Projects</span>
+              <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
             </Link>
           </motion.div>
         </div>
@@ -120,8 +188,8 @@ export const FeaturedPortfolioSection: React.FC = () => {
               onClick={() => setActiveCategory(cat)}
               className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 ${
                 activeCategory === cat
-                  ? 'bg-[#2364D8] text-white shadow-md shadow-blue-500/25 scale-[1.02]'
-                  : 'bg-white text-slate-600 hover:text-slate-900 border border-slate-200/90 hover:bg-slate-50'
+                  ? 'bg-gradient-to-r from-[#16BDEB] to-[#2364D8] text-white shadow-lg shadow-blue-500/25 scale-[1.02]'
+                  : 'bg-white/5 text-slate-300 hover:text-white hover:bg-white/10 border border-white/10'
               }`}
             >
               {cat}
@@ -129,575 +197,376 @@ export const FeaturedPortfolioSection: React.FC = () => {
           ))}
         </div>
 
-        {/* ── Asymmetric Showcase Grid ── */}
-        <div className="space-y-12">
-          
-          {/* ══════════════════════════════════════════════════════════
-              01. FLAGSHIP CORPORATE SHOWCASE: TEPHRA (Dubai, UAE)
-              ══════════════════════════════════════════════════════════ */}
-          {tephra && isVisible('corporate') && (
-            <motion.div
-              initial={{ opacity: 0, y: 35 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: easeOut }}
-              className="group relative rounded-[2rem] bg-white border border-slate-200/90 hover:border-[#2364D8]/50 transition-all duration-500 overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-blue-500/10 p-6 sm:p-8 lg:p-10"
-            >
+        {/* ── Flagship Project Spotlight (TEPHRA - Dubai, UAE) ── */}
+        {activeCategory === 'All' && tephra && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: easeOut }}
+            className="relative rounded-[2rem] p-1.5 sm:p-2 bg-gradient-to-b from-white/20 via-white/10 to-slate-900/80 backdrop-blur-2xl border border-white/25 shadow-[0_25px_65px_-12px_rgba(0,0,0,0.8)] overflow-hidden mb-12 group"
+          >
+            <div className="rounded-[1.6rem] bg-[#0A1020] p-6 sm:p-8 lg:p-10">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                 
-                {/* Visual: Realistic macOS Safari Browser Mockup */}
+                {/* Visual: Realistic macOS Safari Browser Chrome with Real Screenshot */}
                 <div className="lg:col-span-7">
-                  <div className="rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl transition-transform duration-700 group-hover:scale-[1.015]">
-                    {/* Safari Window Header Bar */}
-                    <div className="px-4 py-3 bg-slate-950/90 border-b border-slate-800 flex items-center justify-between">
-                      {/* Traffic Light Window Dots */}
+                  <div className="rounded-2xl overflow-hidden bg-slate-950 border border-white/15 shadow-2xl transition-transform duration-700 group-hover:scale-[1.015]">
+                    
+                    {/* Safari Chrome Header */}
+                    <div className="px-4 py-2.5 bg-slate-900/90 border-b border-white/10 flex items-center justify-between">
                       <div className="flex items-center gap-1.5">
-                        <span className="w-3 h-3 rounded-full bg-[#EF4444]/90" />
-                        <span className="w-3 h-3 rounded-full bg-[#F59E0B]/90" />
-                        <span className="w-3 h-3 rounded-full bg-[#10B981]/90" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80 inline-block" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
                       </div>
-
-                      {/* URL Pill Bar */}
-                      <div className="flex items-center gap-1.5 px-4 py-1 rounded-full bg-slate-900 border border-slate-800 text-[11px] font-mono text-slate-400">
-                        <Lock className="w-3 h-3 text-emerald-400" />
-                        <span className="text-slate-300">https://tephra.ae</span>
-                        <span className="text-slate-500 hidden sm:inline">&bull; Verified SSL</span>
+                      <div className="px-4 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] font-mono text-slate-400 flex items-center gap-1.5 max-w-[240px] truncate">
+                        <Lock className="w-2.5 h-2.5 text-emerald-400 shrink-0" />
+                        <span>tephra.ae</span>
                       </div>
-
-                      {/* Placeholder Icon */}
-                      <div className="w-4 h-4 rounded-full bg-slate-800" />
+                      <span className="text-[10px] font-mono text-[#16BDEB]">Dubai, UAE</span>
                     </div>
 
-                    {/* Screenshot Canvas with Zoom Hover */}
-                    <div className="relative aspect-[16/10] overflow-hidden bg-black">
+                    {/* Screenshot Frame (Aspect Ratio 16:10) */}
+                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-900">
                       <img
-                        src={getAssetUrl(tephra.thumbnail || tephra.cover_image || '/assets/projects/tephra-preview.png')}
+                        src={getAssetUrl(tephra.thumbnail || '/assets/projects/tephra-preview.png')}
                         alt={tephra.title}
-                        className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                        className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none" />
-                      
-                      {/* Floating Badge on Screen */}
-                      <div className="absolute bottom-4 left-4 px-3 py-1 rounded-full bg-slate-950/85 backdrop-blur-md border border-white/20 text-xs font-mono font-bold text-[#16BDEB] flex items-center gap-1.5 shadow-lg">
-                        <Sparkles className="w-3 h-3 text-[#16BDEB]" />
-                        <span>Corporate Flagship Showcase</span>
-                      </div>
                     </div>
                   </div>
                 </div>
 
                 {/* Content Column */}
-                <div className="lg:col-span-5 flex flex-col justify-between">
-                  <div>
-                    {/* Category & Region Metadata */}
-                    <div className="flex flex-wrap items-center gap-2 mb-4">
-                      <span className="text-xs font-bold px-3 py-1 rounded-full bg-blue-50 text-[#2364D8] border border-blue-200/80">
-                        Corporate Website Development
-                      </span>
-                      <span className="text-xs font-medium px-3 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
-                        Engineering / MEP
-                      </span>
-                      <span className="text-xs font-mono text-slate-500 flex items-center gap-1">
-                        <Globe2 className="w-3 h-3 text-[#2364D8]" />
-                        <span>Dubai, UAE</span>
-                      </span>
+                <div className="lg:col-span-5 flex flex-col justify-center">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-xs font-mono font-bold text-[#16BDEB] uppercase tracking-wider">
+                      FLAGSHIP CORPORATE PORTAL
+                    </span>
+                    <span className="text-slate-500">&bull;</span>
+                    <span className="text-xs text-slate-400 font-medium">Dubai, UAE</span>
+                  </div>
+
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white mb-3 font-display">
+                    {tephra.title}
+                  </h3>
+
+                  <p className="text-sm text-slate-300 font-normal leading-relaxed mb-6">
+                    {tephra.short_description ||
+                      'A bespoke corporate engineering portal engineered with Swiss Neo-Grotesque minimalism, sub-second edge loading, and structured JSON-LD SEO schemas for Dubai MEP commercial contracting.'}
+                  </p>
+
+                  {/* Highlights Matrix */}
+                  <div className="grid grid-cols-2 gap-2.5 mb-6 p-4 rounded-xl bg-white/[0.03] border border-white/10">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#16BDEB] shrink-0" />
+                      <span className="text-xs text-slate-300 font-medium">UAE Tenders Ready</span>
                     </div>
-
-                    {/* Title */}
-                    <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-3 font-display">
-                      {tephra.title}
-                    </h3>
-
-                    {/* Strategic Summary */}
-                    <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
-                      A modern corporate web presence engineered for a major Dubai electro-mechanical contracting firm, built to establish immediate credibility during international contractor pre-qualification tenders.
-                    </p>
-
-                    {/* Performance & Value Metrics */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-6">
-                      <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center gap-2.5 text-xs font-semibold text-slate-800">
-                        <Zap className="w-4 h-4 text-[#2364D8] shrink-0" />
-                        <span>99+ Core Web Vitals Speed</span>
-                      </div>
-                      <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center gap-2.5 text-xs font-semibold text-slate-800">
-                        <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                        <span>Tender Pre-Qualification Ready</span>
-                      </div>
-                      <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center gap-2.5 text-xs font-semibold text-slate-800">
-                        <Smartphone className="w-4 h-4 text-[#16BDEB] shrink-0" />
-                        <span>100% GCC Mobile Tested</span>
-                      </div>
-                      <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center gap-2.5 text-xs font-semibold text-slate-800">
-                        <Check className="w-4 h-4 text-[#2364D8] shrink-0" />
-                        <span>Structured JSON-LD SEO</span>
-                      </div>
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#16BDEB] shrink-0" />
+                      <span className="text-xs text-slate-300 font-medium">Sub-second Speed</span>
                     </div>
-
-                    {/* Verified Tech Stack Chips */}
-                    <div className="flex flex-wrap items-center gap-1.5 mb-8">
-                      {['React', 'TypeScript', 'Tailwind CSS', 'JSON-LD Schema', 'WhatsApp Routing'].map(tech => (
-                        <span key={tech} className="text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-slate-100 text-slate-600 border border-slate-200">
-                          {tech}
-                        </span>
-                      ))}
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#16BDEB] shrink-0" />
+                      <span className="text-xs text-slate-300 font-medium">100% SEO Schema</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#16BDEB] shrink-0" />
+                      <span className="text-xs text-slate-300 font-medium">Direct WhatsApp</span>
                     </div>
                   </div>
 
-                  {/* Actions */}
-                  <div className="flex flex-wrap items-center gap-3 pt-6 border-t border-slate-100">
+                  {/* Tech Tags */}
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    {tephra.technologies.slice(0, 4).map((tech) => (
+                      <span
+                        key={tech}
+                        className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex items-center gap-3">
                     {tephra.live_url && (
                       <a
                         href={tephra.live_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-white shadow-lg shadow-blue-500/25 transition-transform duration-200 hover:scale-105"
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] transition-all"
                         style={{
                           background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #252B9B 100%)',
                         }}
                       >
-                        <span>View Live Website</span>
-                        <ExternalLink className="w-3.5 h-3.5" />
+                        <span>Visit Live Website</span>
+                        <ArrowUpRight className="w-4 h-4" />
                       </a>
                     )}
 
-                    <Link
-                      to={`/portfolio/${tephra.slug}`}
-                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold text-slate-700 hover:text-[#2364D8] bg-slate-50 hover:bg-blue-50/60 border border-slate-200 transition-colors"
+                    <button
+                      onClick={() => setSelectedProjectModal(tephra)}
+                      className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-xs font-semibold text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/15 backdrop-blur-md transition-all"
                     >
-                      <span>Explore Case Study</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
+                      <span>Case Details</span>
+                    </button>
                   </div>
+
                 </div>
 
               </div>
+            </div>
+          </motion.div>
+        )}
+
+        {/* ── Modern Responsive Project Cards Grid ── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {filteredProjects.map((project, idx) => (
+            <motion.div
+              key={project.id || project.slug}
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.08, ease: easeOut }}
+              className="group relative rounded-[2rem] p-6 bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-[#16BDEB]/50 transition-all duration-400 backdrop-blur-xl flex flex-col justify-between shadow-lg hover:shadow-[0_20px_50px_rgba(22,189,235,0.12)] hover:-translate-y-2"
+            >
+              <div>
+                {/* Device Chrome / Screenshot Frame */}
+                <div className="rounded-xl overflow-hidden bg-slate-950 border border-white/10 mb-5 relative group-hover:border-white/20 transition-colors">
+                  {/* Top Miniature Browser Bar */}
+                  <div className="px-3 py-2 bg-slate-900/90 border-b border-white/10 flex items-center justify-between">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-rose-500/80" />
+                      <span className="w-2 h-2 rounded-full bg-amber-500/80" />
+                      <span className="w-2 h-2 rounded-full bg-emerald-500/80" />
+                    </div>
+                    <span className="text-[10px] font-mono text-slate-400 truncate max-w-[150px]">
+                      {project.slug}.appzio
+                    </span>
+                    <span className="text-[10px] font-mono text-[#16BDEB]">
+                      {project.category.split(' ')[0]}
+                    </span>
+                  </div>
+
+                  {/* Screenshot Viewport (Aspect Ratio 16:10) */}
+                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-900">
+                    <img
+                      src={getAssetUrl(project.thumbnail || project.cover_image || '')}
+                      alt={project.title}
+                      className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                </div>
+
+                {/* Category & Client Badge */}
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <span className="text-xs font-mono font-bold text-[#16BDEB] uppercase tracking-wider">
+                    {project.category}
+                  </span>
+                  {project.client && (
+                    <span className="text-[11px] text-slate-400 truncate max-w-[130px]">
+                      {project.client.split('(')[0]}
+                    </span>
+                  )}
+                </div>
+
+                {/* Project Title */}
+                <h3 className="text-xl font-bold text-white mb-2 font-display group-hover:text-[#16BDEB] transition-colors">
+                  {project.title}
+                </h3>
+
+                {/* Short Description */}
+                <p className="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed mb-5 line-clamp-3">
+                  {project.short_description || project.tagline}
+                </p>
+
+                {/* Tech Pills */}
+                <div className="flex flex-wrap gap-1.5 mb-6">
+                  {project.technologies.slice(0, 3).map((tech) => (
+                    <span
+                      key={tech}
+                      className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-slate-300"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                  {project.technologies.length > 3 && (
+                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-white/5 text-slate-500">
+                      +{project.technologies.length - 3}
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              {/* Bottom Actions */}
+              <div className="pt-4 border-t border-white/10 flex items-center justify-between gap-3">
+                {project.live_url ? (
+                  <a
+                    href={project.live_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#16BDEB] hover:text-white transition-colors"
+                  >
+                    <span>View Live Site</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </a>
+                ) : (
+                  <button
+                    onClick={() => setSelectedProjectModal(project)}
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#16BDEB] hover:text-white transition-colors"
+                  >
+                    <span>View Architecture</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                )}
+
+                <button
+                  onClick={() => setSelectedProjectModal(project)}
+                  className="px-3 py-1.5 rounded-full text-xs font-medium text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-colors"
+                >
+                  Details
+                </button>
+              </div>
             </motion.div>
-          )}
-
-          {/* ══════════════════════════════════════════════════════════
-              02 & 03. TWO BALANCED CARDS: GHAF BOOKS & PRIME TIME
-              ══════════════════════════════════════════════════════════ */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            
-            {/* Project 02: Ghaf Books & Media (E-Commerce) */}
-            {ghafBooks && isVisible('ecommerce') && (
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.65, delay: 0.1, ease: easeOut }}
-                className="group rounded-[2rem] bg-white border border-slate-200/90 hover:border-[#2364D8]/50 transition-all duration-500 overflow-hidden shadow-xl hover:shadow-2xl flex flex-col justify-between p-6 sm:p-8"
-              >
-                <div>
-                  {/* Browser Mockup */}
-                  <div className="rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 shadow-md mb-6">
-                    <div className="px-3.5 py-2.5 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
-                      <div className="flex items-center gap-1.5">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#EF4444]" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#F59E0B]" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#10B981]" />
-                      </div>
-                      <div className="px-3 py-0.5 rounded-full bg-slate-900 text-[10px] font-mono text-slate-400">
-                        ghafbooks.com &bull; Online Bookstore
-                      </div>
-                      <div className="w-2.5 h-2.5" />
-                    </div>
-
-                    <div className="relative aspect-[16/10] overflow-hidden bg-slate-950">
-                      <img
-                        src={getAssetUrl(ghafBooks.thumbnail || ghafBooks.cover_image || '/assets/projects/ghafbooks-preview.png')}
-                        alt={ghafBooks.title}
-                        className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
-                        loading="lazy"
-                      />
-                      <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-slate-950/85 backdrop-blur-md border border-white/20 text-[10px] font-mono font-bold text-[#16BDEB]">
-                        E-COMMERCE &bull; PUBLISHING
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Metadata */}
-                  <div className="flex flex-wrap items-center gap-2 mb-3">
-                    <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-[#2364D8] border border-blue-200/80">
-                      E-Commerce Development
-                    </span>
-                    <span className="text-xs font-mono text-slate-500">
-                      Publishing &bull; Literary Books
-                    </span>
-                  </div>
-
-                  <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2 font-display">
-                    {ghafBooks.title}
-                  </h3>
-                  <p className="text-sm text-slate-600 leading-relaxed mb-6">
-                    {ghafBooks.short_description}
-                  </p>
-
-                  {/* Metrics */}
-                  <div className="grid grid-cols-2 gap-2 mb-6">
-                    <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200/70 text-xs font-semibold text-slate-700 flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-[#2364D8]" />
-                      <span>Instant Cart &amp; Razorpay</span>
-                    </div>
-                    <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200/70 text-xs font-semibold text-slate-700 flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-[#2364D8]" />
-                      <span>Dual Reading Themes</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Actions */}
-                <div className="pt-5 border-t border-slate-100 flex flex-wrap items-center gap-3">
-                  {ghafBooks.live_url && (
-                    <a
-                      href={ghafBooks.live_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold text-white bg-[#2364D8] hover:bg-[#16BDEB] transition-colors shadow-md shadow-blue-500/20"
-                    >
-                      <span>View Live Website</span>
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
-                  )}
-                  <Link
-                    to={`/portfolio/${ghafBooks.slug}`}
-                    className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-semibold text-slate-700 hover:text-[#2364D8] bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-colors"
-                  >
-                    <span>View Case Study</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              </motion.div>
-            )}
-
-            {/* Project 03: Prime Time Typing Services (Abu Dhabi, UAE) */}
-            {primeTime && isVisible('government') && (
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.65, delay: 0.2, ease: easeOut }}
-                className="group rounded-[2rem] bg-white border border-slate-200/90 hover:border-[#2364D8]/50 transition-all duration-500 overflow-hidden shadow-xl hover:shadow-2xl flex flex-col justify-between p-6 sm:p-8"
-              >
-                <div>
-                  {/* Browser Mockup */}
-                  <div className="rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 shadow-md mb-6">
-                    <div className="px-3.5 py-2.5 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
-                      <div className="flex items-center gap-1.5">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#EF4444]" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#F59E0B]" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#10B981]" />
-                      </div>
-                      <div className="px-3 py-0.5 rounded-full bg-slate-900 text-[10px] font-mono text-slate-400">
-                        primetimeuae.com &bull; Abu Dhabi
-                      </div>
-                      <div className="w-2.5 h-2.5" />
-                    </div>
-
-                    <div className="relative aspect-[16/10] overflow-hidden bg-slate-950">
-                      <img
-                        src={getAssetUrl(primeTime.thumbnail || primeTime.cover_image || '/assets/projects/primetime-preview.png')}
-                        alt={primeTime.title}
-                        className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
-                        loading="lazy"
-                      />
-                      <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-slate-950/85 backdrop-blur-md border border-white/20 text-[10px] font-mono font-bold text-sky-400">
-                        UAE GOV &bull; CLEARING
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Metadata */}
-                  <div className="flex flex-wrap items-center gap-2 mb-3">
-                    <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-sky-50 text-[#0284C7] border border-sky-200">
-                      Business Web Platform
-                    </span>
-                    <span className="text-xs font-mono text-slate-500">
-                      Abu Dhabi, UAE
-                    </span>
-                  </div>
-
-                  <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2 font-display">
-                    {primeTime.title}
-                  </h3>
-                  <p className="text-sm text-slate-600 leading-relaxed mb-6">
-                    {primeTime.short_description}
-                  </p>
-
-                  {/* Metrics */}
-                  <div className="grid grid-cols-2 gap-2 mb-6">
-                    <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200/70 text-xs font-semibold text-slate-700 flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-[#0284C7]" />
-                      <span>30+ UAE Services Directory</span>
-                    </div>
-                    <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200/70 text-xs font-semibold text-slate-700 flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-[#0284C7]" />
-                      <span>Instant WhatsApp Routing</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Actions */}
-                <div className="pt-5 border-t border-slate-100 flex flex-wrap items-center gap-3">
-                  {primeTime.live_url && (
-                    <a
-                      href={primeTime.live_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold text-white bg-[#0284C7] hover:bg-[#2364D8] transition-colors shadow-md shadow-sky-500/20"
-                    >
-                      <span>View Live Website</span>
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
-                  )}
-                  <Link
-                    to={`/portfolio/${primeTime.slug}`}
-                    className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-semibold text-slate-700 hover:text-[#0284C7] bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-colors"
-                  >
-                    <span>View Case Study</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              </motion.div>
-            )}
-
-          </div>
-
-          {/* ══════════════════════════════════════════════════════════
-              04 & 05. TWO COMPLEMENTARY CARDS: MIKHAEL GOLD & CAREPOINT
-              ══════════════════════════════════════════════════════════ */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            
-            {/* Project 04: Mikhael Gold & Diamonds (Luxury) */}
-            {mikhaelGold && isVisible('luxury') && (
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.65, delay: 0.1, ease: easeOut }}
-                className="group rounded-[2rem] bg-white border border-slate-200/90 hover:border-amber-400/50 transition-all duration-500 overflow-hidden shadow-xl hover:shadow-2xl flex flex-col justify-between p-6 sm:p-8"
-              >
-                <div>
-                  {/* Browser Mockup */}
-                  <div className="rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 shadow-md mb-6">
-                    <div className="px-3.5 py-2.5 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
-                      <div className="flex items-center gap-1.5">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#EF4444]" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#F59E0B]" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#10B981]" />
-                      </div>
-                      <div className="px-3 py-0.5 rounded-full bg-slate-900 text-[10px] font-mono text-amber-300">
-                        mikhaelgold.com &bull; Luxury Jewellery
-                      </div>
-                      <div className="w-2.5 h-2.5" />
-                    </div>
-
-                    <div className="relative aspect-[16/10] overflow-hidden bg-slate-950">
-                      <img
-                        src={getAssetUrl(mikhaelGold.thumbnail || mikhaelGold.cover_image || '/assets/projects/mikhaelgold-preview.png')}
-                        alt={mikhaelGold.title}
-                        className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
-                        loading="lazy"
-                      />
-                      <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-slate-950/85 backdrop-blur-md border border-white/20 text-[10px] font-mono font-bold text-amber-300">
-                        LUXURY &bull; JEWELLERY
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Metadata */}
-                  <div className="flex flex-wrap items-center gap-2 mb-3">
-                    <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
-                      Luxury Web Showcase
-                    </span>
-                    <span className="text-xs font-mono text-slate-500">
-                      Jewellery &bull; Kerala, India
-                    </span>
-                  </div>
-
-                  <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2 font-display">
-                    {mikhaelGold.title}
-                  </h3>
-                  <p className="text-sm text-slate-600 leading-relaxed mb-6">
-                    {mikhaelGold.short_description}
-                  </p>
-
-                  {/* Metrics */}
-                  <div className="grid grid-cols-2 gap-2 mb-6">
-                    <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200/70 text-xs font-semibold text-slate-700 flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-amber-600" />
-                      <span>Cormorant Garamond Typography</span>
-                    </div>
-                    <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200/70 text-xs font-semibold text-slate-700 flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-amber-600" />
-                      <span>Private Bridal Appointments</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Actions */}
-                <div className="pt-5 border-t border-slate-100 flex flex-wrap items-center gap-3">
-                  {mikhaelGold.live_url && (
-                    <a
-                      href={mikhaelGold.live_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold text-slate-900 bg-amber-400 hover:bg-amber-300 transition-colors shadow-md shadow-amber-400/20"
-                    >
-                      <span>View Live Website</span>
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
-                  )}
-                  <Link
-                    to={`/portfolio/${mikhaelGold.slug}`}
-                    className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-semibold text-slate-700 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-colors"
-                  >
-                    <span>View Case Study</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              </motion.div>
-            )}
-
-            {/* Project 05: Carepoint Auto Hub (Automotive) */}
-            {carepoint && isVisible('automotive') && (
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.65, delay: 0.2, ease: easeOut }}
-                className="group rounded-[2rem] bg-white border border-slate-200/90 hover:border-red-400/50 transition-all duration-500 overflow-hidden shadow-xl hover:shadow-2xl flex flex-col justify-between p-6 sm:p-8"
-              >
-                <div>
-                  {/* Browser Mockup */}
-                  <div className="rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 shadow-md mb-6">
-                    <div className="px-3.5 py-2.5 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
-                      <div className="flex items-center gap-1.5">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#EF4444]" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#F59E0B]" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#10B981]" />
-                      </div>
-                      <div className="px-3 py-0.5 rounded-full bg-slate-900 text-[10px] font-mono text-red-400">
-                        carepoint.in &bull; Automotive Care
-                      </div>
-                      <div className="w-2.5 h-2.5" />
-                    </div>
-
-                    <div className="relative aspect-[16/10] overflow-hidden bg-slate-950">
-                      <img
-                        src={getAssetUrl(carepoint.thumbnail || carepoint.cover_image || '/assets/projects/carepoint-preview.png')}
-                        alt={carepoint.title}
-                        className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
-                        loading="lazy"
-                      />
-                      <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-slate-950/85 backdrop-blur-md border border-white/20 text-[10px] font-mono font-bold text-red-400">
-                        AUTOMOTIVE &bull; DETAILING
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Metadata */}
-                  <div className="flex flex-wrap items-center gap-2 mb-3">
-                    <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-red-50 text-red-600 border border-red-200">
-                      Automotive Web Portal
-                    </span>
-                    <span className="text-xs font-mono text-slate-500">
-                      Car Detailing &bull; Kerala
-                    </span>
-                  </div>
-
-                  <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2 font-display">
-                    {carepoint.title}
-                  </h3>
-                  <p className="text-sm text-slate-600 leading-relaxed mb-6">
-                    {carepoint.short_description}
-                  </p>
-
-                  {/* Metrics */}
-                  <div className="grid grid-cols-2 gap-2 mb-6">
-                    <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200/70 text-xs font-semibold text-slate-700 flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-red-500" />
-                      <span>Ceramic Coating Packages</span>
-                    </div>
-                    <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200/70 text-xs font-semibold text-slate-700 flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-red-500" />
-                      <span>One-Tap Drive-In Booking</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Actions */}
-                <div className="pt-5 border-t border-slate-100 flex flex-wrap items-center gap-3">
-                  {carepoint.live_url && (
-                    <a
-                      href={carepoint.live_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold text-white bg-red-600 hover:bg-red-500 transition-colors shadow-md shadow-red-500/20"
-                    >
-                      <span>View Live Website</span>
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
-                  )}
-                  <Link
-                    to={`/portfolio/${carepoint.slug}`}
-                    className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-semibold text-slate-700 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-colors"
-                  >
-                    <span>View Case Study</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              </motion.div>
-            )}
-
-          </div>
-
+          ))}
         </div>
 
-        {/* ── Bottom Call To Action Banner ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2, ease: easeOut }}
-          className="mt-16 p-8 sm:p-10 rounded-[2rem] bg-gradient-to-r from-blue-900 via-[#1F2B6C] to-[#0A1128] text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl relative overflow-hidden"
-        >
-          <div className="absolute top-0 right-0 w-80 h-80 bg-[#16BDEB]/20 rounded-full blur-[100px] pointer-events-none" />
-
-          <div className="relative z-10 max-w-xl">
-            <span className="text-xs font-mono font-bold text-[#16BDEB] uppercase tracking-wider block mb-2">
-              Ready to elevate your digital presence?
-            </span>
-            <h3 className="text-2xl sm:text-3xl font-extrabold font-display leading-tight mb-2">
-              Let&apos;s Build Your Next High-Impact Digital Solution.
-            </h3>
-            <p className="text-sm text-slate-300 leading-relaxed">
-              From corporate portals and e-commerce architectures to custom mobile and enterprise software, we deliver measurable commercial results.
-            </p>
-          </div>
-
-          <div className="relative z-10 flex flex-col sm:flex-row items-center gap-3 shrink-0">
-            <Link
-              to="/#contact"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold text-white shadow-xl shadow-blue-500/25 transition-transform duration-200 hover:scale-105 active:scale-95"
-              style={{
-                background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #252B9B 100%)',
-              }}
-            >
-              <span>Start Your Project</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
-              to="/portfolio"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold text-slate-200 hover:text-white bg-white/10 hover:bg-white/15 border border-white/20 transition-colors"
-            >
-              <span>Explore All 5 Projects</span>
-            </Link>
-          </div>
-        </motion.div>
-
       </div>
+
+      {/* ── Case Study Overview Modal ── */}
+      <AnimatePresence>
+        {selectedProjectModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedProjectModal(null)}
+              className="fixed inset-0 bg-slate-950/85 backdrop-blur-xl"
+            />
+
+            {/* Modal Dialog */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.3, ease: easeOut }}
+              className="relative w-full max-w-3xl rounded-[2rem] bg-[#0A1020] border border-white/20 p-6 sm:p-8 text-white shadow-2xl z-10 max-h-[90vh] overflow-y-auto"
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedProjectModal(null)}
+                className="absolute top-5 right-5 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center text-slate-300 hover:text-white transition-colors"
+                aria-label="Close dialog"
+              >
+                <X className="w-4 h-4" />
+              </button>
+
+              {/* Header */}
+              <div className="mb-4">
+                <span className="text-xs font-mono font-bold text-[#16BDEB] uppercase tracking-wider block mb-1">
+                  {selectedProjectModal.category} &bull; {selectedProjectModal.client}
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-display">
+                  {selectedProjectModal.title}
+                </h3>
+              </div>
+
+              {/* Screenshot Preview */}
+              <div className="rounded-xl overflow-hidden bg-slate-950 border border-white/15 mb-6">
+                <img
+                  src={getAssetUrl(selectedProjectModal.cover_image || selectedProjectModal.thumbnail || '')}
+                  alt={selectedProjectModal.title}
+                  className="w-full h-auto max-h-[340px] object-cover object-top"
+                />
+              </div>
+
+              {/* Overview */}
+              <p className="text-sm text-slate-300 leading-relaxed mb-6 font-normal">
+                {selectedProjectModal.overview || selectedProjectModal.short_description}
+              </p>
+
+              {/* Key Features */}
+              {selectedProjectModal.key_features && selectedProjectModal.key_features.length > 0 && (
+                <div className="mb-6 p-4 rounded-xl bg-white/[0.03] border border-white/10">
+                  <h4 className="text-xs font-mono font-bold text-slate-200 uppercase tracking-wider mb-2.5">
+                    Engineering Deliverables
+                  </h4>
+                  <div className="space-y-1.5">
+                    {selectedProjectModal.key_features.map((feat) => (
+                      <div key={feat} className="flex items-start gap-2">
+                        <Check className="w-3.5 h-3.5 text-[#16BDEB] shrink-0 mt-0.5" />
+                        <span className="text-xs text-slate-300">{feat}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Tech Stack */}
+              <div className="mb-6">
+                <h4 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider mb-2">
+                  Technologies Utilized
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {selectedProjectModal.technologies.map((t) => (
+                    <span
+                      key={t}
+                      className="px-2.5 py-1 rounded-full text-xs font-mono bg-blue-500/10 text-sky-300 border border-blue-400/25"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="flex items-center gap-3 pt-4 border-t border-white/10">
+                {selectedProjectModal.live_url ? (
+                  <a
+                    href={selectedProjectModal.live_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] transition-all"
+                    style={{
+                      background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #252B9B 100%)',
+                    }}
+                  >
+                    <span>Launch Live Site</span>
+                    <ArrowUpRight className="w-4 h-4" />
+                  </a>
+                ) : (
+                  <a
+                    href="#contact"
+                    onClick={() => setSelectedProjectModal(null)}
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] transition-all"
+                    style={{
+                      background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #252B9B 100%)',
+                    }}
+                  >
+                    <span>Request Similar Project</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+                )}
+
+                <button
+                  onClick={() => setSelectedProjectModal(null)}
+                  className="px-5 py-3 rounded-full text-xs font-semibold text-slate-400 hover:text-white bg-white/5 border border-white/10 transition-colors"
+                >
+                  Close
+                </button>
+              </div>
+
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

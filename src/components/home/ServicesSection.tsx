@@ -1,253 +1,171 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Globe, Smartphone, Cpu, ArrowRight, CheckCircle2, 
-  Sparkles, Layers, ShieldCheck, Database, Zap, X, 
-  MessageSquare, Palette, Workflow, Wrench, Code2, 
-  Monitor, Check, ExternalLink, Lock, BarChart3, 
-  TrendingUp, Server, ChevronRight
+  Globe, Smartphone, Code2, Database, ShoppingCart, 
+  Workflow, ArrowRight, CheckCircle2, Sparkles, X, 
+  ExternalLink, MessageCircle, ChevronRight, Layers,
+  ShieldCheck, Cpu, Zap
 } from 'lucide-react';
 import { motion, AnimatePresence, Easing } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { useWebsiteData } from '../../context/WebsiteDataContext';
 
 const easeOut: Easing = 'easeOut';
 
-// Service category data definition
-export interface ServiceCategory {
+export interface ServiceItem {
   id: string;
-  divisionNumber: string;
-  label: string;
-  badge: string;
+  number: string;
   title: string;
-  description: string;
-  services: string[];
-  ctaText: string;
-  contactServiceOption: string;
-  image: string;
-  imageAlt: string;
-  accent: {
-    primary: string;
-    secondary: string;
-    gradient: string;
-    badgeBg: string;
-    badgeText: string;
-    glow: string;
-    borderHover: string;
-  };
-  metrics: { label: string; value: string }[];
-  technologies: string[];
-  capabilitiesSummary: { title: string; desc: string }[];
-  relevantProjects: { name: string; category: string; link: string }[];
+  shortDescription: string;
+  fullDescription: string;
+  icon: React.ElementType;
+  accentColor: string;
+  tags: string[];
+  deliverables: string[];
+  architecture: string[];
+  businessValue: string;
+  contactOption: string;
 }
 
-export const primaryServices: ServiceCategory[] = [
+export const servicesData: ServiceItem[] = [
   {
-    id: 'digital-presence',
-    divisionNumber: '01',
-    label: 'DIGITAL PRESENCE',
-    badge: 'Web & Digital Branding',
-    title: 'Build Your Digital Presence.',
-    description: 'Create a powerful online presence with modern, responsive and professionally designed digital experiences that represent your brand and connect with your customers.',
-    services: [
-      'Corporate Website Development',
-      'Business Website Development',
-      'E-commerce Website Development',
-      'Portfolio Websites',
-      'Landing Page Development',
-      'Website Redesign',
-      'Website Maintenance',
+    id: 'website-development',
+    number: '01',
+    title: 'Website Development',
+    shortDescription: 'Modern, responsive, and performance-tuned web experiences engineered to represent your brand authority, capture qualified leads, and engage global customers.',
+    fullDescription: 'From high-impact corporate portals and business brand websites to high-converting landing pages, we build bespoke digital experiences using modern frameworks like Next.js and React. Every site is engineered with sub-second edge loading, Swiss-inspired typography, and comprehensive SEO schemas.',
+    icon: Globe,
+    accentColor: '#16BDEB',
+    tags: ['Corporate Websites', 'Next.js & React', 'Sub-second Edge CDN', 'Technical SEO'],
+    deliverables: [
+      'Bespoke Corporate & Enterprise Web Portals',
+      'High-Conversion Product & Service Landing Pages',
+      'Interactive Portfolios & Directory Showcases',
+      'Multi-Language Localization (English, Arabic, etc.)',
+      'Headless CMS & Content Management Systems'
     ],
-    ctaText: 'Explore Website Solutions',
-    contactServiceOption: 'Website Development',
-    image: `${import.meta.env.BASE_URL}assets/services/services-digital-presence.jpg`,
-    imageAlt: 'Appzio Modern Web Development Showcase',
-    accent: {
-      primary: '#16BDEB',
-      secondary: '#2364D8',
-      gradient: 'from-[#16BDEB] to-[#2364D8]',
-      badgeBg: 'bg-cyan-50 border-cyan-200/80',
-      badgeText: 'text-[#0284C7]',
-      glow: 'hover:shadow-[0_20px_50px_rgba(22,189,235,0.15)]',
-      borderHover: 'hover:border-[#16BDEB]/60',
-    },
-    metrics: [
-      { label: 'Core Web Vitals', value: '99+ Score' },
-      { label: 'SEO Architecture', value: '100% Schema' },
-      { label: 'Avg Page Load', value: '< 0.8s' },
-    ],
-    technologies: ['Next.js 14', 'React', 'Tailwind CSS', 'TypeScript', 'Node.js', 'Vercel Edge', 'WordPress / Headless'],
-    capabilitiesSummary: [
-      { title: 'Brand First Design', desc: 'Custom tailored Swiss Neo-Grotesque typography, responsive grid hierarchy, and custom branded aesthetics.' },
-      { title: 'Performance Engineering', desc: 'Sub-second serverless rendering, edge caching, WebP/AVIF media pipelines, and zero layout shift.' },
-      { title: 'Commercial Conversion', desc: 'Clear call-to-action pathways, lead capture forms, dynamic WhatsApp integration, and analytics telemetry.' },
-    ],
-    relevantProjects: [
-      { name: 'TEPHRA Electro Mechanical', category: 'Corporate Engineering Portal • Dubai, UAE', link: 'https://tephra.ae' },
-      { name: 'Ghaf Books & Media', category: 'E-Commerce & Literary Bookstore', link: 'https://ghafbooks.com' },
-      { name: 'Prime Time Typing Services', category: 'Government & Corporate Portal • Abu Dhabi', link: 'https://primetimeuae.com' },
-    ],
+    architecture: ['Next.js 14', 'React 19', 'Tailwind CSS', 'TypeScript', 'Vercel / Cloudflare Edge'],
+    businessValue: '99+ Core Web Vitals score, zero layout shift, structured JSON-LD SEO for search dominance, and seamless lead conversion pathways.',
+    contactOption: 'Website Development'
   },
   {
-    id: 'digital-products',
-    divisionNumber: '02',
-    label: 'DIGITAL PRODUCTS',
-    badge: 'Mobile & Multi-Platform',
-    title: 'Powerful Applications. Seamless Experiences.',
-    description: 'Transform your ideas into reliable and scalable applications designed to simplify everyday activities and deliver exceptional user experiences.',
-    services: [
-      'Android Application Development',
-      'iOS Application Development',
-      'Flutter Application Development',
-      'Desktop Application Development',
-      'Web Application Development',
-      'Custom Application Development',
-      'API Integration',
+    id: 'mobile-app-development',
+    number: '02',
+    title: 'Mobile Application Development',
+    shortDescription: 'High-fidelity Android, iOS, and cross-platform mobile applications engineered for fluid 60fps performance, offline-first reliability, and intuitive user engagement.',
+    fullDescription: 'We transform complex user journeys into sleek, tactile mobile applications for iOS and Android. Using Flutter and native mobile tooling, we deliver fluid micro-interactions, bank-grade authentication, push notification pipelines, and robust backend synchronization.',
+    icon: Smartphone,
+    accentColor: '#2364D8',
+    tags: ['Flutter & Dart', 'iOS & Android', 'Offline-First Sync', 'Store Deployment'],
+    deliverables: [
+      'Cross-Platform Android & iOS Production Apps',
+      'Customer Portals & Booking Applications',
+      'Secure Payment & In-App Purchase Workflows',
+      'Real-Time Chat & Push Notification Engines',
+      'App Store & Google Play Store Compliance & Publishing'
     ],
-    ctaText: 'Explore Application Solutions',
-    contactServiceOption: 'Mobile Application',
-    image: `${import.meta.env.BASE_URL}assets/services/services-digital-products.jpg`,
-    imageAlt: 'Appzio Mobile and Multi-Platform Application Development',
-    accent: {
-      primary: '#2364D8',
-      secondary: '#252B9B',
-      gradient: 'from-[#2364D8] to-[#252B9B]',
-      badgeBg: 'bg-blue-50 border-blue-200/80',
-      badgeText: 'text-[#2364D8]',
-      glow: 'hover:shadow-[0_20px_50px_rgba(35,100,216,0.18)]',
-      borderHover: 'hover:border-[#2364D8]/60',
-    },
-    metrics: [
-      { label: 'Render Physics', value: '60 FPS Smooth' },
-      { label: 'Code Sharing', value: 'Up to 90%' },
-      { label: 'Cloud Sync', value: 'Offline First' },
+    architecture: ['Flutter / Dart', 'Swift (iOS)', 'Kotlin (Android)', 'Firebase', 'REST & GraphQL'],
+    businessValue: 'Single-codebase delivery saves up to 40% development investment while maintaining native rendering performance and store compliance.',
+    contactOption: 'Mobile Application'
+  },
+  {
+    id: 'custom-software-development',
+    number: '03',
+    title: 'Custom Software Development',
+    shortDescription: 'Tailored software architectures and desktop applications built to solve unique operational challenges, automate internal workflows, and scale with your enterprise.',
+    fullDescription: 'Off-the-shelf software often forces businesses to compromise. We engineer bespoke software systems, internal management consoles, and cross-platform desktop applications (Windows & macOS) crafted around your precise operational logic and regulatory needs.',
+    icon: Code2,
+    accentColor: '#38BDF8',
+    tags: ['Custom Workflows', 'Desktop Software', 'Scalable APIs', 'Full IP Ownership'],
+    deliverables: [
+      'Custom Internal Business Management Systems',
+      'High-Performance Desktop Applications (Windows/macOS)',
+      'Enterprise API Microservices & Data Bridges',
+      'Role-Based Administrative Control Dashboards',
+      'Complete Source Code & Intellectual Property Ownership'
     ],
-    technologies: ['Flutter / Dart', 'React Native', 'Swift (iOS)', 'Kotlin (Android)', 'Electron', 'REST & GraphQL', 'Firebase'],
-    capabilitiesSummary: [
-      { title: 'Cross-Platform Velocity', desc: 'Single codebase powering production iOS, Android, and Desktop without compromising native fidelity.' },
-      { title: 'Intuitive Micro-Interactions', desc: 'Butter-smooth gestures, tactile haptic feedback, real-time push notifications, and biometric sign-in.' },
-      { title: 'Enterprise App Store Publishing', desc: 'End-to-end Apple App Store and Google Play Store review navigation, compliance, and automated CI/CD.' },
+    architecture: ['Node.js', 'Python / Django', 'PostgreSQL', 'Flutter Desktop', 'Docker', 'Redis'],
+    businessValue: '100% intellectual property ownership, zero recurring seat license fees, and complete adaptation to your company’s unique workflow rules.',
+    contactOption: 'Custom Software'
+  },
+  {
+    id: 'erp-billing-systems',
+    number: '04',
+    title: 'ERP & Billing Systems',
+    shortDescription: 'Integrated business management platforms, VAT/GST compliant invoicing engines, and point-of-sale systems that streamline multi-branch operations.',
+    fullDescription: 'Replace fragmented spreadsheets with automated, dependable enterprise resource planning. Our ERP and Billing suites manage inventory, point-of-sale terminals, automated invoice generation, supplier purchase orders, and real-time financial reporting.',
+    icon: Database,
+    accentColor: '#F97316',
+    tags: ['GST & VAT Invoicing', 'POS Terminal Software', 'Inventory Management', 'Multi-Branch Sync'],
+    deliverables: [
+      'Custom ERP Software Suites for Retail & Manufacturing',
+      'Cloud & Desktop POS Invoicing Terminals',
+      'Real-Time Multi-Warehouse Inventory Tracking',
+      'Automated VAT / GST Invoices with PDF & WhatsApp Dispatch',
+      'Multi-Branch Consolidated Financial Reporting'
     ],
-    relevantProjects: [
-      { name: 'Mikhael Gold & Diamonds', category: 'Luxury Jewellery & Daily Gold Rate App', link: 'https://mikhaelgold.com' },
-      { name: 'Carepoint Auto Hub', category: 'Automotive Service & Ceramic Booking Platform', link: 'https://carepointautohub.com' },
-      { name: 'AetherPay In-Store Terminal', category: 'Fintech Multi-Platform POS App', link: '/portfolio' },
+    architecture: ['PostgreSQL', 'Node.js', 'PHP / Laravel', 'Thermal & Barcode SDKs', 'Cloud DB'],
+    businessValue: 'Elimination of manual bookkeeping errors, real-time multi-branch stock visibility, and 100% tax compliance across UAE and India.',
+    contactOption: 'ERP / Billing Software'
+  },
+  {
+    id: 'ecommerce-development',
+    number: '05',
+    title: 'E-commerce Development',
+    shortDescription: 'High-converting digital storefronts, bookstore platforms, and multi-vendor catalogs with seamless payment gateways and frictionless checkout experiences.',
+    fullDescription: 'Turn digital window-shoppers into repeat buyers. We build modern, lightning-fast e-commerce platforms with instant search, rich catalog filtering, abandoned-cart recovery, localized currencies, and secure payment integrations with Stripe, Razorpay, and regional gateways.',
+    icon: ShoppingCart,
+    accentColor: '#EAB308',
+    tags: ['Custom Storefronts', 'Payment Gateways', 'Cart & Checkout Flow', 'Order Tracking'],
+    deliverables: [
+      'Custom Headless & Integrated Online Stores',
+      'Bookstore & Multi-Format Media Platforms',
+      'Secure Multi-Currency Payment Gateway Setup',
+      'Real-Time Stock & Automated Order Dispatch',
+      'Mobile-Optimized Express Checkout Funnels'
     ],
+    architecture: ['Next.js Commerce', 'React', 'Stripe / Razorpay', 'Node.js', 'PostgreSQL / MongoDB'],
+    businessValue: 'Frictionless checkout reduces cart abandonment rates while sub-second product filtering maximizes customer engagement and order volume.',
+    contactOption: 'E-commerce Development'
   },
   {
     id: 'business-automation',
-    divisionNumber: '03',
-    label: 'BUSINESS AUTOMATION',
-    badge: 'Custom Enterprise Software',
-    title: 'Smarter Software. Better Business Operations.',
-    description: 'Streamline business processes and improve productivity with custom-built software solutions designed around your operational requirements.',
-    services: [
-      'ERP Software Development',
-      'Billing Software',
-      'POS Systems',
-      'Inventory Management',
-      'Business Management Applications',
-      'Custom Business Software',
-      'Workflow Automation',
-    ],
-    ctaText: 'Explore Business Solutions',
-    contactServiceOption: 'ERP / Billing Software',
-    image: `${import.meta.env.BASE_URL}assets/services/services-business-automation.jpg`,
-    imageAlt: 'Appzio ERP, Invoicing and Business Automation Software',
-    accent: {
-      primary: '#252B9B',
-      secondary: '#6326C5',
-      gradient: 'from-[#252B9B] via-[#2364D8] to-[#16BDEB]',
-      badgeBg: 'bg-indigo-50 border-indigo-200/80',
-      badgeText: 'text-[#252B9B]',
-      glow: 'hover:shadow-[0_20px_50px_rgba(37,43,155,0.18)]',
-      borderHover: 'hover:border-[#252B9B]/60',
-    },
-    metrics: [
-      { label: 'Operational Uptime', value: '99.98% SLA' },
-      { label: 'Multi-Branch Sync', value: 'Real-Time' },
-      { label: 'Tax Compliance', value: 'VAT & GST Ready' },
-    ],
-    technologies: ['PostgreSQL', 'Python / Django', 'Node.js', 'React Enterprise', 'Redis', 'Docker', 'AWS / Azure'],
-    capabilitiesSummary: [
-      { title: 'Modular Architecture', desc: 'Deploy only what you need: Inventory, Invoicing, Payroll, CRM, and Supply Chain that scale together seamlessly.' },
-      { title: 'Automated Financial Telemetry', desc: 'Automated VAT/GST compliant invoice generation, credit ledgers, expense reconciliations, and instant PDF/WhatsApp receipts.' },
-      { title: 'Granular Role-Based Access', desc: 'Bank-grade role security, audit log tracking, multi-branch data isolation, and automated daily cloud snapshots.' },
-    ],
-    relevantProjects: [
-      { name: 'Apex ERP Solutions', category: 'Enterprise Manufacturing & Multi-Warehouse ERP', link: '/portfolio' },
-      { name: 'Krona Point-of-Sale', category: 'Retail & Multi-Location Cloud POS Network', link: '/portfolio' },
-      { name: 'Prime Time Immigration Desk', category: 'Automated Document & VIP Processing Workflow', link: 'https://primetimeuae.com' },
-    ],
-  },
-];
-
-export interface AdditionalService {
-  id: string;
-  number: string;
-  name: string;
-  description: string;
-  icon: React.ElementType;
-  badge: string;
-  highlights: string[];
-}
-
-export const additionalServices: AdditionalService[] = [
-  {
-    id: 'ui-ux-design',
-    number: '01',
-    name: 'UI/UX Design',
-    description: 'Professional interface design, user journey mapping, design systems, and intuitive user experiences.',
-    icon: Palette,
-    badge: 'Figma & Design Systems',
-    highlights: ['Wireframing & Prototyping', 'User Research & Personas', 'Design System Architecture', 'WCAG Accessibility Standards'],
-  },
-  {
-    id: 'api-integration',
-    number: '02',
-    name: 'API & System Integration',
-    description: 'Connect applications, services and existing business systems with bank-grade security and reliability.',
+    number: '06',
+    title: 'Business Automation',
+    shortDescription: 'Intelligent workflow automation, third-party system bridges, and automated communication pipelines that eliminate repetitive manual tasks.',
+    fullDescription: 'Accelerate productivity by connecting your disconnected software systems. We build automated data pipelines, automated WhatsApp customer updates, CRM sync bridges, and transaction audit bots that run 24/7 without human intervention.',
     icon: Workflow,
-    badge: 'REST, GraphQL & Webhooks',
-    highlights: ['Payment Gateways (Stripe, Razorpay)', 'WhatsApp Business Cloud API', 'Third-Party ERP Connectors', 'Real-Time Webhook Processing'],
-  },
-  {
-    id: 'website-maintenance',
-    number: '03',
-    name: 'Website Maintenance',
-    description: 'Continuous improvements, performance tuning, security updates, and dedicated technical support.',
-    icon: ShieldCheck,
-    badge: 'Continuous 24/7 SLA',
-    highlights: ['Security Hardening & Backups', 'Core Web Vitals Tuning', 'Framework & Dependency Audits', 'Emergency Bug Resolution'],
-  },
-  {
-    id: 'custom-software',
-    number: '04',
-    name: 'Custom Software Development',
-    description: 'Tailored software solutions designed around specific business requirements and unique operations.',
-    icon: Code2,
-    badge: 'Bespoke Logic & Microservices',
-    highlights: ['Domain-Specific Architecture', 'Scalable Relational DBs', 'Custom Automated Workflows', 'Full IP Code Ownership'],
+    accentColor: '#6326C5',
+    tags: ['Workflow Automation', 'WhatsApp Cloud API', 'System Integration', 'Real-Time Webhooks'],
+    deliverables: [
+      'WhatsApp Cloud API Automated Notifications & Bot Flows',
+      'Third-Party CRM, Payment, & Shipping API Connectors',
+      'Automated Lead Routing & Instant Email Acknowledgments',
+      'Automated Document & Invoice Generation Pipelines',
+      'Executive KPI & Analytics Data Telemetry'
+    ],
+    architecture: ['Webhooks', 'REST / GraphQL', 'Python Celery', 'Docker', 'Serverless Functions'],
+    businessValue: 'Saves hundreds of manual employee hours monthly, eliminates copy-paste data errors, and ensures zero delayed customer responses.',
+    contactOption: 'Business Automation'
   },
 ];
 
 export const ServicesSection: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState<ServiceCategory | null>(null);
-  const [selectedAdditional, setSelectedAdditional] = useState<AdditionalService | null>(null);
+  const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
+  const { settings } = useWebsiteData();
+
+  const phoneDisplay = settings.contact_phone || '+91 9526026636';
+  const phoneClean = phoneDisplay.replace(/[^0-9]/g, '');
 
   // Close modal on Escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setSelectedCategory(null);
-        setSelectedAdditional(null);
-      }
+      if (e.key === 'Escape') setSelectedService(null);
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
   const scrollToContact = (serviceOptionName?: string) => {
-    setSelectedCategory(null);
-    setSelectedAdditional(null);
+    setSelectedService(null);
     const el = document.getElementById('contact');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
@@ -272,616 +190,262 @@ export const ServicesSection: React.FC = () => {
   };
 
   return (
-    <section id="services" className="py-28 lg:py-36 relative overflow-hidden bg-[#F8F9FD] text-slate-900 scroll-mt-16 border-b border-slate-200/80">
-      
-      {/* Background ambient lighting accents */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 -left-48 w-[600px] h-[600px] rounded-full bg-[#16BDEB]/10 blur-[160px]" />
-        <div className="absolute bottom-1/3 -right-48 w-[600px] h-[600px] rounded-full bg-[#2364D8]/10 blur-[170px]" />
-        <div className="absolute bottom-10 left-1/3 w-[500px] h-[500px] rounded-full bg-[#6326C5]/5 blur-[160px]" />
+    <section
+      id="services"
+      className="py-28 lg:py-36 relative overflow-hidden bg-[#070B14] text-white scroll-mt-16 border-b border-white/10"
+    >
+      {/* ── Background Ambient Lighting Accents ── */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-1/4 -right-48 w-[600px] h-[600px] rounded-full bg-[#16BDEB]/10 blur-[170px]" />
+        <div className="absolute bottom-1/3 -left-48 w-[600px] h-[600px] rounded-full bg-[#2364D8]/12 blur-[170px]" />
+        <div className="absolute bottom-10 left-1/3 w-[500px] h-[500px] rounded-full bg-[#6326C5]/8 blur-[160px]" />
+        
+        {/* Subtle grid pattern overlay */}
+        <div 
+          className="absolute inset-0 opacity-[0.03]" 
+          style={{
+            backgroundImage: `radial-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px)`,
+            backgroundSize: '32px 32px'
+          }}
+        />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
 
-        {/* ── 03. SECTION INTRODUCTION ── */}
-        <div className="max-w-4xl mx-auto text-center mb-20 lg:mb-24">
-          
-          {/* Label with Appzio Logo Glyphs */}
+        {/* ── Section Introduction ── */}
+        <div className="max-w-3xl mx-auto text-center mb-16 lg:mb-20">
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: easeOut }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-blue-200/80 text-xs font-mono font-bold tracking-widest text-[#2364D8] uppercase mb-6 shadow-sm"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 backdrop-blur-md text-xs font-mono font-bold tracking-widest text-[#16BDEB] uppercase mb-4 shadow-sm"
           >
-            {/* Small decorative visual element inspired by the Appzio logo */}
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#16BDEB] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-gradient-to-tr from-[#16BDEB] to-[#2364D8]"></span>
-            </span>
-            <span>WHAT WE DO</span>
-            <span className="text-slate-300">•</span>
-            <span className="text-slate-500 font-medium">DISCIPLINED ENGINEERING</span>
+            <Sparkles className="w-3.5 h-3.5 text-[#16BDEB]" />
+            <span>WHAT WE DO &bull; OUR CORE SERVICES</span>
           </motion.div>
 
-          {/* Main Heading */}
           <motion.h2
-            initial={{ opacity: 0, y: 22 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.08, ease: easeOut }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.18] font-display mb-6"
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-6 font-display"
           >
-            Digital Solutions Designed{' '}
+            Digital Solutions Designed to{' '}
             <span
               className="bg-clip-text text-transparent inline-block"
               style={{
-                backgroundImage: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 45%, #6326C5 100%)',
+                backgroundImage: 'linear-gradient(120deg, #16BDEB 0%, #38BDF8 40%, #60A5FA 100%)',
               }}
             >
-              to Move Your Business Forward.
+              Move Your Business Forward.
             </span>
           </motion.h2>
 
-          {/* Supporting Description */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.16, ease: easeOut }}
-            className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed font-normal max-w-3xl mx-auto"
+            className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-2xl mx-auto"
           >
             From building your digital presence to developing powerful software and intelligent business systems, we provide everything you need to grow in a connected world.
           </motion.p>
         </div>
 
-        {/* ── 04. ASYMMETRIC BENTO GRID (3 PRIMARY SERVICE CATEGORIES) ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-24">
+        {/* ── 6-Card Responsive Services Grid ── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {servicesData.map((service, index) => {
+            const Icon = service.icon;
 
-          {/* ════════════════════════════════════════════════════════════════
-              CATEGORY 01: DIGITAL PRESENCE (7 Columns Desktop)
-             ════════════════════════════════════════════════════════════════ */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: easeOut }}
-            className="lg:col-span-7 group rounded-3xl bg-white border border-slate-200/90 hover:border-[#16BDEB]/60 p-8 sm:p-10 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col justify-between relative overflow-hidden"
-          >
-            {/* Ambient inner glow */}
-            <div className="absolute top-0 right-0 w-80 h-80 bg-[#16BDEB]/8 rounded-full blur-[100px] pointer-events-none group-hover:scale-110 transition-transform duration-700" />
-
-            <div className="relative z-10">
-              {/* Header Badge Row */}
-              <div className="flex items-center justify-between gap-4 mb-6 pb-5 border-b border-slate-100">
-                <div className="flex items-center gap-2.5">
-                  <span className="w-8 h-8 rounded-xl bg-cyan-50 border border-cyan-200/80 flex items-center justify-center text-xs font-mono font-bold text-[#0284C7]">
-                    01
-                  </span>
-                  <span className="text-xs font-mono font-bold tracking-widest text-[#0284C7] uppercase">
-                    CATEGORY 01 &bull; DIGITAL PRESENCE
-                  </span>
-                </div>
-                <span className="text-xs font-semibold px-3 py-1 rounded-full bg-cyan-50 text-[#0284C7] border border-cyan-200/80">
-                  Web &amp; Digital Branding
-                </span>
-              </div>
-
-              {/* Title & Description */}
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-3 font-display tracking-tight group-hover:text-[#2364D8] transition-colors">
-                Build Your Digital Presence.
-              </h3>
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
-                Create a powerful online presence with modern, responsive and professionally designed digital experiences that represent your brand and connect with your customers.
-              </p>
-
-              {/* Visual Presentation: Safari Browser Window Mockup */}
-              <div className="mb-8 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl overflow-hidden group-hover:shadow-2xl transition-all duration-300">
-                {/* Safari Browser Chrome Header */}
-                <div className="px-4 py-3 bg-slate-950/90 border-b border-slate-800 flex items-center justify-between">
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]/80" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]/80" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#27C93F]/80" />
-                  </div>
-                  <div className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-slate-900/90 border border-slate-800 text-[11px] font-mono text-slate-400">
-                    <Lock className="w-3 h-3 text-[#16BDEB]" />
-                    <span>appzio.com/showcase/digital-presence</span>
-                  </div>
-                  <div className="text-[10px] font-mono text-cyan-400 font-semibold uppercase tracking-wider hidden sm:block">
-                    LIVE PREVIEW
-                  </div>
-                </div>
-
-                {/* Preview Image with Layered UI Overlays */}
-                <div className="relative aspect-[16/9] overflow-hidden bg-slate-950">
-                  <img
-                    src={primaryServices[0].image}
-                    alt={primaryServices[0].imageAlt}
-                    className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  {/* Subtle Gradient Vignette */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
-
-                  {/* Floating Metric Badges */}
-                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 pointer-events-none">
-                    <div className="px-3 py-1.5 rounded-xl bg-slate-900/90 backdrop-blur-md border border-slate-700/80 text-white text-xs font-medium flex items-center gap-2 shadow-lg">
-                      <Zap className="w-3.5 h-3.5 text-[#16BDEB]" />
-                      <span>99+ Core Web Vitals</span>
-                    </div>
-                    <div className="px-3 py-1.5 rounded-xl bg-slate-900/90 backdrop-blur-md border border-slate-700/80 text-white text-xs font-medium flex items-center gap-2 shadow-lg hidden sm:flex">
-                      <Monitor className="w-3.5 h-3.5 text-cyan-400" />
-                      <span>Responsive 4K &bull; Mobile</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Service Capabilities Pills */}
-              <div className="mb-6">
-                <div className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 mb-3">
-                  Scope of Solutions Included:
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {primaryServices[0].services.map((item) => (
-                    <span
-                      key={item}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200/80 text-xs font-medium text-slate-700 hover:bg-cyan-50 hover:border-cyan-200 hover:text-[#0284C7] transition-colors"
-                    >
-                      <Check className="w-3 h-3 text-[#16BDEB]" />
-                      <span>{item}</span>
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* CTA Action */}
-            <div className="pt-6 border-t border-slate-100 relative z-10">
-              <button
-                onClick={() => setSelectedCategory(primaryServices[0])}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-blue-50 to-cyan-50/70 border border-cyan-200 text-[#0284C7] font-bold text-sm hover:from-[#16BDEB] hover:to-[#2364D8] hover:text-white transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-cyan-500/20 group/btn"
+            return (
+              <motion.div
+                key={service.id}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.08, ease: easeOut }}
+                className="group relative rounded-[2rem] p-7 sm:p-8 bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-[#16BDEB]/50 transition-all duration-400 backdrop-blur-xl flex flex-col justify-between h-full shadow-lg hover:shadow-[0_20px_50px_rgba(22,189,235,0.12)] hover:-translate-y-2 cursor-pointer"
+                onClick={() => setSelectedService(service)}
               >
-                <span>Explore Website Solutions</span>
-                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover/btn:translate-x-1" />
-              </button>
-            </div>
-          </motion.div>
+                {/* Glow accent matching service color */}
+                <div
+                  className="absolute -top-12 -right-12 w-32 h-32 rounded-full opacity-0 group-hover:opacity-30 blur-2xl pointer-events-none transition-opacity duration-500"
+                  style={{ backgroundColor: service.accentColor }}
+                />
 
-          {/* ════════════════════════════════════════════════════════════════
-              CATEGORY 02: DIGITAL PRODUCTS (5 Columns Desktop)
-             ════════════════════════════════════════════════════════════════ */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.12, ease: easeOut }}
-            className="lg:col-span-5 group rounded-3xl bg-white border border-slate-200/90 hover:border-[#2364D8]/60 p-8 sm:p-10 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col justify-between relative overflow-hidden"
-          >
-            {/* Ambient inner glow */}
-            <div className="absolute top-0 right-0 w-80 h-80 bg-[#2364D8]/8 rounded-full blur-[100px] pointer-events-none group-hover:scale-110 transition-transform duration-700" />
-
-            <div className="relative z-10">
-              {/* Header Badge Row */}
-              <div className="flex items-center justify-between gap-4 mb-6 pb-5 border-b border-slate-100">
-                <div className="flex items-center gap-2.5">
-                  <span className="w-8 h-8 rounded-xl bg-blue-50 border border-blue-200/80 flex items-center justify-center text-xs font-mono font-bold text-[#2364D8]">
-                    02
-                  </span>
-                  <span className="text-xs font-mono font-bold tracking-widest text-[#2364D8] uppercase">
-                    CATEGORY 02 &bull; DIGITAL PRODUCTS
-                  </span>
-                </div>
-                <span className="text-xs font-semibold px-3 py-1 rounded-full bg-blue-50 text-[#2364D8] border border-blue-200/80">
-                  Mobile &amp; Cloud Apps
-                </span>
-              </div>
-
-              {/* Title & Description */}
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-3 font-display tracking-tight group-hover:text-[#2364D8] transition-colors">
-                Powerful Applications. Seamless Experiences.
-              </h3>
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
-                Transform your ideas into reliable and scalable applications designed to simplify everyday activities and deliver exceptional user experiences.
-              </p>
-
-              {/* Visual Presentation: Mobile & Multi-Platform Mockup */}
-              <div className="mb-8 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl overflow-hidden group-hover:shadow-2xl transition-all duration-300">
-                {/* Mobile Preview Frame */}
-                <div className="relative aspect-[4/3] overflow-hidden bg-slate-950">
-                  <img
-                    src={primaryServices[1].image}
-                    alt={primaryServices[1].imageAlt}
-                    className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-transparent pointer-events-none" />
-
-                  {/* Floating Tags */}
-                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 pointer-events-none">
-                    <div className="px-3 py-1.5 rounded-xl bg-slate-900/90 backdrop-blur-md border border-slate-700/80 text-white text-xs font-medium flex items-center gap-2 shadow-lg">
-                      <Smartphone className="w-3.5 h-3.5 text-[#2364D8]" />
-                      <span>iOS &bull; Android &bull; Flutter</span>
-                    </div>
-                    <div className="px-3 py-1.5 rounded-xl bg-slate-900/90 backdrop-blur-md border border-slate-700/80 text-white text-xs font-medium flex items-center gap-2 shadow-lg">
-                      <Zap className="w-3.5 h-3.5 text-blue-400" />
-                      <span>60 FPS Fluid</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Service Capabilities Pills */}
-              <div className="mb-6">
-                <div className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 mb-3">
-                  Scope of Solutions Included:
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {primaryServices[1].services.map((item) => (
-                    <span
-                      key={item}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200/80 text-xs font-medium text-slate-700 hover:bg-blue-50 hover:border-blue-200 hover:text-[#2364D8] transition-colors"
-                    >
-                      <Check className="w-3 h-3 text-[#2364D8]" />
-                      <span>{item}</span>
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* CTA Action */}
-            <div className="pt-6 border-t border-slate-100 relative z-10">
-              <button
-                onClick={() => setSelectedCategory(primaryServices[1])}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50/70 border border-blue-200 text-[#2364D8] font-bold text-sm hover:from-[#2364D8] hover:to-[#252B9B] hover:text-white transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-blue-500/20 group/btn"
-              >
-                <span>Explore Application Solutions</span>
-                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover/btn:translate-x-1" />
-              </button>
-            </div>
-          </motion.div>
-
-          {/* ════════════════════════════════════════════════════════════════
-              CATEGORY 03: BUSINESS AUTOMATION (Full 12 Columns Desktop)
-             ════════════════════════════════════════════════════════════════ */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.18, ease: easeOut }}
-            className="lg:col-span-12 group rounded-3xl bg-white border border-slate-200/90 hover:border-[#252B9B]/60 p-8 sm:p-12 shadow-sm hover:shadow-2xl transition-all duration-300 relative overflow-hidden"
-          >
-            {/* Ambient inner glow */}
-            <div className="absolute top-0 right-0 w-96 h-96 bg-[#252B9B]/10 rounded-full blur-[140px] pointer-events-none group-hover:scale-110 transition-transform duration-700" />
-            <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-[#16BDEB]/10 rounded-full blur-[140px] pointer-events-none" />
-
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
-              
-              {/* Left Column: Information & Capabilities (6 Cols) */}
-              <div className="lg:col-span-6 flex flex-col justify-between">
+                {/* Top Row: Service Number & Professional Icon */}
                 <div>
-                  {/* Header Badge Row */}
-                  <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
-                    <span className="w-8 h-8 rounded-xl bg-indigo-50 border border-indigo-200/80 flex items-center justify-center text-xs font-mono font-bold text-[#252B9B]">
-                      03
-                    </span>
-                    <span className="text-xs font-mono font-bold tracking-widest text-[#252B9B] uppercase">
-                      CATEGORY 03 &bull; BUSINESS AUTOMATION
-                    </span>
-                    <span className="text-xs font-semibold px-3 py-1 rounded-full bg-indigo-50 text-[#252B9B] border border-indigo-200/80">
-                      ERP &amp; Enterprise Software
+                  <div className="flex items-center justify-between mb-6">
+                    <div
+                      className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center border transition-all duration-300 group-hover:scale-110 shadow-md"
+                      style={{
+                        backgroundColor: `${service.accentColor}15`,
+                        borderColor: `${service.accentColor}35`,
+                      }}
+                    >
+                      <Icon className="w-6 h-6 sm:w-7 sm:h-7" style={{ color: service.accentColor }} />
+                    </div>
+
+                    <span className="text-xs font-mono font-bold tracking-widest text-slate-400 group-hover:text-white transition-colors">
+                      {service.number}
                     </span>
                   </div>
 
-                  {/* Title & Description */}
-                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 mb-4 font-display tracking-tight group-hover:text-[#252B9B] transition-colors">
-                    Smarter Software. Better Business Operations.
+                  {/* Title */}
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 font-display group-hover:text-[#16BDEB] transition-colors">
+                    {service.title}
                   </h3>
-                  <p className="text-base text-slate-600 leading-relaxed mb-6">
-                    Streamline business processes and improve productivity with custom-built software solutions designed around your operational requirements.
+
+                  {/* Concise Description */}
+                  <p className="text-sm text-slate-300 font-normal leading-relaxed mb-6">
+                    {service.shortDescription}
                   </p>
 
-                  {/* Highlights Grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-                    <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-3">
-                      <BarChart3 className="w-5 h-5 text-[#252B9B] shrink-0 mt-0.5" />
-                      <div>
-                        <div className="text-xs font-bold text-slate-900">Real-Time Business Telemetry</div>
-                        <div className="text-[11px] text-slate-500">Live sales dashboards &amp; financial reports</div>
-                      </div>
-                    </div>
-                    <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-3">
-                      <TrendingUp className="w-5 h-5 text-[#252B9B] shrink-0 mt-0.5" />
-                      <div>
-                        <div className="text-xs font-bold text-slate-900">VAT &amp; GST Invoicing Engine</div>
-                        <div className="text-[11px] text-slate-500">Compliant billing &amp; instant digital receipts</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Scope of Included Services */}
-                  <div className="mb-6">
-                    <div className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 mb-3">
-                      Scope of Solutions Included:
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {primaryServices[2].services.map((item) => (
-                        <span
-                          key={item}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200/80 text-xs font-medium text-slate-700 hover:bg-indigo-50 hover:border-indigo-200 hover:text-[#252B9B] transition-colors"
-                        >
-                          <Check className="w-3 h-3 text-[#252B9B]" />
-                          <span>{item}</span>
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* CTA Action */}
-                <div className="pt-4">
-                  <button
-                    onClick={() => setSelectedCategory(primaryServices[2])}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-7 py-4 rounded-2xl bg-gradient-to-r from-indigo-50 via-blue-50 to-cyan-50 border border-indigo-200 text-[#252B9B] font-bold text-sm hover:from-[#252B9B] hover:via-[#2364D8] hover:to-[#16BDEB] hover:text-white transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-indigo-500/25 group/btn"
-                  >
-                    <span>Explore Business Solutions</span>
-                    <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover/btn:translate-x-1" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Right Column: Visual Dashboard Mockup (6 Cols) */}
-              <div className="lg:col-span-6">
-                <div className="rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl overflow-hidden group-hover:shadow-2xl transition-all duration-300">
-                  
-                  {/* Dashboard Window Header Bar */}
-                  <div className="px-4 py-3 bg-slate-950/95 border-b border-slate-800 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]/80" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]/80" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#27C93F]/80" />
-                      <span className="text-xs font-mono font-semibold text-slate-300 ml-2">Appzio Enterprise ERP Portal</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-mono text-emerald-400">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                        SYNCED
+                  {/* Capability Tags */}
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    {service.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300 group-hover:border-white/20 transition-colors"
+                      >
+                        {tag}
                       </span>
-                    </div>
+                    ))}
                   </div>
-
-                  {/* Dashboard Graphic Canvas */}
-                  <div className="relative aspect-[16/10] overflow-hidden bg-slate-950">
-                    <img
-                      src={primaryServices[2].image}
-                      alt={primaryServices[2].imageAlt}
-                      className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent pointer-events-none" />
-
-                    {/* Live Metric Badges Overlay */}
-                    <div className="absolute bottom-4 left-4 right-4 flex flex-wrap items-center justify-between gap-2 pointer-events-none">
-                      <div className="px-3.5 py-1.5 rounded-xl bg-slate-900/90 backdrop-blur-md border border-slate-700/80 text-white text-xs font-semibold flex items-center gap-2 shadow-lg">
-                        <Server className="w-3.5 h-3.5 text-[#16BDEB]" />
-                        <span>Multi-Branch Inventory Sync</span>
-                      </div>
-                      <div className="px-3.5 py-1.5 rounded-xl bg-slate-900/90 backdrop-blur-md border border-slate-700/80 text-white text-xs font-semibold flex items-center gap-2 shadow-lg">
-                        <ShieldCheck className="w-3.5 h-3.5 text-indigo-400" />
-                        <span>Bank-Grade RBAC Security</span>
-                      </div>
-                    </div>
-                  </div>
-
                 </div>
-              </div>
 
-            </div>
-          </motion.div>
+                {/* Bottom Row: Elegant Learn More Interaction */}
+                <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+                  <span className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#16BDEB] group-hover:text-white transition-colors">
+                    <span>Learn More</span>
+                    <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" />
+                  </span>
 
+                  <span className="text-[11px] font-mono text-slate-400 group-hover:text-slate-300">
+                    Explore Details &rarr;
+                  </span>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
-        {/* ── 05. ADDITIONAL SERVICES ("More Than Just Development") ── */}
-        <div className="mt-8 pt-16 border-t border-slate-200/90">
-          
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-            <div>
-              <div className="text-xs font-mono font-bold tracking-widest text-[#2364D8] uppercase mb-2">
-                COMPREHENSIVE DIGITAL CAPABILITIES
-              </div>
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-display tracking-tight">
-                More Than Just Development.
-              </h3>
-            </div>
-            <p className="text-sm text-slate-600 max-w-md">
-              Complementary technical disciplines designed to keep your software performing at its highest standard throughout its entire lifecycle.
-            </p>
+        {/* ── Bottom Section CTA ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3, ease: easeOut }}
+          className="mt-16 text-center"
+        >
+          <div className="inline-flex flex-col sm:flex-row items-center gap-4 p-4 sm:p-5 rounded-3xl bg-white/[0.04] border border-white/10 backdrop-blur-xl max-w-xl mx-auto">
+            <span className="text-xs sm:text-sm text-slate-300 text-center sm:text-left">
+              Need a bespoke software solution or have a custom project specification?
+            </span>
+            <button
+              onClick={() => scrollToContact()}
+              className="shrink-0 inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold text-white shadow-md shadow-blue-500/20 hover:shadow-blue-500/35 hover:scale-[1.02] transition-all"
+              style={{
+                background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #252B9B 100%)',
+              }}
+            >
+              <span>Get Free Estimate</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
           </div>
-
-          {/* 4-Column Grid of Secondary Services */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {additionalServices.map((service, index) => {
-              const Icon = service.icon;
-              return (
-                <motion.div
-                  key={service.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.08, ease: easeOut }}
-                  onClick={() => setSelectedAdditional(service)}
-                  className="group rounded-2xl bg-white border border-slate-200/80 hover:border-[#2364D8]/50 p-6 shadow-xs hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between"
-                >
-                  <div>
-                    {/* Icon and Number */}
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-200/80 flex items-center justify-center text-[#2364D8] group-hover:scale-110 group-hover:bg-[#2364D8] group-hover:text-white transition-all duration-300">
-                        <Icon className="w-5 h-5" />
-                      </div>
-                      <span className="text-xs font-mono font-bold text-slate-400 group-hover:text-[#2364D8] transition-colors">
-                        {service.number}
-                      </span>
-                    </div>
-
-                    <h4 className="text-lg font-bold text-slate-900 mb-2 font-display group-hover:text-[#2364D8] transition-colors">
-                      {service.name}
-                    </h4>
-
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
-                      {service.description}
-                    </p>
-                  </div>
-
-                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-[#2364D8] group-hover:text-[#16BDEB] transition-colors">
-                    <span>Explore Discipline</span>
-                    <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-
-        </div>
+        </motion.div>
 
       </div>
 
-      {/* ── 08. SERVICE DETAIL MODAL (PRIMARY CATEGORIES) ── */}
+      {/* ── High-End Interactive Details Modal ── */}
       <AnimatePresence>
-        {selectedCategory && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/70 backdrop-blur-md">
-            
-            {/* Backdrop click to close */}
-            <div 
-              className="absolute inset-0" 
-              onClick={() => setSelectedCategory(null)} 
+        {selectedService && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedService(null)}
+              className="fixed inset-0 bg-slate-950/85 backdrop-blur-xl"
             />
 
+            {/* Modal Dialog */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.94, y: 20 }}
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.94, y: 20 }}
-              transition={{ duration: 0.25, ease: easeOut }}
-              className="relative w-full max-w-3xl bg-white border border-slate-200 rounded-[2rem] p-6 sm:p-10 shadow-2xl overflow-hidden max-h-[92vh] overflow-y-auto z-10"
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.3, ease: easeOut }}
+              className="relative w-full max-w-3xl rounded-[2rem] bg-[#0A1020] border border-white/20 p-6 sm:p-10 text-white shadow-2xl z-10 max-h-[90vh] overflow-y-auto"
             >
               {/* Close Button */}
               <button
-                onClick={() => setSelectedCategory(null)}
-                className="absolute top-6 right-6 p-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 transition-colors"
-                aria-label="Close modal"
+                onClick={() => setSelectedService(null)}
+                className="absolute top-5 right-5 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center text-slate-300 hover:text-white transition-colors"
+                aria-label="Close dialog"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
 
-              {/* Modal Category Badge */}
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-xs font-mono font-bold tracking-widest text-[#2364D8] uppercase">
-                  CATEGORY {selectedCategory.divisionNumber} &bull; {selectedCategory.badge}
-                </span>
+              {/* Header */}
+              <div className="flex items-center gap-4 mb-6">
+                <div
+                  className="w-14 h-14 rounded-2xl flex items-center justify-center border"
+                  style={{
+                    backgroundColor: `${selectedService.accentColor}18`,
+                    borderColor: `${selectedService.accentColor}40`,
+                  }}
+                >
+                  {React.createElement(selectedService.icon, {
+                    className: 'w-7 h-7',
+                    style: { color: selectedService.accentColor },
+                  })}
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xs font-mono font-bold text-[#16BDEB] uppercase">
+                      SERVICE {selectedService.number}
+                    </span>
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-display">
+                    {selectedService.title}
+                  </h3>
+                </div>
               </div>
 
-              {/* Title & Description */}
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-3 font-display">
-                {selectedCategory.title}
-              </h3>
-              <p className="text-base text-slate-600 leading-relaxed mb-6">
-                {selectedCategory.description}
+              {/* Detailed Overview */}
+              <p className="text-sm sm:text-base text-slate-300 leading-relaxed mb-6 font-normal">
+                {selectedService.fullDescription}
               </p>
 
-              {/* Performance Metrics Strip */}
-              <div className="grid grid-cols-3 gap-3 mb-8 p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
-                {selectedCategory.metrics.map((metric) => (
-                  <div key={metric.label} className="text-center">
-                    <div className="text-xs font-mono text-slate-500 uppercase">{metric.label}</div>
-                    <div className="text-base sm:text-lg font-extrabold text-slate-900">{metric.value}</div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Scope of What We Deliver */}
-              <div className="mb-8">
-                <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 mb-3">
-                  Scope of Solutions Delivered:
+              {/* Deliverables Checklist */}
+              <div className="mb-6 p-5 rounded-2xl bg-white/[0.03] border border-white/10">
+                <h4 className="text-xs font-mono font-bold text-slate-200 uppercase tracking-wider mb-3 flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-[#16BDEB]" />
+                  <span>Key Deliverables &amp; Capabilities</span>
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {selectedCategory.services.map((item) => (
-                    <div
-                      key={item}
-                      className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800"
-                    >
-                      <CheckCircle2 className="w-4 h-4 text-[#2364D8] shrink-0" />
-                      <span>{item}</span>
+                  {selectedService.deliverables.map((item) => (
+                    <div key={item} className="flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#16BDEB] mt-2 shrink-0" />
+                      <span className="text-xs sm:text-sm text-slate-300">{item}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Engineering Approach Pillars */}
-              <div className="mb-8">
-                <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 mb-3">
-                  Our Engineering Approach:
-                </h4>
-                <div className="space-y-3">
-                  {selectedCategory.capabilitiesSummary.map((pillar) => (
-                    <div key={pillar.title} className="p-4 rounded-2xl bg-blue-50/50 border border-blue-100">
-                      <div className="text-sm font-bold text-slate-900 mb-1">{pillar.title}</div>
-                      <div className="text-xs sm:text-sm text-slate-600 leading-relaxed">{pillar.desc}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Relevant Live Client Projects */}
-              <div className="mb-8">
-                <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 mb-3">
-                  Relevant Client Projects:
-                </h4>
-                <div className="space-y-2">
-                  {selectedCategory.relevantProjects.map((project) => (
-                    <div
-                      key={project.name}
-                      className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between gap-4"
-                    >
-                      <div>
-                        <div className="text-sm font-bold text-slate-900">{project.name}</div>
-                        <div className="text-xs text-slate-500">{project.category}</div>
-                      </div>
-                      {project.link.startsWith('http') ? (
-                        <a
-                          href={project.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-[#2364D8] hover:border-blue-300 transition-colors"
-                        >
-                          <span>Live Site</span>
-                          <ExternalLink className="w-3 h-3" />
-                        </a>
-                      ) : (
-                        <Link
-                          to={project.link}
-                          onClick={() => setSelectedCategory(null)}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-[#2364D8] hover:border-blue-300 transition-colors"
-                        >
-                          <span>Case Study</span>
-                          <ChevronRight className="w-3 h-3" />
-                        </Link>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Tech Stack Chips */}
-              <div className="mb-8">
-                <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 mb-3">
-                  Core Technologies:
+              {/* Technical Architecture & Stack */}
+              <div className="mb-6">
+                <h4 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider mb-2">
+                  Core Technologies &amp; Architecture
                 </h4>
                 <div className="flex flex-wrap gap-2">
-                  {selectedCategory.technologies.map((tech) => (
+                  {selectedService.architecture.map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1 rounded-full bg-slate-100 text-slate-700 font-mono text-xs font-medium"
+                      className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-blue-500/10 text-sky-300 border border-blue-400/25"
                     >
                       {tech}
                     </span>
@@ -889,111 +453,45 @@ export const ServicesSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* Modal Conversion CTAs */}
-              <div className="flex flex-col sm:flex-row items-center gap-3 pt-6 border-t border-slate-100">
-                <button
-                  onClick={() => scrollToContact(selectedCategory.contactServiceOption)}
-                  className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 py-4 px-6 rounded-full font-bold text-white shadow-xl shadow-blue-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
-                  style={{
-                    background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #252B9B 100%)',
-                  }}
-                >
-                  <MessageSquare className="w-4 h-4" />
-                  <span>Start a Project in {selectedCategory.label}</span>
-                </button>
-                <button
-                  onClick={() => setSelectedCategory(null)}
-                  className="w-full sm:w-auto px-6 py-4 rounded-full text-sm font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 transition-colors"
-                >
-                  Close
-                </button>
-              </div>
-
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-
-      {/* ── 09. ADDITIONAL SERVICE DETAIL MODAL ── */}
-      <AnimatePresence>
-        {selectedAdditional && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/70 backdrop-blur-md">
-            
-            <div 
-              className="absolute inset-0" 
-              onClick={() => setSelectedAdditional(null)} 
-            />
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.94, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.94, y: 20 }}
-              transition={{ duration: 0.25, ease: easeOut }}
-              className="relative w-full max-w-xl bg-white border border-slate-200 rounded-[2rem] p-6 sm:p-8 shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto z-10"
-            >
-              <button
-                onClick={() => setSelectedAdditional(null)}
-                className="absolute top-6 right-6 p-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 transition-colors"
-                aria-label="Close modal"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-xs font-mono font-bold tracking-widest text-[#2364D8] uppercase">
-                  DISCIPLINE {selectedAdditional.number} &bull; {selectedAdditional.badge}
+              {/* Commercial Value */}
+              <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/25 mb-8">
+                <span className="text-xs font-bold text-emerald-300 block mb-1">
+                  Business Impact Guarantee:
                 </span>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  {selectedService.businessValue}
+                </p>
               </div>
 
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-3 font-display">
-                {selectedAdditional.name}
-              </h3>
-
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
-                {selectedAdditional.description}
-              </p>
-
-              <div className="mb-6">
-                <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 mb-3">
-                  Key Disciplines &amp; Capabilities:
-                </h4>
-                <div className="space-y-2">
-                  {selectedAdditional.highlights.map((item) => (
-                    <div
-                      key={item}
-                      className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800"
-                    >
-                      <CheckCircle2 className="w-4 h-4 text-[#2364D8] shrink-0" />
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row items-center gap-3 pt-6 border-t border-slate-100">
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-4 border-t border-white/10">
                 <button
-                  onClick={() => scrollToContact(selectedAdditional.name)}
-                  className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 py-3.5 px-6 rounded-full font-bold text-white shadow-lg shadow-blue-500/20"
+                  onClick={() => scrollToContact(selectedService.contactOption)}
+                  className="flex-1 inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full text-sm font-bold text-white shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.01] active:scale-[0.99] transition-all"
                   style={{
                     background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #252B9B 100%)',
                   }}
                 >
-                  <MessageSquare className="w-4 h-4" />
-                  <span>Inquire for {selectedAdditional.name}</span>
+                  <span>Inquire for {selectedService.title}</span>
+                  <ArrowRight className="w-4 h-4" />
                 </button>
-                <button
-                  onClick={() => setSelectedAdditional(null)}
-                  className="w-full sm:w-auto px-6 py-3.5 rounded-full text-sm font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 transition-colors"
-                >
-                  Close
-                </button>
-              </div>
 
+                <a
+                  href={`https://wa.me/${phoneClean}?text=Hello%20APPZIO,%20I%20am%20interested%20in%20${encodeURIComponent(
+                    selectedService.title
+                  )}.`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full text-xs font-semibold text-emerald-300 bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 transition-all"
+                >
+                  <MessageCircle className="w-4 h-4 text-emerald-400" />
+                  <span>WhatsApp Inquiry</span>
+                </a>
+              </div>
             </motion.div>
           </div>
         )}
       </AnimatePresence>
-
     </section>
   );
 };
