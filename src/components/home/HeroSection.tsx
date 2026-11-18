@@ -4,6 +4,7 @@ import {
   Globe2, Phone, MessageCircle, ExternalLink 
 } from 'lucide-react';
 import { motion, Easing } from 'framer-motion';
+import { HeroCarousel } from './HeroCarousel';
 import { getAssetUrl } from '../../utils/asset';
 import { useWebsiteData } from '../../context/WebsiteDataContext';
 
@@ -22,35 +23,34 @@ export const HeroSection: React.FC = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-[92vh] lg:min-h-screen flex items-center justify-center overflow-hidden bg-slate-950 text-white pt-32 sm:pt-36 lg:pt-20 pb-16 lg:py-0 border-b border-slate-800/80"
+      className="relative min-h-[92vh] lg:min-h-screen flex items-center justify-center overflow-hidden bg-slate-950 text-white pt-32 sm:pt-36 lg:pt-24 pb-16 lg:py-0 border-b border-slate-800/80"
     >
       {/* ── Full-Width Realistic Ultra-HD Team Collaboration Background Image ── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Background Image: Realistic Professional Digital Agency Team */}
         <div
-          className="absolute inset-0 bg-cover bg-center sm:bg-[center_top] lg:bg-[right_center] bg-no-repeat scale-100 transition-transform duration-1000"
+          className="absolute inset-0 bg-cover bg-center sm:bg-[center_top] lg:bg-[right_center] bg-no-repeat scale-100 transition-transform duration-1000 opacity-60"
           style={{
             backgroundImage: `url('${getAssetUrl('/assets/hero/hero-banner-team-hd.jpg')}')`,
           }}
         />
 
         {/* Sophisticated Multi-Layered Directional Overlay for 100% Typography Contrast */}
-        {/* Left-to-right gradient: dark on left for text, transparent on right to reveal the team */}
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/80 sm:via-slate-950/70 to-slate-950/25 lg:to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/85 to-slate-950/60" />
         
         {/* Top & bottom subtle vignettes */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-transparent to-slate-950/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-transparent to-slate-950/95" />
 
         {/* Brand Blue Ambient Glow */}
         <div className="absolute -top-[10%] left-[5%] w-[500px] h-[500px] rounded-full bg-[#16BDEB]/15 blur-[160px]" />
-        <div className="absolute bottom-[10%] left-[25%] w-[450px] h-[450px] rounded-full bg-[#2364D8]/15 blur-[160px]" />
+        <div className="absolute bottom-[10%] right-[10%] w-[500px] h-[500px] rounded-full bg-[#2364D8]/15 blur-[160px]" />
       </div>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12 lg:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-10 lg:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 xl:gap-14 items-center">
           
           {/* LEFT SIDE – HEADLINE, TAGLINE & CALL TO ACTIONS */}
-          <div className="lg:col-span-8 xl:col-span-7 flex flex-col items-start text-left">
+          <div className="lg:col-span-6 xl:col-span-6 flex flex-col items-start text-left">
             
             {/* Tagline / Subtitle matching reference */}
             <motion.div
@@ -73,7 +73,7 @@ export const HeroSection: React.FC = () => {
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.08, ease: easeOut }}
-              className="text-4xl sm:text-5xl lg:text-6xl xl:text-[4.25rem] font-extrabold tracking-tight leading-[1.08] text-white mb-6 font-display drop-shadow-md"
+              className="text-4xl sm:text-5xl lg:text-[3.25rem] xl:text-[3.75rem] font-extrabold tracking-tight leading-[1.1] text-white mb-6 font-display drop-shadow-md"
             >
               Digital Solutions for{' '}
               <br className="hidden sm:inline" />
@@ -92,32 +92,32 @@ export const HeroSection: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.16, ease: easeOut }}
-              className="text-base sm:text-lg lg:text-xl text-slate-200 font-normal leading-relaxed mb-8 max-w-2xl drop-shadow-sm"
+              className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed mb-8 max-w-xl drop-shadow-sm"
             >
               We help businesses around the world transform ideas into powerful digital experiences. From modern websites and mobile applications to custom software, e-commerce platforms and business automation, we deliver innovative, scalable and result-driven solutions that drive growth.
             </motion.p>
 
-            {/* Action Buttons: Primary "About Us" / "Explore Our Work" & "Contact Us" */}
+            {/* Action Buttons: Primary "About Us", "Explore Our Work" & "WhatsApp Now" */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.24, ease: easeOut }}
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto mb-10"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto mb-9"
             >
               <button
                 onClick={() => scrollTo('about')}
-                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full text-base font-bold text-white shadow-xl shadow-blue-500/25 hover:shadow-blue-500/35 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+                className="group relative inline-flex items-center justify-center gap-3 px-7 py-3.5 rounded-full text-sm font-bold text-white shadow-xl shadow-blue-500/25 hover:shadow-blue-500/35 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
                 style={{
                   background: 'linear-gradient(120deg, #16BDEB 0%, #2364D8 50%, #252B9B 100%)',
                 }}
               >
                 <span>About Us</span>
-                <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
+                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
               </button>
 
               <button
                 onClick={() => scrollTo('portfolio')}
-                className="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full text-base font-bold text-white bg-white/10 hover:bg-white/20 border border-white/25 backdrop-blur-md transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-bold text-white bg-white/10 hover:bg-white/20 border border-white/25 backdrop-blur-md transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
               >
                 <span>Explore Our Work</span>
               </button>
@@ -126,10 +126,10 @@ export const HeroSection: React.FC = () => {
                 href={`https://wa.me/${phoneClean}?text=Hello%20APPZIO,%20I%20have%20a%20project%20inquiry.`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full text-sm font-semibold text-emerald-300 bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 backdrop-blur-md transition-all duration-300"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full text-xs font-semibold text-emerald-300 bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 backdrop-blur-md transition-all duration-300"
               >
                 <MessageCircle className="w-4 h-4 text-emerald-400" />
-                <span>WhatsApp Now</span>
+                <span>WhatsApp</span>
               </a>
             </motion.div>
 
@@ -138,54 +138,33 @@ export const HeroSection: React.FC = () => {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.32, ease: easeOut }}
-              className="grid grid-cols-2 sm:grid-cols-3 gap-5 pt-6 border-t border-white/15 w-full max-w-2xl"
+              className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-6 border-t border-white/15 w-full"
             >
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-[#16BDEB] shrink-0" />
-                <span className="text-xs sm:text-sm text-slate-200 font-semibold">Corporate Websites</span>
+                <span className="text-xs text-slate-300 font-semibold">Websites &amp; Apps</span>
               </div>
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0" />
-                <span className="text-xs sm:text-sm text-slate-200 font-semibold">E-Commerce &amp; Apps</span>
+                <span className="text-xs text-slate-300 font-semibold">ERP &amp; Billing Systems</span>
               </div>
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span className="text-xs sm:text-sm text-slate-200 font-semibold">UAE &amp; India Delivery</span>
+                <span className="text-xs text-slate-300 font-semibold">UAE &amp; Global Delivery</span>
               </div>
             </motion.div>
 
           </div>
 
-          {/* RIGHT SIDE – FLOATING GLASS BADGE / TEAM SHOWCASE */}
-          <div className="lg:col-span-4 xl:col-span-5 flex justify-end">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.25, ease: easeOut }}
-              className="p-6 rounded-3xl bg-slate-900/60 backdrop-blur-xl border border-white/20 shadow-2xl max-w-sm"
-            >
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-2xl bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-[#16BDEB]">
-                  <Globe2 className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-xs font-mono font-bold text-[#16BDEB] uppercase tracking-wider">
-                    APPZIO DIGITAL LABS
-                  </div>
-                  <div className="text-xs text-slate-300">
-                    Kerala, India &bull; Active UAE Delivery
-                  </div>
-                </div>
-              </div>
-              <p className="text-xs text-slate-300 leading-relaxed mb-4">
-                Professional software engineering team building modern web architectures, mobile apps, and business software for forward-thinking enterprises.
-              </p>
-              <div className="flex items-center justify-between pt-3 border-t border-white/10 text-[11px] font-mono text-slate-400">
-                <span className="text-emerald-400 font-semibold">● 100% In-House Team</span>
-                <span>Direct Engineer Access</span>
-              </div>
-            </motion.div>
-          </div>
+          {/* RIGHT SIDE – AUTO-SCROLLABLE ANIMATED REALISTIC HERO IMAGE CAROUSEL */}
+          <motion.div
+            initial={{ opacity: 0, x: 25, scale: 0.98 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ duration: 0.75, delay: 0.15, ease: easeOut }}
+            className="lg:col-span-6 xl:col-span-6 w-full"
+          >
+            <HeroCarousel />
+          </motion.div>
 
         </div>
       </div>

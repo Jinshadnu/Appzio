@@ -17,59 +17,70 @@ export interface HeroSlide {
 
 export const heroSlides: HeroSlide[] = [
   {
-    id: 'slide-web',
+    id: 'slide-websites',
     slideNumber: '01',
-    category: 'WEBSITE DEVELOPMENT',
-    title: 'High-Performance Modern Web Platforms',
-    subtitle: 'Custom architectures engineered for speed, Swiss precision layouts, and high search visibility.',
-    image: '/assets/hero/hero-slide-web.png',
+    category: 'WEBSITES',
+    title: 'High-Performance Modern Websites',
+    subtitle: 'Custom architectures engineered for speed, Swiss precision typography, and top search visibility.',
+    image: '/assets/hero/hero-slide-web.jpg',
     fallbackImage: '/assets/projects/tephra-preview.png',
     accentColor: '#16BDEB',
-    badge: 'Enterprise Web Solutions'
+    badge: 'Corporate & Web Platforms'
   },
   {
-    id: 'slide-mobile',
+    id: 'slide-mobile-app',
     slideNumber: '02',
-    category: 'MOBILE APPLICATION DEVELOPMENT',
-    title: 'Cross-Platform iOS & Android Systems',
-    subtitle: 'Butter-smooth Flutter and native engineering with 60fps animations and offline capabilities.',
-    image: '/assets/hero/hero-slide-mobile.png',
+    category: 'MOBILE APP',
+    title: 'iOS & Android Mobile Applications',
+    subtitle: 'Cross-platform Flutter and native engineering with 60fps animations and offline capabilities.',
+    image: '/assets/hero/hero-slide-mobile.jpg',
     fallbackImage: '/hero-team-hd.jpg',
     accentColor: '#2364D8',
-    badge: 'Mobile Engineering'
+    badge: 'Mobile Applications'
   },
   {
-    id: 'slide-erp',
+    id: 'slide-billing-software',
     slideNumber: '03',
-    category: 'CUSTOM SOFTWARE & ERP',
-    title: 'Intelligent Business Dashboards & Automation',
-    subtitle: 'Bespoke enterprise dashboards, automated invoicing, real-time analytics and POS solutions.',
-    image: '/assets/hero/hero-slide-erp.png',
+    category: 'BILLING SOFTWARE',
+    title: 'Intelligent Billing & Invoicing Systems',
+    subtitle: 'Point-of-Sale (POS), automated tax invoicing, subscription billing, and real-time revenue analytics.',
+    image: '/assets/hero/hero-slide-billing.jpg',
     fallbackImage: '/assets/projects/primetime-preview.png',
+    accentColor: '#16BDEB',
+    badge: 'Financial & POS Systems'
+  },
+  {
+    id: 'slide-desktop-application',
+    slideNumber: '04',
+    category: 'DESKTOP APPLICATION',
+    title: 'High-Performance Desktop Software',
+    subtitle: 'Cross-platform macOS and Windows software, offline-first data managers, and multi-panel tools.',
+    image: '/assets/hero/hero-slide-desktop.jpg',
+    fallbackImage: '/assets/hero/hero-slide-erp.jpg',
     accentColor: '#252B9B',
-    badge: 'Enterprise Software'
+    badge: 'Desktop Applications'
+  },
+  {
+    id: 'slide-erp-software',
+    slideNumber: '05',
+    category: 'ERP SOFTWARE',
+    title: 'Enterprise Resource Planning (ERP)',
+    subtitle: 'Unified enterprise workflows, supply chain tracking, inventory management, and business intelligence.',
+    image: '/assets/hero/hero-slide-erp.jpg',
+    fallbackImage: '/assets/projects/primetime-preview.png',
+    accentColor: '#2364D8',
+    badge: 'Enterprise ERP Solutions'
   },
   {
     id: 'slide-ecommerce',
-    slideNumber: '04',
-    category: 'E-COMMERCE DEVELOPMENT',
-    title: 'Conversion-Focused Online Storefronts',
-    subtitle: 'Full-featured digital commerce, bookstore catalogs, and streamlined payment workflows.',
-    image: '/assets/hero/hero-slide-ecommerce.png',
+    slideNumber: '06',
+    category: 'E-COMMERCE WEBSITE & APP',
+    title: 'E-Commerce Storefronts & Shopping Apps',
+    subtitle: 'Full-featured online stores, book catalogs, integrated mobile apps, and secure checkout gateways.',
+    image: '/assets/hero/hero-slide-ecommerce.jpg',
     fallbackImage: '/assets/projects/ghafbooks-preview.png',
-    accentColor: '#2364D8',
-    badge: 'Digital Commerce'
-  },
-  {
-    id: 'slide-innovation',
-    slideNumber: '05',
-    category: 'DIGITAL INNOVATION',
-    title: 'Futuristic Cloud & AI-Driven Transformation',
-    subtitle: 'Transforming ambitious business ideas into living, scalable digital products that move your business forward.',
-    image: '/assets/hero/hero-slide-innovation.png',
-    fallbackImage: '/hero-team-hd3.jpg',
     accentColor: '#16BDEB',
-    badge: 'Digital Transformation'
+    badge: 'Digital Commerce & Apps'
   }
 ];
 
@@ -84,7 +95,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onSlideChange }) => 
   const [isManualPaused, setIsManualPaused] = useState(false);
   const [progress, setProgress] = useState(0);
 
-  const AUTOPLAY_INTERVAL = 5000;
+  const AUTOPLAY_INTERVAL = 4500;
   const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const currentSlide = heroSlides[currentIndex];
@@ -200,15 +211,15 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onSlideChange }) => 
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* ── Outer Decorative Frame with White & Logo Blue Shadow ── */}
+      {/* ── Outer Frosted Glass Frame with Ambient Brand Glow ── */}
       <div
-        className="relative rounded-[2rem] p-2.5 bg-white border border-slate-200/90 shadow-2xl transition-all duration-700"
+        className="relative rounded-[2rem] p-2.5 sm:p-3 bg-slate-900/80 backdrop-blur-2xl border border-white/20 shadow-2xl transition-all duration-700"
         style={{
-          boxShadow: '0 25px 60px -15px rgba(35, 100, 216, 0.15), 0 0 30px -5px rgba(22, 189, 235, 0.1)',
+          boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.6), 0 0 35px -5px rgba(22, 189, 235, 0.25)',
         }}
       >
         {/* ── Inner Interactive Canvas Container ── */}
-        <div className="relative aspect-[16/11] sm:aspect-[16/10] md:aspect-[16/10] lg:aspect-[16/11] xl:aspect-[16/10] w-full rounded-[1.65rem] overflow-hidden bg-slate-900">
+        <div className="relative aspect-[16/11] sm:aspect-[16/10] md:aspect-[16/10] lg:aspect-[16/11] xl:aspect-[16/10] w-full rounded-[1.65rem] overflow-hidden bg-slate-950">
           
           <AnimatePresence initial={false} custom={direction} mode="popLayout">
             <motion.div
@@ -229,7 +240,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onSlideChange }) => 
                 <motion.img
                   initial={{ scale: 1 }}
                   animate={{ scale: 1.05 }}
-                  transition={{ duration: 7, ease: 'linear' }}
+                  transition={{ duration: 6, ease: 'linear' }}
                   src={getAssetUrl(currentSlide.image)}
                   onError={(e) => {
                     const target = e.currentTarget;
@@ -243,47 +254,47 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onSlideChange }) => 
                 />
 
                 {/* Multilayered Gradient Overlays */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/20" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-slate-950/50 via-transparent to-slate-950/30" />
 
-                {/* Top Subtle Tech Grid Badge */}
-                <div className="absolute top-5 left-5 right-5 flex items-center justify-between pointer-events-none z-10">
-                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md border border-slate-200 text-xs font-mono font-bold text-slate-800 shadow-md">
+                {/* Top Subtle Tech Category Pill */}
+                <div className="absolute top-4 left-4 right-4 sm:top-5 sm:left-5 sm:right-5 flex items-center justify-between pointer-events-none z-10">
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-950/80 backdrop-blur-md border border-white/20 text-xs font-mono font-bold text-white shadow-md">
                     <span
                       className="w-2 h-2 rounded-full animate-pulse"
                       style={{ backgroundColor: currentSlide.accentColor }}
                     />
-                    <span className="text-[11px] tracking-wider uppercase text-slate-800">
+                    <span className="text-[11px] tracking-wider uppercase text-white font-bold">
                       {currentSlide.category}
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md border border-slate-200 text-xs font-mono text-slate-700 shadow-md">
-                    <span className="font-bold text-[#2364D8]">{currentSlide.slideNumber}</span>
-                    <span className="text-slate-400">/</span>
-                    <span>05</span>
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-950/80 backdrop-blur-md border border-white/20 text-xs font-mono text-slate-300 shadow-md">
+                    <span className="font-bold text-[#16BDEB]">{currentSlide.slideNumber}</span>
+                    <span className="text-slate-500">/</span>
+                    <span>06</span>
                   </div>
                 </div>
 
                 {/* Bottom Content Metadata Overlay */}
-                <div className="absolute bottom-5 left-5 right-5 sm:bottom-6 sm:left-6 sm:right-6 pointer-events-none z-10">
-                  <div className="p-4 sm:p-5 rounded-2xl bg-white/95 backdrop-blur-xl border border-white/60 shadow-xl text-slate-900">
+                <div className="absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-5 pointer-events-none z-10">
+                  <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/85 backdrop-blur-xl border border-white/15 shadow-xl text-white">
                     <div className="flex items-center justify-between mb-1">
                       <span
-                        className="text-xs font-mono font-bold uppercase tracking-wider text-[#2364D8]"
+                        className="text-xs font-mono font-bold uppercase tracking-wider text-[#16BDEB]"
                       >
                         {currentSlide.badge}
                       </span>
                       {isHovered && (
-                        <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-blue-50 text-[#2364D8] border border-blue-200 font-semibold">
+                        <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-blue-500/20 text-sky-300 border border-blue-400/30 font-semibold">
                           Autoplay Paused
                         </span>
                       )}
                     </div>
-                    <h3 className="text-base sm:text-lg lg:text-xl font-bold text-slate-900 font-display leading-snug">
+                    <h3 className="text-base sm:text-lg lg:text-xl font-bold text-white font-display leading-snug">
                       {currentSlide.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-slate-600 mt-1 line-clamp-2 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-slate-300 mt-1 line-clamp-2 leading-relaxed">
                       {currentSlide.subtitle}
                     </p>
                   </div>
@@ -298,10 +309,10 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onSlideChange }) => 
               e.stopPropagation();
               handlePrev();
             }}
-            className="absolute left-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/90 hover:bg-white text-slate-800 border border-slate-200 shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 group"
+            className="absolute left-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-slate-900/80 hover:bg-slate-900 text-white border border-white/20 shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 group"
             aria-label="Previous Slide"
           >
-            <ChevronLeft className="w-5 h-5 text-slate-700 group-hover:text-[#2364D8] transition-colors" />
+            <ChevronLeft className="w-5 h-5 text-slate-200 group-hover:text-[#16BDEB] transition-colors" />
           </button>
 
           <button
@@ -309,18 +320,18 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onSlideChange }) => 
               e.stopPropagation();
               handleNext();
             }}
-            className="absolute right-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/90 hover:bg-white text-slate-800 border border-slate-200 shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 group"
+            className="absolute right-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-slate-900/80 hover:bg-slate-900 text-white border border-white/20 shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 group"
             aria-label="Next Slide"
           >
-            <ChevronRight className="w-5 h-5 text-slate-700 group-hover:text-[#2364D8] transition-colors" />
+            <ChevronRight className="w-5 h-5 text-slate-200 group-hover:text-[#16BDEB] transition-colors" />
           </button>
         </div>
       </div>
 
       {/* ── Bottom Interactive Pagination Bar & Progress Indicators ── */}
-      <div className="mt-5 flex items-center justify-between px-2">
-        {/* Pagination Pills with Live Progress Bar */}
-        <div className="flex items-center gap-2 sm:gap-2.5">
+      <div className="mt-4 flex items-center justify-between px-2">
+        {/* Pagination Pills with Live Progress Bar (6 slides) */}
+        <div className="flex items-center gap-1.5 sm:gap-2">
           {heroSlides.map((slide, idx) => {
             const isActive = idx === currentIndex;
 
@@ -329,7 +340,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onSlideChange }) => 
                 key={slide.id}
                 onClick={() => goToSlide(idx)}
                 className={`relative h-2 rounded-full overflow-hidden transition-all duration-300 focus:outline-none ${
-                  isActive ? 'w-12 sm:w-14 bg-blue-100' : 'w-4 sm:w-5 bg-slate-200 hover:bg-slate-300'
+                  isActive ? 'w-10 sm:w-12 bg-white/20' : 'w-3.5 sm:w-4 bg-white/10 hover:bg-white/20'
                 }`}
                 aria-label={`Go to slide ${idx + 1}: ${slide.category}`}
               >
@@ -338,7 +349,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onSlideChange }) => 
                     className="absolute inset-y-0 left-0 rounded-full"
                     style={{
                       width: `${progress}%`,
-                      background: 'linear-gradient(120deg, #16BDEB, #2364D8, #252B9B)',
+                      background: 'linear-gradient(120deg, #16BDEB, #2364D8, #60A5FA)',
                     }}
                   />
                 )}
@@ -351,26 +362,26 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onSlideChange }) => 
         <div className="flex items-center gap-3">
           <button
             onClick={() => setIsManualPaused(!isManualPaused)}
-            className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 transition-colors text-xs flex items-center gap-1.5 font-mono"
+            className="p-1.5 rounded-lg bg-white/10 hover:bg-white/15 border border-white/15 text-slate-300 transition-colors text-xs flex items-center gap-1.5 font-mono"
             aria-label={isManualPaused ? 'Resume autoplay' : 'Pause autoplay'}
           >
             {isManualPaused ? (
               <>
-                <Play className="w-3 h-3 text-[#2364D8]" />
-                <span className="hidden sm:inline text-[11px] font-bold text-slate-800">Resume</span>
+                <Play className="w-3 h-3 text-[#16BDEB]" />
+                <span className="hidden sm:inline text-[11px] font-bold text-white">Resume</span>
               </>
             ) : (
               <>
-                <Pause className="w-3 h-3 text-slate-500" />
+                <Pause className="w-3 h-3 text-slate-400" />
                 <span className="hidden sm:inline text-[11px]">Pause</span>
               </>
             )}
           </button>
 
-          <div className="text-xs font-mono text-slate-600">
-            <span className="text-[#2364D8] font-bold">{currentSlide.slideNumber}</span>
-            <span className="mx-1 text-slate-400">/</span>
-            <span>05</span>
+          <div className="text-xs font-mono text-slate-400">
+            <span className="text-[#16BDEB] font-bold">{currentSlide.slideNumber}</span>
+            <span className="mx-1 text-slate-600">/</span>
+            <span>06</span>
           </div>
         </div>
       </div>
