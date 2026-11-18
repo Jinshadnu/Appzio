@@ -302,9 +302,8 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ activeIndex, onSlide
               <button
                 key={slide.id}
                 onClick={() => goToSlide(idx)}
-                className={`relative h-1.5 rounded-full overflow-hidden transition-all duration-300 focus:outline-none ${
-                  isActive ? 'w-9 sm:w-10 bg-white/35' : 'w-3.5 sm:w-4 bg-white/10 hover:bg-white/25'
-                }`}
+                className={`relative h-1.5 rounded-full overflow-hidden transition-all duration-300 focus:outline-none ${isActive ? 'w-9 sm:w-10 bg-white/35' : 'w-3.5 sm:w-4 bg-white/10 hover:bg-white/25'
+                  }`}
                 aria-label={`Go to slide ${idx + 1}: ${slide.title}`}
               >
                 {isActive && (

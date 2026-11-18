@@ -28,19 +28,22 @@ export const HeroSection: React.FC = () => {
     >
       {/* ── Realistic Professional Background Image with Transparent Overlay ── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Full-Fidelity Realistic HD Background Image (Visible & Natural) */}
+        {/* Full-Fidelity Realistic HD Background Image: subjects positioned naturally on the LEFT */}
         <div
-          className="absolute inset-0 bg-cover bg-center lg:bg-[center_25%] bg-no-repeat scale-[1.02] transition-transform duration-1000"
+          className="absolute inset-0 bg-cover bg-[left_top] sm:bg-[left_20%] lg:bg-[left_center] bg-no-repeat transition-transform duration-1000"
           style={{
-            backgroundImage: `url('${getAssetUrl('/assets/hero/hero-banner-team-hd.jpg')}')`,
+            backgroundImage: `url('${getAssetUrl('/assets/hero/hero-banner-team-left.jpg')}')`,
           }}
         />
 
-        {/* Elegant Transparent Directional Tint: realistic photo remains clearly visible while headline and 3D card pop with crisp contrast */}
+        {/* Sophisticated Dark Navy Directional Overlay:
+            - Left: balanced transparency so the people are clearly visible while text contrast is crisp
+            - Right: smooth deeper navy wash so the background does not compete with the showcase card */}
         <div
           className="absolute inset-0"
           style={{
-            background: 'linear-gradient(to right, rgba(7, 11, 20, 0.86) 0%, rgba(10, 17, 34, 0.72) 48%, rgba(7, 11, 20, 0.68) 100%)',
+            background:
+              'linear-gradient(to right, rgba(8, 14, 28, 0.82) 0%, rgba(10, 18, 38, 0.70) 38%, rgba(8, 14, 28, 0.78) 65%, rgba(6, 11, 22, 0.92) 100%)',
           }}
         />
 
@@ -48,12 +51,13 @@ export const HeroSection: React.FC = () => {
         <div
           className="absolute inset-0"
           style={{
-            background: 'linear-gradient(to bottom, rgba(7, 11, 20, 0.5) 0%, transparent 18%, transparent 78%, rgba(7, 11, 20, 0.96) 100%)',
+            background:
+              'linear-gradient(to bottom, rgba(6, 10, 20, 0.65) 0%, transparent 16%, transparent 80%, rgba(6, 10, 20, 0.98) 100%)',
           }}
         />
 
         {/* Soft Ambient Cyan & Sapphire Atmospheric Lighting */}
-        <div className="absolute top-[12%] left-[10%] w-[500px] h-[500px] rounded-full bg-[#16BDEB]/15 blur-[160px]" />
+        <div className="absolute top-[12%] left-[8%] w-[520px] h-[520px] rounded-full bg-[#16BDEB]/15 blur-[160px]" />
         <div className="absolute bottom-[10%] right-[10%] w-[550px] h-[550px] rounded-full bg-[#2364D8]/20 blur-[170px]" />
       </div>
 
