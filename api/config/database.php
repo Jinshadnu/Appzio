@@ -12,6 +12,21 @@ class Database {
             return self::$instance;
         }
 
+        // Load .env if present in root or api directory
+        foreach ([dirname(__DIR__, 2) . '/.env', dirname(__DIR__) . '/.env'] as $envFile) {
+            if (file_exists($envFile)) {
+                $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+                foreach ($lines as $line) {
+                    if (str_starts_with(trim($line), '#') || !str_contains($line, '=')) continue;
+                    [$k, $v] = explode('=', $line, 2);
+                    $key = trim($k);
+                    $val = trim($v, " \t\n\r\0\x0B\"'");
+                    $_ENV[$key] = $val;
+                    putenv("{$key}={$val}");
+                }
+            }
+        }
+
         // Hostinger / Environment Config
         $dbHost = getenv('DB_HOST') ?: '127.0.0.1';
         $dbName = getenv('DB_NAME') ?: 'appzio_db';
