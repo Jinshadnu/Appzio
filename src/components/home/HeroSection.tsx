@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   ArrowRight, Sparkles, CheckCircle2, ShieldCheck, 
-  Globe2, Phone, MessageCircle, ExternalLink, Cpu,
-  Monitor, Smartphone, CreditCard, Box, ShoppingCart
+  MessageCircle
 } from 'lucide-react';
 import { motion, Easing } from 'framer-motion';
 import { HeroCarousel } from './HeroCarousel';
@@ -13,7 +12,6 @@ const easeOut: Easing = 'easeOut';
 
 export const HeroSection: React.FC = () => {
   const { settings } = useWebsiteData();
-  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
   const phoneDisplay = settings.contact_phone || '+91 9526026636';
   const phoneClean = phoneDisplay.replace(/[^0-9]/g, '');
@@ -22,15 +20,6 @@ export const HeroSection: React.FC = () => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
-
-  const capabilities = [
-    { name: 'Websites', index: 0 },
-    { name: 'Mobile Apps', index: 1 },
-    { name: 'Billing & POS', index: 2 },
-    { name: 'Desktop Software', index: 3 },
-    { name: 'Enterprise ERP', index: 4 },
-    { name: 'E-Commerce', index: 5 },
-  ];
 
   return (
     <section
@@ -119,37 +108,11 @@ export const HeroSection: React.FC = () => {
               We help businesses around the world transform ideas into powerful digital experiences. From modern websites and mobile applications to custom software, e-commerce platforms and business automation, we deliver innovative, scalable and result-driven solutions that drive growth.
             </motion.p>
 
-            {/* Interactive Capability Switcher (Sleek Horizontal Segmented Tabs) */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: easeOut }}
-              className="w-full max-w-xl p-1 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md mb-8 flex flex-wrap items-center gap-1"
-            >
-              {capabilities.map((cap) => {
-                const isActive = activeSlideIndex === cap.index;
-
-                return (
-                  <button
-                    key={cap.name}
-                    onClick={() => setActiveSlideIndex(cap.index)}
-                    className={`flex-1 min-w-[95px] px-3 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all duration-200 text-center ${
-                      isActive
-                        ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
-                        : 'text-slate-400 hover:text-white hover:bg-white/5'
-                    }`}
-                  >
-                    <span>{cap.name}</span>
-                  </button>
-                );
-              })}
-            </motion.div>
-
             {/* Action Buttons: Primary "Explore Our Work" & Secondary "Start a Project" */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.24, ease: easeOut }}
+              transition={{ duration: 0.6, delay: 0.22, ease: easeOut }}
               className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto mb-9"
             >
               <button
@@ -211,10 +174,7 @@ export const HeroSection: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.15, ease: easeOut }}
             className="lg:col-span-6 xl:col-span-6 w-full"
           >
-            <HeroCarousel
-              activeIndex={activeSlideIndex}
-              onSlideChange={(idx) => setActiveSlideIndex(idx)}
-            />
+            <HeroCarousel />
           </motion.div>
 
         </div>
