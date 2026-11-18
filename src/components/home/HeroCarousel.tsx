@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence, Variants } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Pause, Play, Sparkles } from 'lucide-react';
+import { motion, AnimatePresence, Variants, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { ChevronLeft, ChevronRight, Pause, Play, Sparkles, Layers } from 'lucide-react';
 import { getAssetUrl } from '../../utils/asset';
 
 export interface HeroSlide {
@@ -20,63 +20,63 @@ export const heroSlides: HeroSlide[] = [
     id: 'slide-websites',
     slideNumber: '01',
     category: 'WEBSITES',
-    title: 'High-Performance Modern Websites',
-    subtitle: 'Custom architectures engineered for speed, Swiss precision typography, and top search visibility.',
-    image: '/assets/hero/hero-slide-web.jpg',
-    fallbackImage: '/assets/projects/tephra-preview.png',
+    title: 'High-Performance 3D Web Architectures',
+    subtitle: 'Custom web platforms engineered with modern TypeScript, Swiss precision typography, and sub-second loading.',
+    image: '/assets/hero/hero-3d-web.jpg',
+    fallbackImage: '/assets/hero/hero-slide-web.jpg',
     accentColor: '#16BDEB',
-    badge: 'Corporate & Web Platforms'
+    badge: '3D Web Development'
   },
   {
     id: 'slide-mobile-app',
     slideNumber: '02',
     category: 'MOBILE APP',
-    title: 'iOS & Android Mobile Applications',
-    subtitle: 'Cross-platform Flutter and native engineering with 60fps animations and offline capabilities.',
-    image: '/assets/hero/hero-slide-mobile.jpg',
-    fallbackImage: '/hero-team-hd.jpg',
+    title: 'Native & Flutter Mobile Applications',
+    subtitle: 'Fluid cross-platform iOS & Android engineering featuring 60fps animations and offline-first reactive state.',
+    image: '/assets/hero/hero-3d-mobile.jpg',
+    fallbackImage: '/assets/hero/hero-slide-mobile.jpg',
     accentColor: '#2364D8',
-    badge: 'Mobile Applications'
+    badge: '3D Mobile Systems'
   },
   {
     id: 'slide-billing-software',
     slideNumber: '03',
     category: 'BILLING SOFTWARE',
-    title: 'Intelligent Billing & Invoicing Systems',
-    subtitle: 'Point-of-Sale (POS), automated tax invoicing, subscription billing, and real-time revenue analytics.',
-    image: '/assets/hero/hero-slide-billing.jpg',
-    fallbackImage: '/assets/projects/primetime-preview.png',
+    title: 'Fintech Billing & POS Solutions',
+    subtitle: 'Point-of-Sale (POS), automated tax invoicing, subscription billing, and real-time revenue analytics dashboards.',
+    image: '/assets/hero/hero-3d-billing.jpg',
+    fallbackImage: '/assets/hero/hero-slide-billing.jpg',
     accentColor: '#16BDEB',
-    badge: 'Financial & POS Systems'
+    badge: 'Financial & POS Software'
   },
   {
     id: 'slide-desktop-application',
     slideNumber: '04',
     category: 'DESKTOP APPLICATION',
-    title: 'High-Performance Desktop Software',
-    subtitle: 'Cross-platform macOS and Windows software, offline-first data managers, and multi-panel tools.',
+    title: 'High-Concurrency Desktop Software',
+    subtitle: 'Cross-platform macOS and Windows enterprise tools, offline-first data managers, and multi-panel workflow systems.',
     image: '/assets/hero/hero-slide-desktop.jpg',
     fallbackImage: '/assets/hero/hero-slide-erp.jpg',
     accentColor: '#252B9B',
-    badge: 'Desktop Applications'
+    badge: 'Enterprise Desktop Tools'
   },
   {
     id: 'slide-erp-software',
     slideNumber: '05',
     category: 'ERP SOFTWARE',
     title: 'Enterprise Resource Planning (ERP)',
-    subtitle: 'Unified enterprise workflows, supply chain tracking, inventory management, and business intelligence.',
+    subtitle: 'Unified enterprise workflows, supply chain tracking, multi-branch inventory management, and business intelligence.',
     image: '/assets/hero/hero-slide-erp.jpg',
     fallbackImage: '/assets/projects/primetime-preview.png',
     accentColor: '#2364D8',
-    badge: 'Enterprise ERP Solutions'
+    badge: 'Cloud ERP Architecture'
   },
   {
     id: 'slide-ecommerce',
     slideNumber: '06',
     category: 'E-COMMERCE WEBSITE & APP',
-    title: 'E-Commerce Storefronts & Shopping Apps',
-    subtitle: 'Full-featured online stores, book catalogs, integrated mobile apps, and secure checkout gateways.',
+    title: 'Interactive 3D E-Commerce Storefronts',
+    subtitle: 'Full-featured online stores, bookstore catalogs, integrated mobile apps, and secure checkout gateways.',
     image: '/assets/hero/hero-slide-ecommerce.jpg',
     fallbackImage: '/assets/projects/ghafbooks-preview.png',
     accentColor: '#16BDEB',
@@ -85,15 +85,44 @@ export const heroSlides: HeroSlide[] = [
 ];
 
 interface HeroCarouselProps {
+  activeIndex?: number;
   onSlideChange?: (index: number) => void;
 }
 
-export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onSlideChange }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+export const HeroCarousel: React.FC<HeroCarouselProps> = ({ activeIndex, onSlideChange }) => {
+  const [internalIndex, setInternalIndex] = useState(0);
+  const currentIndex = activeIndex !== undefined ? activeIndex : internalIndex;
+
   const [direction, setDirection] = useState(1);
   const [isHovered, setIsHovered] = useState(false);
   const [isManualPaused, setIsManualPaused] = useState(false);
   const [progress, setProgress] = useState(0);
+
+  // 3D Tilt & Parallax Physics with Framer Motion
+  const cardRef = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Smooth springs for rotation
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [7, -7]), { stiffness: 220, damping: 25 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-9, 9]), { stiffness: 220, damping: 25 });
+  const glareX = useTransform(mouseX, [-0.5, 0.5], ['0%', '100%']);
+  const glareY = useTransform(mouseY, [-0.5, 0.5], ['0%', '100%']);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    mouseX.set(0);
+    mouseY.set(0);
+  };
 
   const AUTOPLAY_INTERVAL = 4500;
   const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -102,27 +131,23 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onSlideChange }) => 
 
   const handleNext = useCallback(() => {
     setDirection(1);
-    setCurrentIndex((prev) => {
-      const next = (prev + 1) % heroSlides.length;
-      onSlideChange?.(next);
-      return next;
-    });
+    const next = (currentIndex + 1) % heroSlides.length;
+    setInternalIndex(next);
+    onSlideChange?.(next);
     setProgress(0);
-  }, [onSlideChange]);
+  }, [currentIndex, onSlideChange]);
 
   const handlePrev = useCallback(() => {
     setDirection(-1);
-    setCurrentIndex((prev) => {
-      const next = (prev - 1 + heroSlides.length) % heroSlides.length;
-      onSlideChange?.(next);
-      return next;
-    });
+    const next = (currentIndex - 1 + heroSlides.length) % heroSlides.length;
+    setInternalIndex(next);
+    onSlideChange?.(next);
     setProgress(0);
-  }, [onSlideChange]);
+  }, [currentIndex, onSlideChange]);
 
   const goToSlide = (index: number) => {
     setDirection(index > currentIndex ? 1 : -1);
-    setCurrentIndex(index);
+    setInternalIndex(index);
     onSlideChange?.(index);
     setProgress(0);
   };
@@ -175,52 +200,81 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onSlideChange }) => 
     }
   };
 
-  // Variants for smooth cinematic layered transition
+  // 3D depth slide transitions with rotational depth
   const slideVariants: Variants = {
     enter: (dir: number) => ({
-      x: dir > 0 ? '6%' : '-6%',
+      x: dir > 0 ? '8%' : '-8%',
+      rotateY: dir > 0 ? 8 : -8,
       opacity: 0,
-      scale: 0.98,
+      scale: 0.94,
     }),
     center: {
       zIndex: 1,
       x: 0,
+      rotateY: 0,
       opacity: 1,
       scale: 1,
       transition: {
-        x: { type: 'spring' as const, stiffness: 260, damping: 30 },
+        x: { type: 'spring' as const, stiffness: 280, damping: 28 },
+        rotateY: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
         opacity: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
         scale: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
       },
     },
     exit: (dir: number) => ({
       zIndex: 0,
-      x: dir < 0 ? '6%' : '-6%',
+      x: dir < 0 ? '8%' : '-8%',
+      rotateY: dir < 0 ? 8 : -8,
       opacity: 0,
-      scale: 1.02,
+      scale: 1.04,
       transition: {
-        opacity: { duration: 0.65, ease: [0.16, 1, 0.3, 1] },
-        scale: { duration: 0.65 },
+        opacity: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+        scale: { duration: 0.6 },
       },
     }),
   };
 
   return (
     <div
-      className="relative w-full select-none"
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseLeave={handleMouseLeave}
+      className="relative w-full select-none"
+      style={{ perspective: 1200 }}
     >
-      {/* ── Outer Frosted Glass Frame with Ambient Brand Glow ── */}
-      <div
-        className="relative rounded-[2rem] p-2.5 sm:p-3 bg-slate-900/80 backdrop-blur-2xl border border-white/20 shadow-2xl transition-all duration-700"
+      {/* ── 3D Floating Motion Card ── */}
+      <motion.div
+        animate={{ y: [-5, 5, -5] }}
+        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
         style={{
-          boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.6), 0 0 35px -5px rgba(22, 189, 235, 0.25)',
+          rotateX,
+          rotateY,
+          transformStyle: 'preserve-3d',
         }}
+        className="relative rounded-[2.25rem] p-3 sm:p-3.5 bg-gradient-to-br from-slate-900/90 via-slate-950/90 to-blue-950/80 backdrop-blur-2xl border border-white/20 shadow-2xl transition-shadow duration-500"
       >
-        {/* ── Inner Interactive Canvas Container ── */}
-        <div className="relative aspect-[16/11] sm:aspect-[16/10] md:aspect-[16/10] lg:aspect-[16/11] xl:aspect-[16/10] w-full rounded-[1.65rem] overflow-hidden bg-slate-950">
-          
+        {/* Ambient 3D Neon Backlight Glow */}
+        <div
+          className="absolute -inset-1 rounded-[2.5rem] opacity-75 blur-2xl pointer-events-none transition-all duration-700"
+          style={{
+            background: `radial-gradient(circle at 60% 40%, ${currentSlide.accentColor}40, transparent 70%), radial-gradient(circle at 20% 80%, #2364D830, transparent 65%)`,
+          }}
+        />
+
+        {/* Specular Glare Reflection on Tilt */}
+        <motion.div
+          className="absolute inset-0 rounded-[2.25rem] opacity-20 pointer-events-none z-30"
+          style={{
+            background: `radial-gradient(circle at ${glareX} ${glareY}, rgba(255, 255, 255, 0.8), transparent 60%)`,
+          }}
+        />
+
+        {/* ── Inner Interactive 3D Canvas ── */}
+        <div
+          className="relative aspect-[16/11] sm:aspect-[16/10] md:aspect-[16/10] lg:aspect-[16/11] xl:aspect-[16/10] w-full rounded-[1.85rem] overflow-hidden bg-slate-950 shadow-inner"
+          style={{ transform: 'translateZ(25px)' }}
+        >
           <AnimatePresence initial={false} custom={direction} mode="popLayout">
             <motion.div
               key={currentSlide.id}
@@ -235,12 +289,12 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onSlideChange }) => 
               onDragEnd={handleDragEnd}
               className="absolute inset-0 cursor-grab active:cursor-grabbing"
             >
-              {/* Ultra-HD Visual with Subtle Zoom */}
+              {/* Ultra-HD 3D Render Image with Cinematic Lighting & Ken-Burns Zoom */}
               <div className="relative w-full h-full overflow-hidden">
                 <motion.img
                   initial={{ scale: 1 }}
-                  animate={{ scale: 1.05 }}
-                  transition={{ duration: 6, ease: 'linear' }}
+                  animate={{ scale: 1.06 }}
+                  transition={{ duration: 7, ease: 'linear' }}
                   src={getAssetUrl(currentSlide.image)}
                   onError={(e) => {
                     const target = e.currentTarget;
@@ -253,37 +307,42 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onSlideChange }) => 
                   loading="eager"
                 />
 
-                {/* Multilayered Gradient Overlays */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-r from-slate-950/50 via-transparent to-slate-950/30" />
+                {/* Multilayered 3D Depth Gradient Overlays */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-slate-950/60 via-transparent to-slate-950/30" />
 
-                {/* Top Subtle Tech Category Pill */}
-                <div className="absolute top-4 left-4 right-4 sm:top-5 sm:left-5 sm:right-5 flex items-center justify-between pointer-events-none z-10">
-                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-950/80 backdrop-blur-md border border-white/20 text-xs font-mono font-bold text-white shadow-md">
+                {/* Top 3D Floating Category Pill */}
+                <div
+                  className="absolute top-4 left-4 right-4 sm:top-5 sm:left-5 sm:right-5 flex items-center justify-between pointer-events-none z-10"
+                  style={{ transform: 'translateZ(45px)' }}
+                >
+                  <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-950/85 backdrop-blur-md border border-white/20 text-xs font-mono font-bold text-white shadow-xl">
                     <span
-                      className="w-2 h-2 rounded-full animate-pulse"
-                      style={{ backgroundColor: currentSlide.accentColor }}
+                      className="w-2 h-2 rounded-full animate-pulse shadow-sm"
+                      style={{ backgroundColor: currentSlide.accentColor, boxShadow: `0 0 8px ${currentSlide.accentColor}` }}
                     />
                     <span className="text-[11px] tracking-wider uppercase text-white font-bold">
                       {currentSlide.category}
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-950/80 backdrop-blur-md border border-white/20 text-xs font-mono text-slate-300 shadow-md">
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-950/85 backdrop-blur-md border border-white/20 text-xs font-mono text-slate-300 shadow-xl">
                     <span className="font-bold text-[#16BDEB]">{currentSlide.slideNumber}</span>
                     <span className="text-slate-500">/</span>
                     <span>06</span>
                   </div>
                 </div>
 
-                {/* Bottom Content Metadata Overlay */}
-                <div className="absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-5 pointer-events-none z-10">
-                  <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/85 backdrop-blur-xl border border-white/15 shadow-xl text-white">
-                    <div className="flex items-center justify-between mb-1">
-                      <span
-                        className="text-xs font-mono font-bold uppercase tracking-wider text-[#16BDEB]"
-                      >
-                        {currentSlide.badge}
+                {/* Bottom 3D Glass Information Card */}
+                <div
+                  className="absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-5 pointer-events-none z-10"
+                  style={{ transform: 'translateZ(55px)' }}
+                >
+                  <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/90 backdrop-blur-2xl border border-white/20 shadow-2xl text-white">
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#16BDEB] flex items-center gap-1.5">
+                        <Sparkles className="w-3 h-3 text-[#16BDEB]" />
+                        <span>{currentSlide.badge}</span>
                       </span>
                       {isHovered && (
                         <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-blue-500/20 text-sky-300 border border-blue-400/30 font-semibold">
@@ -291,7 +350,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onSlideChange }) => 
                         </span>
                       )}
                     </div>
-                    <h3 className="text-base sm:text-lg lg:text-xl font-bold text-white font-display leading-snug">
+                    <h3 className="text-base sm:text-lg lg:text-xl font-bold text-white font-display leading-snug drop-shadow-sm">
                       {currentSlide.title}
                     </h3>
                     <p className="text-xs sm:text-sm text-slate-300 mt-1 line-clamp-2 leading-relaxed">
@@ -303,13 +362,14 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onSlideChange }) => 
             </motion.div>
           </AnimatePresence>
 
-          {/* ── Left / Right Manual Navigation Arrows ── */}
+          {/* ── Left / Right Manual Navigation Buttons ── */}
           <button
             onClick={(e) => {
               e.stopPropagation();
               handlePrev();
             }}
-            className="absolute left-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-slate-900/80 hover:bg-slate-900 text-white border border-white/20 shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 group"
+            className="absolute left-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-slate-900/85 hover:bg-slate-900 text-white border border-white/25 shadow-xl flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 group"
+            style={{ transform: 'translateZ(65px)' }}
             aria-label="Previous Slide"
           >
             <ChevronLeft className="w-5 h-5 text-slate-200 group-hover:text-[#16BDEB] transition-colors" />
@@ -320,17 +380,18 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onSlideChange }) => 
               e.stopPropagation();
               handleNext();
             }}
-            className="absolute right-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-slate-900/80 hover:bg-slate-900 text-white border border-white/20 shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 group"
+            className="absolute right-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-slate-900/85 hover:bg-slate-900 text-white border border-white/25 shadow-xl flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 group"
+            style={{ transform: 'translateZ(65px)' }}
             aria-label="Next Slide"
           >
             <ChevronRight className="w-5 h-5 text-slate-200 group-hover:text-[#16BDEB] transition-colors" />
           </button>
         </div>
-      </div>
+      </motion.div>
 
-      {/* ── Bottom Interactive Pagination Bar & Progress Indicators ── */}
+      {/* ── Bottom Interactive 3D Pagination Bar with Progress Indicators ── */}
       <div className="mt-4 flex items-center justify-between px-2">
-        {/* Pagination Pills with Live Progress Bar (6 slides) */}
+        {/* Pagination Pills with Live Gradient Progress Bar */}
         <div className="flex items-center gap-1.5 sm:gap-2">
           {heroSlides.map((slide, idx) => {
             const isActive = idx === currentIndex;
@@ -340,7 +401,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onSlideChange }) => 
                 key={slide.id}
                 onClick={() => goToSlide(idx)}
                 className={`relative h-2 rounded-full overflow-hidden transition-all duration-300 focus:outline-none ${
-                  isActive ? 'w-10 sm:w-12 bg-white/20' : 'w-3.5 sm:w-4 bg-white/10 hover:bg-white/20'
+                  isActive ? 'w-10 sm:w-12 bg-white/25' : 'w-3.5 sm:w-4 bg-white/10 hover:bg-white/25'
                 }`}
                 aria-label={`Go to slide ${idx + 1}: ${slide.category}`}
               >
