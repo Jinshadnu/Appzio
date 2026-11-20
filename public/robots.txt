@@ -3,5 +3,5 @@ Allow: /
 Disallow: /admin
 Disallow: /api/
 
-Sitemap: https://appzio.com/sitemap.xml
+Sitemap: https://appzio.net/sitemap.xml
 
