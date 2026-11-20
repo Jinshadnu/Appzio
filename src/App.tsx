@@ -5,6 +5,7 @@ import { WebsiteDataProvider } from './context/WebsiteDataContext';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { WhatsAppFloatingButton } from './components/WhatsAppFloatingButton';
+import { SplashScreen } from './components/common/SplashScreen';
 
 // Public Pages
 import { Home } from './pages/Home';
@@ -38,6 +39,7 @@ const AppContent: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-white text-slate-900 selection:bg-[#2364D8] selection:text-white">
+      {!isAdminRoute && <SplashScreen />}
       {!isAdminRoute && <Navbar />}
 
       <main className="flex-grow">

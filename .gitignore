@@ -39,3 +39,4 @@ tsconfig.tsbuildinfo
 # SQLite temp journals
 api/*.sqlite-journal
 
+appzio-hostinger-deploy.zip

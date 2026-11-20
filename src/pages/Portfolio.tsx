@@ -22,15 +22,27 @@ export const Portfolio: React.FC = () => {
 
   const categories = [
     'All',
-    'Corporate Website Development',
-    'E-commerce Website Development',
-    'Business Website Development',
-    'Luxury Website Development',
+    'Websites',
+    'E-commerce',
+    'Mobile Applications',
+    'Software Solutions',
+    'Desktop Applications',
   ];
 
+  const matchesCategoryFilter = (projectCat: string, filterCat: string) => {
+    if (filterCat === 'All') return true;
+    const p = projectCat.toLowerCase();
+    const f = filterCat.toLowerCase();
+    if (f === 'websites') return p.includes('website') && !p.includes('e-commerce');
+    if (f === 'e-commerce') return p.includes('e-commerce') || p.includes('commerce') || p.includes('store');
+    if (f === 'mobile applications') return p.includes('mobile') || p.includes('ios') || p.includes('android') || p.includes('flutter');
+    if (f === 'desktop applications') return p.includes('desktop') || p.includes('windows') || p.includes('macos');
+    if (f === 'software solutions') return p.includes('software') || p.includes('erp') || p.includes('billing') || p.includes('pos') || p.includes('saas') || p.includes('web app');
+    return p.includes(f) || f.includes(p);
+  };
+
   const filtered = projects.filter((p) => {
-    const matchesCategory =
-      selectedCategory === 'All' || p.category.toLowerCase() === selectedCategory.toLowerCase();
+    const matchesCategory = matchesCategoryFilter(p.category, selectedCategory);
     const matchesSearch =
       p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       p.short_description.toLowerCase().includes(searchQuery.toLowerCase()) ||
